@@ -37,6 +37,16 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_cmd
+{
+	char			**args;
+	char			*input_file;
+	char			*output_file;
+	bool			append_mode;
+	char			*heredoc_delim;
+	struct s_cmd	*next;
+}					t_cmd;
+
 /* ************************************************************************** */
 /*                                PRE-CHECK                                   */
 /* ************************************************************************** */
