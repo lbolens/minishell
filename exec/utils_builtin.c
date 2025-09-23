@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/23 18:03:08 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:18:04 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,11 @@ int	is_valid_number(char *str)
 		if (!ft_isdigit(str[i]))
 			return (0);
 	}
+	return (1);
+}
+
+int	cd_error(char *msg)
+{
+	perror(msg);
 	return (1);
 }

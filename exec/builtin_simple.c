@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtin_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/23 18:24:51 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:18:27 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,26 @@ int	builtin_env(t_cmd *cmd, t_exec_env *exec_env)
 	return (0);
 }
 
-int builtin_echo(t_cmd *cmd, t_exec_env *env)
+int	builtin_echo(t_cmd *cmd, t_exec_env *env)
 {
-    int i = 1;
-    bool newline = true;  
-    
+	int		i;
+	bool	newline;
 
-    while(cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
+	i = 1;
+	newline = true;
+	while (cmd->args[i] && ft_strcmp(cmd->args[i], "-n") == 0)
 	{
 		newline = false;
 		i++;
-	}  
-    while (cmd->args[i])
-    {
-        printf("%s", cmd->args[i]);
-        if (cmd->args[i + 1])  
-            printf(" ");  
-        i++;
-    }    
-    if (newline)
-        printf("\n");   
-    return (0);
+	}
+	while (cmd->args[i])
+	{
+		printf("%s", cmd->args[i]);
+		if (cmd->args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (newline)
+		printf("\n");
+	return (0);
 }
