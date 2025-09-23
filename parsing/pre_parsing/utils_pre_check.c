@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:39:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 15:42:42 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:57:44 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../parsing.h"
 
 bool	check_if_empty(char *str)
 {

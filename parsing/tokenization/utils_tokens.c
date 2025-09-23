@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 16:04:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:57:35 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../parsing.h"
 
 bool	is_operator(char c)
 {
