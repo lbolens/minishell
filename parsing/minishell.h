@@ -18,7 +18,22 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+
+typedef enum {
+    TOKEN_WORD,
+    TOKEN_PIPE,
+    TOKEN_REDIRECT_IN,
+    TOKEN_REDIRECT_OUT,
+    TOKEN_REDIRECT_APPEND,
+    TOKEN_REDIRECT_HEREDOC,
+    TOKEN_END,
+}   types_tokens;
+
+typedef struct s_token {
+    types_tokens type;
+    char *value;
+    struct s_token *next;
+}   t_token;
 
 void    trim(char **str);
 bool    pre_check(char *str);
@@ -28,4 +43,4 @@ bool    check_pipes(char *str);
 bool    check_forbidden_sequences(char *str);
 bool    check_operators(char *str);
 
-#endif
+# endif

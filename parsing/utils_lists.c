@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   utils_lists.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 13:08:44 by lucasbolens       #+#    #+#             */
-/*   Updated: 2025/04/14 18:31:20 by lbolens          ###   ########.fr       */
+/*   Created: 2025/09/23 12:00:11 by lbolens           #+#    #+#             */
+/*   Updated: 2025/09/23 12:06:50 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putstr_fd(char *s, int fd)
+types_tokens define_value(char *str)
 {
-	unsigned int	i;
+    types_tokens *type;
 
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i] != 0)
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+    if (str == "|")
+        type = 1;
+    else if (str == "<")
+        type = 2;
+    else if (str == ">")
+        type = 3;
+    else if (str == ">>")
+        type = 4;
+    else if (str == "<<")
+        type = 5;
+    else if (str == NULL)
+        type = 6;
+    else
+        type = 0;
+    return (type);
 }

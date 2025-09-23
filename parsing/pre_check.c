@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pre_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/22 12:47:58 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/23 11:16:10 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdbool.h>
 
 void trim(char **str)
 {
@@ -43,19 +42,19 @@ void trim(char **str)
     *str = trimmed;
 }
 
-bool pre_check(char *str)
+bool pre_check(char **str)
 {
-    trim(&str);
+    trim(str);
     
-    if (check_if_empty(str))
+    if (check_if_empty(*str))
         return (false);
-    if (check_quotes(str))
+    if (check_quotes(*str))
         return (false);
-    if (check_pipes(str))
+    if (check_pipes(*str))
         return (false);
-    if (check_forbidden_sequences(str))
+    if (check_forbidden_sequences(*str))
         return (false);
-    if (check_operators(str))
+    if (check_operators(*str))
         return (false);
     return (true);
 }
