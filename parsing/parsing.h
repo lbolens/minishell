@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                       :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 16:00:00 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:23:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
+#ifndef PARSING_H
 # define MINISHELL_H
 
 # include <stdbool.h>
@@ -69,14 +69,21 @@ bool				is_quote(char c);
 char				*extract_operator(char *str, int *i);
 char				*extract_word(char *str, int *i);
 char				*extract_quote(char *str, int *i);
-
-/* ************************************************************************** */
-/*                                LISTS                                      */
-/* ************************************************************************** */
-
 t_token				*ft_lstnew(void *content);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 types_tokens		define_type(char *str);
+
+/* ************************************************************************** */
+/*                              COMMANDS                                      */
+/* ************************************************************************** */
+
+void				add_arg(t_cmd *command, char *argument, int position);
+void				redirection(t_cmd *command, types_tokens type, char *file);
+t_cmd				*parse_command(t_token **current);
+t_cmd				*parser_tokens(t_token *list);
+t_cmd				*init_new_command(void);
+bool				is_redirection(t_token *token);
+void				ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 
 /* ************************************************************************** */
 /*                            UTILITY FUNCTIONS                              */
@@ -84,7 +91,6 @@ types_tokens		define_type(char *str);
 
 int					get_size_quote(char *str, int i);
 char				*ft_strdup(const char *s1);
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dest, const char *src, size_t dstsize);
 int					ft_strcmp(const char *s1, const char *s2);
