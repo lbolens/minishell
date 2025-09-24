@@ -6,15 +6,15 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/23 15:32:03 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/minishell.h"
+#include "../parsing/parsing.h"
 
 int		main(int argc, char **argv, char **envp)
 {
-	t_exec_env *env;
+	t_env *env;
 	
-	init_exec_env(envp);
+	init_env(envp);
 }

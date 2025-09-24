@@ -6,13 +6,13 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/23 19:18:21 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
-int	builtin_cd(t_cmd *cmd, t_exec_env *env)
+int	builtin_cd(t_cmd *cmd, t_env *env)
 {
 	char	*current_pwd;
 	char	*target_dir;
@@ -65,7 +65,7 @@ char	*get_target_directory(t_cmd *cmd)
 	return (cmd->args[1]);
 }
 
-void	update_pwd_variables(t_exec_env *env, char *old_pwd)
+void	update_pwd_variables(t_env *env, char *old_pwd)
 {
 	char	*new_pwd;
 
@@ -78,7 +78,7 @@ void	update_pwd_variables(t_exec_env *env, char *old_pwd)
 	}
 }
 
-void	update_env_variable(t_exec_env *env, char *name, char *value)
+void	update_env_variable(t_env *env, char *name, char *value)
 {
 	int		i;
 	char	*new_var;

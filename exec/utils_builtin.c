@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/23 19:18:04 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 bool	is_builtin(char *cmd_name)
 {
@@ -31,7 +31,7 @@ bool	is_builtin(char *cmd_name)
 	return (false);
 }
 
-int	execute_builtin(t_cmd *cmd, t_exec_env *env)
+int	execute_builtin(t_cmd *cmd, t_env *env)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return (1);
@@ -48,18 +48,6 @@ int	execute_builtin(t_cmd *cmd, t_exec_env *env)
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
 		return (builtin_unset(cmd, env));
 	return (1);
-}
-
-t_exec_env	*init_exec_env(char **envp)
-{
-	t_exec_env	*env;
-
-	env = malloc(sizeof(t_exec_env));
-	if (!env)
-		return (NULL);
-	env->envp = envp;
-	env->exit_status = 0;
-	return (env);
 }
 
 int	is_valid_number(char *str)
