@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 11:30:43 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 12:22:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strdup(const char *s1)
 	char	*dest;
 
 	if (!s1)
-		return NULL;
+		return (NULL);
 	i = 0;
 	size = 0;
 	while (s1[size] != 0)
@@ -107,4 +107,20 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 		dest[dstsize - 1] = '\0';
 	}
 	return (l_src);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n && s1[i] != 0 && s2[i] != 0)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	if (i < n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }

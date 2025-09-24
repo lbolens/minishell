@@ -6,19 +6,19 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 11:26:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 14:18:50 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-#include <readline/readline.h>
 
 typedef enum
 {
@@ -87,6 +87,17 @@ bool				is_redirection(t_token *token);
 void				ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 
 /* ************************************************************************** */
+/*                              EXPANSION                                     */
+/* ************************************************************************** */
+
+void expansion(t_cmd *commands, char **env);
+void replace_in_command(t_cmd *commands, char *str, int i);
+char *extract_variable(char *str);
+char *check_in_env(char *str, char **env);
+char *extract_in_env(char *str);
+bool is_variable(char *str);
+
+/* ************************************************************************** */
 /*                            UTILITY FUNCTIONS                              */
 /* ************************************************************************** */
 
@@ -96,5 +107,6 @@ size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dest, const char *src, size_t dstsize);
 int					ft_strcmp(const char *s1, const char *s2);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

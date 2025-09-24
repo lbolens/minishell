@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:01:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 11:09:46 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 14:24:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void print_commands(t_cmd *commands)
 {
     int cmd_num = 1;
     
-    while (commands)  // ✅ Traite toutes les commandes, y compris la dernière
+    while (commands)
     {
         printf("Command %d:\n", cmd_num);
         
@@ -33,7 +33,6 @@ void print_commands(t_cmd *commands)
             printf("\n");
         }
         
-        // Afficher les redirections
         if (commands->input_file)
             printf("  Input: %s\n", commands->input_file);
         if (commands->output_file)
@@ -49,11 +48,13 @@ void print_commands(t_cmd *commands)
     }
 }
 
-int main(void)
+int main(int ac, char **av, char **env)
 {
-    char *input = readline("minishell> ");  // ✅ Avec prompt
+    (void)ac;
+    (void)av;
+    char *input = readline("minishell> ");
     
-    if (!input)  // ✅ Vérification NULL
+    if (!input)
     {
         printf("Error reading input\n");
         return 1;
@@ -76,7 +77,9 @@ int main(void)
             //free(input);
             return 1;
         }
-        
+
+        expansion(commands, env);
+
         print_commands(commands);
         
         // TODO: Libérer la mémoire (tokens et commands)
