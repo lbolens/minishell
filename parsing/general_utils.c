@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 10:41:42 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 11:30:43 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*ft_strdup(const char *s1)
 	size_t	size;
 	char	*dest;
 
+	if (!s1)
+		return NULL;
 	i = 0;
 	size = 0;
 	while (s1[size] != 0)

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 10:40:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 11:14:13 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*extract_operator(char *str, int *i)
 {
 	char	*operator;
 
+	operator = NULL;
 	if ((str[*i] == '>' && str[(*i) + 1] == '>') || (str[*i] == '<' && str[(*i)
 			+ 1] == '<'))
 	{

@@ -26,7 +26,7 @@ DONE 🪙 PHASE 2: TOKENISATION
  Déboguer et valider tous les cas
 
 
-PHASE 3: PARSING SYNTAXIQUE - Plan détaillé
+DONE PHASE 3: PARSING SYNTAXIQUE - Plan détaillé
 But de cette phase
 Objectif principal : Transformer votre liste de tokens en une structure de commandes exécutable.
 
@@ -130,15 +130,7 @@ free_cmd_list() : Libérer toute la liste chaînée
 add_cmd_to_list() : Ajouter une t_cmd à la fin de la liste
 
 
-
-🔄 PHASE 4: EXPANSION
-
- Créer le fichier expander.c
- Implémenter expand_variables() pour les variables d'environnement ($VAR)
- Gérer la variable spéciale $? (exit status)
- Implémenter l'expansion dans les doubles quotes (mais pas simples)
- Créer get_env_variable() pour récupérer les valeurs d'environnement
- Gérer les cas spéciaux: $, $$, variables inexistantes
- Implémenter l'expansion pour tous les arguments de toutes les commandes
- Créer des tests pour l'expansion
- Déboguer et valider
+PHASE 4: EXPANSION - Explication détaillée
+But de cette phase
+Objectif : Transformer les variables d'environnement en leurs valeurs réelles dans vos commandes déjà parsées.
+Transformation :

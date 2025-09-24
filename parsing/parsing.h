@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 10:42:00 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 11:26:06 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+#include <readline/readline.h>
 
 typedef enum
 {
@@ -78,7 +79,7 @@ types_tokens		define_type(char *str);
 /* ************************************************************************** */
 
 void				add_arg(t_cmd *command, char *argument, int position);
-void				redirection(t_cmd *command, types_tokens type, char *file);
+bool				redirection(t_cmd *command, types_tokens type, char *file);
 t_cmd				*parse_command(t_token **current);
 t_cmd				*parser_tokens(t_token *list);
 t_cmd				*init_new_command(void);
