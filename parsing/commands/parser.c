@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 19:15:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 10:46:42 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ t_cmd *parse_command(t_token **current)
                 (*current) = (*current)->next;
             }
         }
+    }
+    if (!command->args || !command->args[0])
+    {
+        printf("Error: Empty command or missing command name\n");
+        return NULL;
     }
     if ((*current) && (*current)->type == TOKEN_PIPE)
         (*current) = (*current)->next;

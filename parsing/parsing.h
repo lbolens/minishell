@@ -6,12 +6,12 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 19:23:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 10:42:00 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
-# define MINISHELL_H
+# define PARSING_H
 
 # include <stdbool.h>
 # include <stdio.h>
@@ -94,5 +94,6 @@ char				*ft_strdup(const char *s1);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dest, const char *src, size_t dstsize);
 int					ft_strcmp(const char *s1, const char *s2);
+void				*ft_memcpy(void *dest, const void *src, size_t n);
 
 #endif
