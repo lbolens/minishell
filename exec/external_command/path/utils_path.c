@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_path.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 14:01:16 by hlongin           #+#    #+#             */
+/*   Updated: 2025/09/25 11:12:58 by hlongin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parsing.h"
+
+const char	*find_path_value(char **envp)
+{
+	int	i;
+
+	if (!envp)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "PATH=", 5))
+			return (envp[i] + 5);
+		i++;
+	}
+	return (NULL);
+}
+
+int	count_segments(const char *s)
+{
+	int	count;
+	int	i;
+
+	if (!s)
+		return (0);
+	if (s[0] == '\0')
+		return (1);
+	count = 1;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == ':')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char	**fill_segments(const char *s, int count)
+{
+	char	**tab;
+	int		i;
+	int		start;
+
+	tab = malloc(sizeof(char *) * (count + 1));
+	if (!tab)
+		return (NULL);
+	i = 0;
+	start = 0;
+	while (i < count)
+	{
+		if (!fill_single_segment(s, tab, i, &start))
+			return (NULL);
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
+int	has_slash(const char *cmd)
+{
+	int	i;
+
+	if (!cmd)
+		return (0);
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
