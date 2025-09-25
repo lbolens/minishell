@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:27:31 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:45:53 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_size_quote(char *str, int i)
 	return (i - pos_init - 1);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup_pars(const char *s1)
 {
 	size_t	i;
 	size_t	size;
@@ -55,7 +55,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp_pars(const char *s1, const char *s2)
 {
 	while (*s1 && (*s1 == *s2))
 	{
@@ -65,7 +65,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_pars(const char *s)
 {
 	size_t	len;
 
@@ -75,7 +75,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy_pars(void *dest, const void *src, size_t n)
 {
 	size_t				i;
 	unsigned char		*dest2;
@@ -94,22 +94,22 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
+size_t	ft_strlcpy_pars(char *dest, const char *src, size_t dstsize)
 {
 	size_t	l_src;
 
-	l_src = ft_strlen(src);
+	l_src = ft_strlen_pars(src);
 	if (dstsize > l_src + 1)
-		ft_memcpy(dest, src, l_src + 1);
+		ft_memcpy_pars(dest, src, l_src + 1);
 	else if (dstsize != 0)
 	{
-		ft_memcpy(dest, src, dstsize - 1);
+		ft_memcpy_pars(dest, src, dstsize - 1);
 		dest[dstsize - 1] = '\0';
 	}
 	return (l_src);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp_pars(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 

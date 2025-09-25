@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:28:30 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:45:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 void	trim(char **str)
 {
@@ -27,17 +27,17 @@ void	trim(char **str)
 	if (*start == '\0')
 	{
 		free(*str);
-		*str = ft_strdup("");
+		*str = ft_strdup_pars("");
 		return ;
 	}
-	end = start + ft_strlen(start) - 1;
+	end = start + ft_strlen_pars(start) - 1;
 	while (end > start && (*end == ' ' || *end == '\t'))
 		end--;
 	len = end - start + 1;
 	trimmed = (char *)malloc(len + 1);
 	if (!trimmed)
 		return ;
-	ft_strlcpy(trimmed, start, len + 1);
+	ft_strlcpy_pars(trimmed, start, len + 1);
 	free(*str);
 	*str = trimmed;
 }

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:28:16 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:45:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 t_token	*tokenization(char *str)
 {
@@ -35,11 +35,11 @@ t_token	*tokenization(char *str)
 				token = extract_quote(str, &i);
 			else
 				token = extract_word(str, &i);
-			new_token = ft_lstnew(token);
-			ft_lstadd_back(&head, new_token);
+			new_token = ft_lstnew_pars(token);
+			ft_lstadd_back_pars(&head, new_token);
 		}
 	}
-	eof_token = ft_lstnew(NULL);
-	ft_lstadd_back(&head, eof_token);
+	eof_token = ft_lstnew_pars(NULL);
+	ft_lstadd_back_pars(&head, eof_token);
 	return (head);
 }
