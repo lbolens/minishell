@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 17:03:58 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	is_valid_number(char *str)
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	if (!str[i] || !ft_isdigit(str[i]))
+	if (!str[i])
 		return (0);
 	while (str[i])
 	{

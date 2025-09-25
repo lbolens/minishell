@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 17:01:28 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	builtin_unset(t_cmd *cmd, t_env *env)
 			remove_env_variable(env, cmd->args[i]);
 		i++;
 	}
+	return (1)
 }
 
 void	remove_env_variable(t_env *env, char *arg)

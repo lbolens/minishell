@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 15:47:56 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/24 17:03:29 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*extract_value(char *str)
 	value = (char *)malloc(sizeof(char) * ((len - i) + 1));
 	if (!value)
 		return (NULL);
+	i++;
 	while (str[i])
 	{
 		value[j] = str[i];
