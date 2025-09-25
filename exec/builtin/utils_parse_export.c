@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 17:03:29 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:12:18 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 int	parse_export(char *str)
 {

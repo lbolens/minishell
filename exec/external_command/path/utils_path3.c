@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:13:31 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 10:19:08 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:13:18 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 void free_tab(char **tab)
 {

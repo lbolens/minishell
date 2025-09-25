@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:11:46 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 int	builtin_export(t_cmd *cmd, t_env *env)
 {

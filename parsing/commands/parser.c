@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 19:15:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 11:25:39 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void add_arg(t_cmd *command, char *argument, int position)
     command->args[position + 1] = NULL;
 }
 
-void redirection(t_cmd *command, types_tokens type, char *file)
+bool redirection(t_cmd *command, types_tokens type, char *file)
 {
     if (type == TOKEN_REDIRECT_IN)
     {
         if (command->input_file != NULL)
         {
             printf("Error: Multiple input files");
-            return;
+            return (false);
         }
         command->input_file = ft_strdup(file);
     }
@@ -52,7 +52,7 @@ void redirection(t_cmd *command, types_tokens type, char *file)
         if (command->output_file != NULL)
         {
             printf("Error: Multiple output files");
-            return;
+            return (false);
         }
         command->output_file = ft_strdup(file);
         command->append_mode = false;
@@ -62,7 +62,7 @@ void redirection(t_cmd *command, types_tokens type, char *file)
         if (command->output_file != NULL)
         {
             printf("Error: Multiple output files");
-            return;
+            return (false);
         }
         command->output_file = ft_strdup(file);
         command->append_mode = true;
@@ -72,10 +72,11 @@ void redirection(t_cmd *command, types_tokens type, char *file)
         if (command->heredoc_delim != NULL)
         {
             printf("Error: Multiple heredoc");
-            return;
+            return (false);
         }
         command->heredoc_delim = ft_strdup(file);
     }
+    return (true);
 }
 
 t_cmd *parse_command(t_token **current)
@@ -103,10 +104,16 @@ t_cmd *parse_command(t_token **current)
             }
             else
             {
-                redirection(command, current_type, (*current)->value);
+                if(!redirection(command, current_type, (*current)->value))
+                    return NULL;
                 (*current) = (*current)->next;
             }
         }
+    }
+    if (!command->args || !command->args[0])
+    {
+        printf("Error: Empty command or missing command name\n");
+        return NULL;
     }
     if ((*current) && (*current)->type == TOKEN_PIPE)
         (*current) = (*current)->next;

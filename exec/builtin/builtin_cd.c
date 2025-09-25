@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 16:28:54 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:11:35 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 int	builtin_cd(t_cmd *cmd, t_env *env)
 {

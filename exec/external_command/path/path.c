@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:49:56 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 10:19:39 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:12:45 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 char	*find_command_path(char *cmd_name, char **envp)
 {

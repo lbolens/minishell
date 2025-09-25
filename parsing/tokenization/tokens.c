@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 17:57:28 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/24 11:22:26 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_token	*tokenization(char *str)
 			ft_lstadd_back(&head, new_token);
 		}
 	}
-	eof_token = ft_lstnew("");
+	eof_token = ft_lstnew(NULL);
 	ft_lstadd_back(&head, eof_token);
 	return (head);
 }

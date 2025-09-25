@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 10:56:25 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:13:30 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/parsing.h"
+#include "parsing.h"
 
 /* int		main(int argc, char **argv, char **envp)
 {

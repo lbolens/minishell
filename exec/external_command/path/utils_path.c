@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:01:16 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 10:14:41 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:12:58 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 const char	*find_path_value(char **envp)
 {

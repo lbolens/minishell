@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 17:01:28 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:12:36 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 int	builtin_unset(t_cmd *cmd, t_env *env)
 {
@@ -30,7 +30,7 @@ int	builtin_unset(t_cmd *cmd, t_env *env)
 			remove_env_variable(env, cmd->args[i]);
 		i++;
 	}
-	return (1)
+	return (1);
 }
 
 void	remove_env_variable(t_env *env, char *arg)

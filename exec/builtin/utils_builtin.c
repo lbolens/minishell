@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 17:03:58 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:12:10 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 bool	is_builtin(char *cmd_name)
 {

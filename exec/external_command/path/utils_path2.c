@@ -6,11 +6,11 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:17:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 10:12:05 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:13:08 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parsing.h"
 
 int	calculate_total_length(const char *a, const char *b, const char *c)
 {
