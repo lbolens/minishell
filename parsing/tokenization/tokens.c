@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 11:22:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header/parsing.h"
 
 t_token	*tokenization(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:01:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 14:24:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:27:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 void print_commands(t_cmd *commands)
 {

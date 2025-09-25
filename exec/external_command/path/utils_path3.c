@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:13:31 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:13:18 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:29:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 void free_tab(char **tab)
 {

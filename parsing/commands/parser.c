@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/24 11:25:39 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:41 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header/parsing.h"
 
 void add_arg(t_cmd *command, char *argument, int position)
 {

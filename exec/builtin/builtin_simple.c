@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:11:53 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:29:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 int     builtin_exit(t_cmd *cmd,t_env *env)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:43:46 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:11:47 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:36 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header/parsing.h"
 
 bool	is_variable(char *str)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:26:02 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/24 16:30:02 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:52 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../header/parsing.h"
 
 t_env *init_env(char **envp)
 {

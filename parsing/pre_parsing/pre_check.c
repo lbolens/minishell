@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 17:57:42 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:30 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header/parsing.h"
 
 void	trim(char **str)
 {

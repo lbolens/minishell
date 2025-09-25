@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:13:30 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:29:50 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 /* int		main(int argc, char **argv, char **envp)
 {

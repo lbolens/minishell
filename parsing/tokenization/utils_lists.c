@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:00:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/23 17:57:29 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:28:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "../header/parsing.h"
 
 types_tokens	define_type(char *str)
 {

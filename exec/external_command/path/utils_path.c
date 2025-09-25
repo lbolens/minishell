@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:01:16 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:12:58 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:29:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 const char	*find_path_value(char **envp)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_export.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:12:18 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:29:26 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../header/parsing.h"
 
 int	parse_export(char *str)
 {
