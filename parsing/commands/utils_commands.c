@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:08:27 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:28:45 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:45:04 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 t_cmd	*init_new_command(void)
 {
@@ -37,8 +37,8 @@ bool	is_redirection(t_token *token)
 		|| token->type == TOKEN_REDIRECT_HEREDOC
 		|| token->type == TOKEN_REDIRECT_IN
 		|| token->type == TOKEN_REDIRECT_OUT)
-        return (true);
-    return (false);
+		return (true);
+	return (false);
 }
 
 void	ft_lstadd_back_commands(t_cmd **lst, t_cmd *new)

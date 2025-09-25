@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:39:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:28:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:45:21 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 bool	check_if_empty(char *str)
 {
@@ -50,7 +50,7 @@ bool	check_pipes(char *str)
 	int	len;
 
 	i = 0;
-	len = ft_strlen(str);
+	len = ft_strlen_pars(str);
 	if (len == 0)
 		return (false);
 	if (str[0] == '|')
