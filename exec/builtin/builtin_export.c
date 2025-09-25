@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:53:27 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 int	builtin_export(t_cmd *cmd, t_env *env)
 {

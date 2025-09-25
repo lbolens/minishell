@@ -6,15 +6,15 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:49:28 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 14:10:19 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include <readline/readline.h>
 # include "../libft/libft.h"
+# include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -125,6 +125,10 @@ t_env				*init_env(char **envp);
 
 //===Builtin_simple===
 
+int					builtin_exit(t_cmd *cmd, t_env *env);
+int					builtin_pwd(t_cmd *cmd, t_env *env);
+int					builtin_env(t_cmd *cmd, t_env *env);
+int					builtin_echo(t_cmd *cmd, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env *env);
 t_env				*init_env(char **envp);
 bool				is_builtin(char *cmd_name);
@@ -132,19 +136,34 @@ int					is_valid_number(char *str);
 int					cd_error(char *msg);
 
 //===Builtin_cd===
-
+int					builtin_cd(t_cmd *cmd, t_env *env);
+char				*get_target_directory(t_cmd *cmd);
+void				update_pwd_variables(t_env *env, char *old_pwd);
 void				update_env_variable(t_env *env, char *name, char *value);
+char				*create_env_string(char *name, char *value);
 
 //===Builtin_export===
 
+int					builtin_export(t_cmd *cmd, t_env *env);
+int					export_process_args(t_cmd *cmd, t_env *env);
 int					parse_export(char *str);
 char				*extract_var(char *str);
+char				*extract_value(char *str);
 int					export_display_all(t_env *env);
 int					export_process_args(t_cmd *cmd, t_env *env);
 
 //===Builtin_unset===
 
+int					builtin_unset(t_cmd *cmd, t_env *env);
 void				remove_env_variable(t_env *env, char *arg);
+int					parse_unset(char *str);
+
+//===Utils_builtin===
+
+bool				is_builtin(char *cmd_name);
+int					execute_builtin(t_cmd *cmd, t_env *env);
+int					is_valid_number(char *str);
+int					cd_error(char *msg);
 
 //===Path===
 

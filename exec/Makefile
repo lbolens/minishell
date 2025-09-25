@@ -1,40 +1,23 @@
-NAME = test_path
-
+NAME = test_builtins
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3
-
-# Directories
 LIBFT_DIR = ../libft
-PATH_DIR = external_command/path
+BUILTIN_DIR = builtin
 
-# Source files (SEULEMENT path, pas built-ins)
-PATH_SRCS = $(PATH_DIR)/path.c \
-            $(PATH_DIR)/utils_path.c \
-            $(PATH_DIR)/utils_path2.c \
-            $(PATH_DIR)/utils_path3.c
-
-SRCS = main.c $(PATH_SRCS)
-
-OBJS = $(SRCS:.c=.o)
-LIBFT = $(LIBFT_DIR)/libft.a
+SRCS = main_builtins.c \
+       $(BUILTIN_DIR)/builtin_simple.c \
+       $(BUILTIN_DIR)/utils_builtin.c
 INCLUDES = -I$(LIBFT_DIR)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
+$(NAME): $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) $(LIBFT_DIR)/libft.a -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(NAME)
 
 fclean: clean
-	rm -f $(NAME)
 
 re: fclean all
 

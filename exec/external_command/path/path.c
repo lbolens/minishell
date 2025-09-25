@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:49:56 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:31 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:53:53 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 char	*find_command_path(char *cmd_name, char **envp)
 {
