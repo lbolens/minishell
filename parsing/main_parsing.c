@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:01:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:27:16 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:27:15 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/parsing.h"
 
-void print_commands(t_cmd *commands)
+/* void print_commands(t_cmd *commands)
 {
     int cmd_num = 1;
     
@@ -91,4 +91,4 @@ int main(int ac, char **av, char **env)
     
     //free(input);
     return 0;
-}
+} */

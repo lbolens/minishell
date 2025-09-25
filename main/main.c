@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:09:25 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:25:09 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 				cmd = parser_tokens(token);
 				if (cmd)
 				{
-					expansion(cmd, env);
+					expansion(cmd, env->envp);
 					exit_status = execute_cmd_pipeline(cmd, env);
 					env->exit_status = exit_status;
 				}

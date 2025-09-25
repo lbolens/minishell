@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:17:59 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:36:40 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_target_directory(t_cmd *cmd)
 	}
 	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
 	{
-		oldpwd = getenv("OLDPWD");
+		oldpwd = getenv("OLDPWD"); //chercher dans **envp et pas dans l environnemnt du zsh
 		if (!oldpwd)
 		{
 			cd_error("OLDPWD not set");
