@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:50 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 11:47:02 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+//#include "../header/parsing.h"
 
 /* int		main(int argc, char **argv, char **envp)
 {
@@ -22,41 +22,23 @@
 	else
 		execute_external_command(cmd, env)
 } */
+#include <stdio.h>
+#include <stdlib.h>
+#include "../libft/libft.h"
 
-int main(int argc, char **argv, char **envp)
+char *find_command_path(char *cmd_name, char **envp);
+
+int main(void)
 {
-    t_env *env;
+    extern char **environ;
     char *path;
     
-    // Initialiser ton environnement
-    env = init_env(envp);
-    if (!env)
-        return (1);
-    
-    // Tester quelques commandes
     printf("=== TEST PATH RESOLUTION ===\n");
     
-    path = find_command_path("ls", env->envp);
+    path = find_command_path("ls", environ);
     printf("ls -> %s\n", path ? path : "NOT FOUND");
-    if (path) free(path);
+    if (path) 
+        free(path);
     
-    path = find_command_path("cat", env->envp);
-    printf("cat -> %s\n", path ? path : "NOT FOUND");
-    if (path) free(path);
-    
-    path = find_command_path("/bin/echo", env->envp);  // Chemin absolu
-    printf("/bin/echo -> %s\n", path ? path : "NOT FOUND");
-    if (path) free(path);
-    
-    path = find_command_path("commande_inexistante", env->envp);
-    printf("commande_inexistante -> %s\n", path ? path : "NOT FOUND");
-    if (path) free(path);
-    
-    // Test avec PATH vide
-    printf("\n=== TEST SANS PATH ===\n");
-    path = find_command_path("ls", NULL);
-    printf("ls (sans envp) -> %s\n", path ? path : "NOT FOUND");
-    
-    free_exec_env(env);
     return (0);
 }
