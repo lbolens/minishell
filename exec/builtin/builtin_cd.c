@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 14:27:04 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:17:59 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	update_pwd_variables(t_env *env, char *old_pwd)
 void	update_env_variable(t_env *env, char *name, char *value)
 {
 	int		i;
-	char	*new_var;
 	int		name_len;
 
 	name_len = ft_strlen(name);

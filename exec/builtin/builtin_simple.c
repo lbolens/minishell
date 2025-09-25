@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 14:27:24 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:17:14 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	builtin_pwd(t_cmd *cmd, t_env *env)
 {
 	char	*pwd;
 
+	(void)cmd;
+	(void)env;
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
@@ -49,6 +51,7 @@ int	builtin_env(t_cmd *cmd, t_env *env)
 {
 	int	i;
 
+	(void)cmd;
 	i = 0;
 	while (env->envp[i])
 	{
@@ -63,6 +66,7 @@ int	builtin_echo(t_cmd *cmd, t_env *env)
 	int		i;
 	bool	newline;
 
+	(void)env;
 	i = 1;
 	newline = true;
 	while (cmd->args[i] && ft_strncmp(cmd->args[i], "-n", 3) == 0

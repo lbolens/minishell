@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 14:10:19 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:10:38 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 typedef enum
@@ -122,6 +124,8 @@ int					ft_strncmp_pars(const char *s1, const char *s2, size_t n);
 //===Main===
 
 t_env				*init_env(char **envp);
+int					execute_single_cmd(t_cmd *cmd, t_env *env);
+int					execute_cmd_pipeline(t_cmd *cmd_list, t_env *env);
 
 //===Builtin_simple===
 
@@ -183,5 +187,10 @@ char				*create_segment(const char *s, int start, int len);
 int					fill_single_segment(const char *s, char **tab, int i,
 						int *start);
 void				free_tab(char **tab);
+
+//===Exec_external_cmd===
+
+int					execute_external_command(t_cmd *cmd, t_env *env);
+void				exec_child_process(char *path, t_cmd *cmd, t_env *env);
 
 #endif
