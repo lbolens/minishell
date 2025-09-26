@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:01:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:28:25 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 14:04:32 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	print_commands(t_cmd *commands)
 	while (commands)
 	{
 		printf("Command %d:\n", cmd_num);
-		// Afficher les arguments
 		if (commands->args)
 		{
 			printf("  Args: ");
@@ -48,39 +47,37 @@ void	print_commands(t_cmd *commands)
 
 int	main(int ac, char **av, char **env)
 {
+	char	*input;
+	t_token	*tokens;
+	t_cmd	*commands;
+
 	(void)ac;
 	(void)av;
-	int exit_status = 0; //pour test
-	char *input = readline("minishell> ");
-
+	int exit_status = 0; // pour test
+	input = readline("minishell> ");
 	if (!input)
 	{
 		printf("Error reading input\n");
 		return (1);
 	}
-
 	if (pre_check(&input))
 	{
-		t_token *tokens = tokenization(input);
+		tokens = tokenization(input);
 		if (!tokens)
 		{
 			printf("Tokenization failed\n");
 			free(input);
 			return (1);
 		}
-
-		t_cmd *commands = parser_tokens(tokens);
+		commands = parser_tokens(tokens);
 		if (!commands)
 		{
 			printf("Parsing failed\n");
 			free(input);
 			return (1);
 		}
-
 		expansion(commands, env, exit_status);
-
 		print_commands(commands);
-
 		// TODO: Libérer la mémoire (tokens et commands)
 	}
 	else

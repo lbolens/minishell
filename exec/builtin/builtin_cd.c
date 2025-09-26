@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 16:36:40 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 int	builtin_cd(t_cmd *cmd, t_env *env)
 {
 	char	*current_pwd;
 	char	*target_dir;
 
+	(void)cmd;
+	(void)env;
 	current_pwd = getcwd(NULL, 0);
 	if (!current_pwd)
 		return (cd_error("getcwd"));
@@ -51,9 +53,9 @@ char	*get_target_directory(t_cmd *cmd)
 		}
 		return (home);
 	}
-	if (ft_strcmp(cmd->args[1], "-") == 0)
+	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
 	{
-		oldpwd = getenv("OLDPWD");
+		oldpwd = getenv("OLDPWD"); //chercher dans **envp et pas dans l environnemnt du zsh
 		if (!oldpwd)
 		{
 			cd_error("OLDPWD not set");
@@ -81,7 +83,6 @@ void	update_pwd_variables(t_env *env, char *old_pwd)
 void	update_env_variable(t_env *env, char *name, char *value)
 {
 	int		i;
-	char	*new_var;
 	int		name_len;
 
 	name_len = ft_strlen(name);
@@ -108,8 +109,8 @@ char	*create_env_string(char *name, char *value)
 	result = malloc(len);
 	if (!result)
 		return (NULL);
-	ft_strcpy(result, name);
-	ft_strcat(result, "=");
-	ft_strcat(result, value);
+	ft_strlcpy(result, name, len);
+	ft_strlcat(result, "=", len);
+	ft_strlcat(result, value, len);
 	return (result);
 }

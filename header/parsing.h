@@ -6,18 +6,21 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:30:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:53:00 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 typedef enum
@@ -133,9 +136,15 @@ char				*ft_itoa_pars(int n);
 //===Main===
 
 t_env				*init_env(char **envp);
+int					execute_single_cmd(t_cmd *cmd, t_env *env);
+int					execute_cmd_pipeline(t_cmd *cmd_list, t_env *env);
 
 //===Builtin_simple===
 
+int					builtin_exit(t_cmd *cmd, t_env *env);
+int					builtin_pwd(t_cmd *cmd, t_env *env);
+int					builtin_env(t_cmd *cmd, t_env *env);
+int					builtin_echo(t_cmd *cmd, t_env *env);
 int					execute_builtin(t_cmd *cmd, t_env *env);
 t_env				*init_env(char **envp);
 bool				is_builtin(char *cmd_name);
@@ -143,19 +152,34 @@ int					is_valid_number(char *str);
 int					cd_error(char *msg);
 
 //===Builtin_cd===
-
+int					builtin_cd(t_cmd *cmd, t_env *env);
+char				*get_target_directory(t_cmd *cmd);
+void				update_pwd_variables(t_env *env, char *old_pwd);
 void				update_env_variable(t_env *env, char *name, char *value);
+char				*create_env_string(char *name, char *value);
 
 //===Builtin_export===
 
+int					builtin_export(t_cmd *cmd, t_env *env);
+int					export_process_args(t_cmd *cmd, t_env *env);
 int					parse_export(char *str);
 char				*extract_var(char *str);
+char				*extract_value(char *str);
 int					export_display_all(t_env *env);
 int					export_process_args(t_cmd *cmd, t_env *env);
 
 //===Builtin_unset===
 
+int					builtin_unset(t_cmd *cmd, t_env *env);
 void				remove_env_variable(t_env *env, char *arg);
+int					parse_unset(char *str);
+
+//===Utils_builtin===
+
+bool				is_builtin(char *cmd_name);
+int					execute_builtin(t_cmd *cmd, t_env *env);
+int					is_valid_number(char *str);
+int					cd_error(char *msg);
 
 //===Path===
 
@@ -175,5 +199,10 @@ char				*create_segment(const char *s, int start, int len);
 int					fill_single_segment(const char *s, char **tab, int i,
 						int *start);
 void				free_tab(char **tab);
+
+//===Exec_external_cmd===
+
+int					execute_external_command(t_cmd *cmd, t_env *env);
+void				exec_child_process(char *path, t_cmd *cmd, t_env *env);
 
 #endif

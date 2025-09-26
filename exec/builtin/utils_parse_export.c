@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_export.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 14:10:32 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 int	parse_export(char *str)
 {
@@ -42,7 +42,7 @@ char	*extract_var(char *str)
 	var_name = (char *)malloc(sizeof(char) * (i + 1));
 	if (!var_name)
 		return (NULL);
-	ft_strncpy(var_name, str, i);
+	ft_strlcpy(var_name, str, i);
 	var_name[i] = '\0';
 	return (var_name);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:29:20 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/25 14:16:28 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
 int	builtin_unset(t_cmd *cmd, t_env *env)
 {
@@ -43,22 +43,22 @@ void	remove_env_variable(t_env *env, char *arg)
 	var_name = extract_var(arg);
 	len_var = ft_strlen(var_name);
 	while (env->envp[i])
-    {    
-        if (ft_strncmp(env->envp[i], var_name, len_var) == 0
-		&& env->envp[i][len_var] == '=')
-        {
-            free(env->envp[i]);
-            while (env->envp[i + 1])
-            {
-                env->envp[i] = env->envp[i + 1];
-                i++;
-            }
-            env->envp[i] = NULL;
-            break;
-        }
-        i++;
+	{
+		if (ft_strncmp(env->envp[i], var_name, len_var) == 0
+			&& env->envp[i][len_var] == '=')
+		{
+			free(env->envp[i]);
+			while (env->envp[i + 1])
+			{
+				env->envp[i] = env->envp[i + 1];
+				i++;
+			}
+			env->envp[i] = NULL;
+			break ;
+		}
+		i++;
 	}
-    free(var_name);
+	free(var_name);
 }
 
 int	parse_unset(char *str)
