@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:01:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 14:04:32 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:37:10 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ int	main(int ac, char **av, char **env)
 		if (!commands)
 		{
 			printf("Parsing failed\n");
+			free_tokens(tokens);
 			free(input);
 			return (1);
 		}
 		expansion(commands, env, exit_status);
 		print_commands(commands);
+		free_tokens(tokens);
+		free_commands(commands);
 		// TODO: Libérer la mémoire (tokens et commands)
 	}
 	else

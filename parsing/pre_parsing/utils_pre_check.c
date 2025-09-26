@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:39:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:21 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:38:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ bool	check_forbidden_sequences(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == ';' || str[i] == '\\')
+		{
+			printf("Error: Forbidden character '%c'\n", str[i]);
+			return (true);
+		}
 		if ((str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i
 				+ 1] == '>') || (str[i] == ';' && str[i + 1] == ';')
 			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')

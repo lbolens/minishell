@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:27:20 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:43:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ t_cmd	*parse_command(t_token **current)
 	int				count;
 
 	command = init_new_command();
+	if (!command)
+		return (NULL);
 	count = 0;
 	while ((*current) && (*current)->type != TOKEN_PIPE
 		&& (*current)->type != TOKEN_EOF)
@@ -113,13 +115,17 @@ t_cmd	*parse_command(t_token **current)
 			if (!(*current) || (*current)->type != TOKEN_WORD)
 			{
 				printf("Error: No file after redirection");
+				free_commands(command);
 				return (NULL);
 			}
 			else
 			{
 				redir_is_single = (*current)->single_quotes;
 				if (!redirection(command, current_type, (*current)->value, redir_is_single))
+				{
+					free_commands(command);
 					return (NULL);
+				}
 				(*current) = (*current)->next;
 			}
 		}
@@ -127,6 +133,7 @@ t_cmd	*parse_command(t_token **current)
 	if (!command->args || !command->args[0])
 	{
 		printf("Error: Empty command or missing command name\n");
+		free_commands(command);
 		return (NULL);
 	}
 	if ((*current) && (*current)->type == TOKEN_PIPE)
