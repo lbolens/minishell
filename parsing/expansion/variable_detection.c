@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:43:46 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 11:47:55 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:27:59 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,9 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 		i = 0;
 		while (commands->args[i])
 		{
-			if (is_variable(commands->args[i]))
+			if (is_variable(commands->args[i]) && !commands->args_single_quotes[i])
 			{
-				expanded = build_full_command(commands->args[i], env,
-						exit_status);
+				expanded = build_full_command(commands->args[i], env, exit_status);
 				if (expanded)
 				{
 					replace_in_command(commands, expanded, i);
@@ -214,10 +213,10 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 			}
 			i++;
 		}
-		if (commands->input_file && is_variable(commands->input_file))
+		if (commands->input_file && is_variable(commands->input_file) 
+			&& !commands->input_single_quotes)
 		{
-			expanded = build_full_command(commands->input_file, env,
-					exit_status);
+			expanded = build_full_command(commands->input_file, env, exit_status);
 			if (expanded)
 			{
 				free(commands->input_file);
@@ -225,10 +224,10 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 				free(expanded);
 			}
 		}
-		if (commands->output_file && is_variable(commands->output_file))
+		if (commands->output_file && is_variable(commands->output_file) 
+			&& !commands->output_single_quotes)
 		{
-			expanded = build_full_command(commands->output_file, env,
-					exit_status);
+			expanded = build_full_command(commands->output_file, env, exit_status);
 			if (expanded)
 			{
 				free(commands->output_file);
@@ -236,10 +235,10 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 				free(expanded);
 			}
 		}
-		if (commands->heredoc_delim && is_variable(commands->heredoc_delim))
+		if (commands->heredoc_delim && is_variable(commands->heredoc_delim) 
+			&& !commands->heredoc_single_quotes)
 		{
-			expanded = build_full_command(commands->heredoc_delim, env,
-					exit_status);
+			expanded = build_full_command(commands->heredoc_delim, env, exit_status);
 			if (expanded)
 			{
 				free(commands->heredoc_delim);

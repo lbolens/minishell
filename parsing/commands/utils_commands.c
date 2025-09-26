@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:08:27 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:26:54 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ t_cmd	*init_new_command(void)
 	}
 	new->append_mode = false;
 	new->args = NULL;
+	new->args_single_quotes = NULL;
+	new->args_count = 0;
 	new->heredoc_delim = NULL;
+	new->heredoc_single_quotes = false;
 	new->input_file = NULL;
-	new->next = NULL;
+	new->input_single_quotes = false;
 	new->output_file = NULL;
+	new->output_single_quotes = false;
+	new->next = NULL;
 	return (new);
 }
 
