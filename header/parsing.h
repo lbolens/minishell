@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:47:02 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:30:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,22 @@ typedef struct s_token
 {
 	types_tokens	type;
 	char			*value;
+	bool			single_quotes;
 	struct s_token	*next;
 }					t_token;
 
 typedef struct s_cmd
 {
 	char			**args;
+	bool			*args_single_quotes;
+	int				args_count;
 	char			*input_file;
+	bool			input_single_quotes;
 	char			*output_file;
+	bool			output_single_quotes;
 	bool			append_mode;
 	char			*heredoc_delim;
+	bool			heredoc_single_quotes;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -77,7 +83,7 @@ bool				is_operator(char c);
 bool				is_quote(char c);
 char				*extract_operator(char *str, int *i);
 char				*extract_word(char *str, int *i);
-char				*extract_quote(char *str, int *i);
+char				*extract_quote(char *str, int *i, bool *is_single_quote);
 t_token				*ft_lstnew_pars(void *content);
 void				ft_lstadd_back_pars(t_token **lst, t_token *new);
 types_tokens		define_type(char *str);
@@ -86,8 +92,10 @@ types_tokens		define_type(char *str);
 /*                              COMMANDS                                      */
 /* ************************************************************************** */
 
-void				add_arg(t_cmd *command, char *argument, int position);
-bool				redirection(t_cmd *command, types_tokens type, char *file);
+void				add_arg(t_cmd *command, char *argument,
+						bool is_single_quote, int position);
+bool				redirection(t_cmd *command, types_tokens type, char *file,
+						bool is_single_quote);
 t_cmd				*parse_command(t_token **current);
 t_cmd				*parser_tokens(t_token *list);
 t_cmd				*init_new_command(void);
@@ -98,12 +106,15 @@ void				ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 /*                              EXPANSION                                     */
 /* ************************************************************************** */
 
-void				expansion(t_cmd *commands, char **env);
+void				expansion(t_cmd *commands, char **env, int exit_status);
 void				replace_in_command(t_cmd *commands, char *str, int i);
 char				*extract_variable(char *str);
 char				*check_in_env(char *str, char **env);
 char				*extract_in_env(char *str);
 bool				is_variable(char *str);
+char				*build_full_command(char *original, char **env,
+						int exit_status);
+char				*extract_chain(char *str, int start, int end);
 
 /* ************************************************************************** */
 /*                            UTILITY FUNCTIONS                              */
@@ -117,6 +128,7 @@ size_t				ft_strlcpy_pars(char *dest, const char *src,
 int					ft_strcmp_pars(const char *s1, const char *s2);
 void				*ft_memcpy_pars(void *dest, const void *src, size_t n);
 int					ft_strncmp_pars(const char *s1, const char *s2, size_t n);
+char				*ft_itoa_pars(int n);
 
 //===Main===
 
