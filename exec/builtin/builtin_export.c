@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 11:53:27 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:21:10 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	export_display_all(t_env *env)
 	i = 0;
 	while (env->envp[i])
 	{
-		printf("declare -x %s\n", env->envp[i]);
+		printf("declare %s\n", env->envp[i]);
 		i++;
 	}
 	return (0);

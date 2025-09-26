@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:36:40 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/26 15:20:07 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtin_cd(t_cmd *cmd, t_env *env)
 	current_pwd = getcwd(NULL, 0);
 	if (!current_pwd)
 		return (cd_error("getcwd"));
-	target_dir = get_target_directory(cmd);
+	target_dir = get_target_directory(cmd, env);
 	if (!target_dir)
 	{
 		free(current_pwd);
@@ -38,14 +38,14 @@ int	builtin_cd(t_cmd *cmd, t_env *env)
 	return (0);
 }
 
-char	*get_target_directory(t_cmd *cmd)
+char	*get_target_directory(t_cmd *cmd, t_env *env)
 {
 	char	*home;
 	char	*oldpwd;
 
 	if (!cmd->args[1])
 	{
-		home = getenv("HOME");
+		home = custom_getenv("HOME", env->envp);
 		if (!home)
 		{
 			cd_error("HOME not set");
@@ -55,7 +55,7 @@ char	*get_target_directory(t_cmd *cmd)
 	}
 	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
 	{
-		oldpwd = getenv("OLDPWD"); //chercher dans **envp et pas dans l environnemnt du zsh
+		oldpwd = custom_getenv("OLDPWD", env->envp); //chercher dans **envp et pas dans l environnemnt du zsh
 		if (!oldpwd)
 		{
 			cd_error("OLDPWD not set");
