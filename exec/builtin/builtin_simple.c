@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:17:14 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/26 14:28:51 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ int	builtin_echo(t_cmd *cmd, t_env *env)
 	bool	newline;
 
 	(void)env;
+	if (!cmd || !cmd->args)
+		return (1);
 	i = 1;
 	newline = true;
-	while (cmd->args[i] && ft_strncmp(cmd->args[i], "-n", 3) == 0
+	while (cmd->args[i] && ft_strncmp(cmd->args[i], "-n", 2) == 0
 		&& ft_strlen(cmd->args[i]) == 2)
 	{
 		newline = false;

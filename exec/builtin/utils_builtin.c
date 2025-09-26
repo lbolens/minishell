@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 14:21:45 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/26 14:28:26 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	execute_builtin(t_cmd *cmd, t_env *env)
 		return (builtin_env(cmd, env));
 	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 && ft_strlen(cmd->args[0]) == 2)
 		return (builtin_cd(cmd, env));
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0 && ft_strlen(cmd->args[0]) == 4)  // ← AJOUTE CETTE LIGNE
+        return (builtin_echo(cmd, env));
 	if (ft_strncmp(cmd->args[0], "export", 7) == 0
 		&& ft_strlen(cmd->args[0]) == 6)
 	{		
