@@ -8,8 +8,6 @@ NAME    := minishell
 # ---- Compiler / Flags ----
 CC      := gcc
 CFLAGS  := -Wall -Wextra -Werror -Iheader -Ilibft -Iexec
-# (optionnel) ajoute ton include pour readline si besoin:
-# CFLAGS += -I/usr/include/readline
 LDFLAGS := -no-pie
 LIBS    := -lreadline
 
@@ -36,7 +34,6 @@ PARSING_SRCS := \
 	parsing/free.c \
 	manip_env/manip_env.c \
 	manip_env/utils_manip_env.c
-# NE PAS inclure parsing/main_parsing.c (main de test)
 
 EXEC_SRCS := \
 	exec/builtin/builtin_cd.c \
@@ -54,23 +51,57 @@ EXEC_SRCS := \
 SRCS := $(MAIN_SRCS) $(PARSING_SRCS) $(EXEC_SRCS)
 OBJS := $(SRCS:.c=.o)
 
+# ---- Colors ----
+GREEN   := \033[0;32m
+YELLOW  := \033[1;33m
+GRAY    := \033[0;37m
+RESET   := \033[0m
+
+# ---- Silence ----
+.SILENT:
+
 # ---- Rules ----
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re libft animation progress
 
 all: $(NAME)
 
 $(NAME): $(LIBFT_A) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(LIBS) $(LDFLAGS) -o $@
+	$(MAKE) --no-print-directory progress
+	$(MAKE) --no-print-directory animation
 
 $(LIBFT_A):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
 
 clean:
 	$(RM) $(OBJS)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean || true
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean || true
 
 re: fclean all
+
+# ---- Progress Bar (animated & colorful) ----
+progress:
+	@printf "\nCompilation en cours : "
+	@for i in 1 2 3 4 5 6 7 8 9 10; do \
+		done_bar=$$(printf "$(GREEN)%0.s#$(RESET)" $$(seq 1 $$i)); \
+		remain_bar=$$(printf "$(GRAY)%0.s-$(RESET)" $$(seq $$i 9)); \
+		percent=$$((i*10)); \
+		printf "\rCompilation en cours : [$$done_bar$$remain_bar] $$percent%%"; \
+		sleep 0.1; \
+	done; \
+	printf "\n\n"
+
+# ---- Animation ----
+animation:
+	@echo "$(GREEN)   ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     $(RESET)"
+	@echo "$(GREEN)   ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     $(RESET)"
+	@echo "$(GREEN)   ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     $(RESET)"
+	@echo "$(GREEN)   ██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     $(RESET)"
+	@echo "$(GREEN)   ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗$(RESET)"
+	@echo "$(GREEN)   ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝$(RESET)"
+	@echo ""
+	@echo "$(YELLOW)✨ Compilation terminée avec succès !$(RESET)"
