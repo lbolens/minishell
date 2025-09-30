@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 14:42:05 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:02:05 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <signal.h>
 
 typedef enum
 {
@@ -86,7 +87,7 @@ bool					check_forbidden_sequences(char *str);
 bool					check_operators(char *str);
 
 /* ************************************************************************** */
-/*                              TOKENIZATION                                 */
+/*                              TOKENIZATION                                  */
 /* ************************************************************************** */
 
 t_token					*tokenization(char *str);
@@ -153,6 +154,17 @@ void					ft_lstdelone_pars(t_env_var *lst);
 void					ft_lstclear_pars(t_env_var **lst);
 int						ft_lstsize_pars(t_env_var *lst);
 void					add_env_var(t_env_var **list, char *env_string);
+
+/* ************************************************************************** */
+/*                              SIGNALS                                       */
+/* ************************************************************************** */
+
+void handle_sig_int_interactive(int signal);
+void handle_sig_int_command(int signal);
+void handle_sig_quit(int signal);
+void setup_signals_interactive(void);
+void restore_signal(void);
+void setup_signals_command(void);
 
 /* ************************************************************************** */
 /*                            FREE MEMORY                                     */

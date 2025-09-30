@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/09/30 15:38:05 by lbolens          ###   ########.fr        #
+#    Updated: 2025/09/30 16:05:16 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ PARSING_SRCS := \
 	parsing/tokenization/utils_tokens.c \
 	parsing/free.c \
 	manip_env/manip_env.c \
-	manip_env/utils_manip_env.c
+	manip_env/utils_manip_env.c \
+	signals/signals.c
 
 EXEC_SRCS := \
 	exec/builtin/builtin_cd.c \
