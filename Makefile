@@ -33,7 +33,9 @@ PARSING_SRCS := \
 	parsing/tokenization/tokens.c \
 	parsing/tokenization/utils_lists.c \
 	parsing/tokenization/utils_tokens.c \
-	parsing/free.c
+	parsing/free.c \
+	manip_env/manip_env.c \
+	manip_env/utils_manip_env.c
 # NE PAS inclure parsing/main_parsing.c (main de test)
 
 EXEC_SRCS := \

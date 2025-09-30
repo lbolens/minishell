@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:43:46 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:52:48 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:41:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_variable(char *str)
 	return (false);
 }
 
-char	*extract_in_env(char *str)
+/*char	*extract_in_env(char *str)
 {
 	int		i;
 	int		j;
@@ -47,9 +47,9 @@ char	*extract_in_env(char *str)
 	temp[j] = '\0';
 	in_env = ft_strdup_pars(temp);
 	return (in_env);
-}
+}*/
 
-char	*check_in_env(char *str, char **env)
+/*char	*check_in_env(char *str, char **env)
 {
 	int		i;
 	int		size;
@@ -69,7 +69,7 @@ char	*check_in_env(char *str, char **env)
 		i++;
 	}
 	return (NULL);
-}
+}*/
 
 void	replace_in_command(t_cmd *commands, char *str, int i)
 {
@@ -123,7 +123,7 @@ char	*extract_chain(char *str, int start, int end)
 	return (result);
 }
 
-char	*build_full_command(char *original, char **env, int exit_status)
+char	*build_full_command(char *original, t_env *env)
 {
 	char	*result;
 	char	*variable;
@@ -152,7 +152,7 @@ char	*build_full_command(char *original, char **env, int exit_status)
 			variable = extract_chain(original, i + 1, j);
 			if (ft_strcmp_pars(variable, "?") == 0)
 			{
-				status_str = ft_itoa_pars(exit_status);
+				status_str = ft_itoa_pars(env->exit_status);
 				k = 0;
 				while (status_str[k])
 				{
@@ -166,7 +166,7 @@ char	*build_full_command(char *original, char **env, int exit_status)
 			}
 			else
 			{
-				in_env = check_in_env(variable, env);
+				in_env = get_env_value(env, variable);
 				if (in_env != NULL)
 				{
 					k = 0;
@@ -192,7 +192,7 @@ char	*build_full_command(char *original, char **env, int exit_status)
 	return (result);
 }
 
-void	expansion(t_cmd *commands, char **env, int exit_status)
+void	expansion(t_cmd *commands, t_env *env)
 {
 	char	*expanded;
 	int		i;
@@ -204,7 +204,7 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 		{
 			if (is_variable(commands->args[i]) && !commands->args_single_quotes[i])
 			{
-				expanded = build_full_command(commands->args[i], env, exit_status);
+				expanded = build_full_command(commands->args[i], env);
 				if (expanded)
 				{
 					replace_in_command(commands, expanded, i);
@@ -216,7 +216,7 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 		if (commands->input_file && is_variable(commands->input_file) 
 			&& !commands->input_single_quotes)
 		{
-			expanded = build_full_command(commands->input_file, env, exit_status);
+			expanded = build_full_command(commands->input_file, env);
 			if (expanded)
 			{
 				free(commands->input_file);
@@ -227,7 +227,7 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 		if (commands->output_file && is_variable(commands->output_file) 
 			&& !commands->output_single_quotes)
 		{
-			expanded = build_full_command(commands->output_file, env, exit_status);
+			expanded = build_full_command(commands->output_file, env);
 			if (expanded)
 			{
 				free(commands->output_file);
@@ -238,7 +238,7 @@ void	expansion(t_cmd *commands, char **env, int exit_status)
 		if (commands->heredoc_delim && is_variable(commands->heredoc_delim) 
 			&& !commands->heredoc_single_quotes)
 		{
-			expanded = build_full_command(commands->heredoc_delim, env, exit_status);
+			expanded = build_full_command(commands->heredoc_delim, env);
 			if (expanded)
 			{
 				free(commands->heredoc_delim);

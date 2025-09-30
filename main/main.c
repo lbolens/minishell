@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/26 13:54:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:36:25 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,44 +46,48 @@ int execute_single_cmd(t_cmd *cmd, t_env *env)
         return execute_external_command(cmd, env);
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	t_env	*env;
-	t_token	*token;
-	t_cmd	*cmd;
-	char	*input;
-	int		exit_status;
+    t_env *env;
+    t_token *token;
+    t_cmd *cmd;
+    char *input;
 
-
-	(void)argc;
-	(void)argv;
-	env = init_env(envp);
-	if (!env)
-		return (1);
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (!input)
-			break;
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue;
-		}
-		if (pre_check(&input))
-		{
-			token = tokenization(input);
-			if (token)
-			{
-				cmd = parser_tokens(token);
-				if (cmd)
-				{
-					expansion(cmd, env->envp, 0);
-					exit_status = execute_cmd_pipeline(cmd, env);
-					env->exit_status = exit_status;
-				}
-			}
-		}
-		free(input);
-	}
+    (void)argc;
+    (void)argv;
+    env = init_env(envp);
+    if (!env)
+        return (1);
+    
+    while (1)
+    {
+        input = readline("minishell$ ");
+        if (!input)  // ctrl-d
+            break;
+        if (ft_strlen(input) == 0)
+        {
+            free(input);
+            continue;
+        }
+        if (pre_check(&input))
+        {
+            token = tokenization(input);
+            if (token)
+            {
+                cmd = parser_tokens(token);
+                if (cmd)
+                {
+                    // Maintenant expansion doit utiliser la liste chaînée
+                    expansion(cmd, env);
+                    env->exit_status = execute_cmd_pipeline(cmd, env);
+                    free_commands(cmd);
+                }
+                free_tokens(token);
+            }
+        }
+        free(input);
+    }
+    ft_lstclear_pars(&env->env_list);
+    free(env);
+    return (0);
 }

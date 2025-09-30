@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 12:31:38 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/30 14:42:05 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,11 @@ void					ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 /*                              EXPANSION                                     */
 /* ************************************************************************** */
 
-void					expansion(t_cmd *commands, char **env, int exit_status);
+void					expansion(t_cmd *commands, t_env *env);
 void					replace_in_command(t_cmd *commands, char *str, int i);
 char					*extract_variable(char *str);
-char					*check_in_env(char *str, char **env);
-char					*extract_in_env(char *str);
 bool					is_variable(char *str);
-char					*build_full_command(char *original, char **env,
-							int exit_status);
+char					*build_full_command(char *original, t_env *env);
 char					*extract_chain(char *str, int start, int end);
 
 /* ************************************************************************** */
@@ -142,6 +139,20 @@ void					*ft_memcpy_pars(void *dest, const void *src, size_t n);
 int						ft_strncmp_pars(const char *s1, const char *s2,
 							size_t n);
 char					*ft_itoa_pars(int n);
+
+/* ************************************************************************** */
+/*                           		MANIP ENV                                   */
+/* ************************************************************************** */
+
+t_env_var				*create_new_env_var(char *str);
+char					*get_env_value(t_env *env, char *name);
+void					set_env_var(t_env *env, char *name, char *value);
+void					unset_env_var(t_env *env, char *name);
+char					**env_list_to_array(t_env_var *list);
+void					ft_lstdelone_pars(t_env_var *lst);
+void					ft_lstclear_pars(t_env_var **lst);
+int						ft_lstsize_pars(t_env_var *lst);
+void					add_env_var(t_env_var **list, char *env_string);
 
 /* ************************************************************************** */
 /*                            FREE MEMORY                                     */
