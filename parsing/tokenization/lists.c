@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:57:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:30 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 12:14:28 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token	*ft_lstnew_pars(void *content)
 		return (NULL);
 	node->type = define_type(content);
 	node->value = ft_strdup_pars(content);
+	node->single_quotes = false;
 	node->next = NULL;
 	return (node);
 }

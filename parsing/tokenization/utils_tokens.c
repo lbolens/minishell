@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:41 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 13:08:23 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ char	*extract_word(char *str, int *i)
 	return (word);
 }
 
-char	*extract_quote(char *str, int *i)
+char	*extract_quote(char *str, int *i, bool *is_single_quote)
 {
 	char	*in_quote;
 	int		j;
 	int		size;
-
+	char quote_type;
+	
+	quote_type = str[*i];
+	*is_single_quote = (quote_type == 39);
 	size = get_size_quote(str, *i);
 	in_quote = malloc((size + 1) * sizeof(char));
 	if (!in_quote)

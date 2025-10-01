@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:53 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/26 11:47:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,54 @@ int	ft_strncmp_pars(const char *s1, const char *s2, size_t n)
 	if (i < n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
+}
+
+int	count_size(long nb)
+{
+	int		count;
+	long	num;
+
+	num = nb;
+	count = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
+	{
+		num = num * -1;
+		count++;
+	}
+	while (num > 0)
+	{
+		num = num / 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa_pars(int n)
+{
+	int		size;
+	long	nbr;
+	char	*dest;
+
+	nbr = n;
+	size = count_size(nbr);
+	dest = (char *)malloc(sizeof(char) * (size + 1));
+	if (!dest)
+		return (NULL);
+	if (nbr == 0)
+		dest[0] = '0';
+	if (nbr < 0)
+	{
+		dest[0] = '-';
+		nbr = nbr * -1;
+	}
+	dest[size] = '\0';
+	while (nbr > 0)
+	{
+		dest[size - 1] = nbr % 10 + '0';
+		nbr = nbr / 10;
+		size--;
+	}
+	return (dest);
 }

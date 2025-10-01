@@ -5,7 +5,7 @@ SRCS = main_parsing.c general_utils.c \
        pre_parsing/pre_check.c pre_parsing/utils_pre_check.c \
        tokenization/tokens.c tokenization/lists.c \
        tokenization/utils_tokens.c tokenization/utils_lists.c \
-       expansion/variable_detection.c
+       expansion/variable_detection.c free.c
 
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror

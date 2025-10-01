@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:34:52 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:11:07 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:04:13 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@ int	execute_external_command(t_cmd *cmd, t_env *env)
 
 void	exec_child_process(char *path, t_cmd *cmd, t_env *env)
 {
-	execve(path, cmd->args, env->envp);
+	char **env_array;
+	
+	restore_signal();
+	env_array = env_list_to_array(env->env_list);
+	execve(path, cmd->args, env_array);
 	perror(path);
+	free_tab(env_array);
 	free(path);
 	exit(126);
 }
