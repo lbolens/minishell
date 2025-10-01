@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/26 15:21:10 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:20:46 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 
 int	export_display_all(t_env *env)
 {
-	int	i;
+	t_env_var	*current;
 
-	i = 0;
-	while (env->envp[i])
+	current = env->env_list;
+	while (current)
 	{
-		printf("declare %s\n", env->envp[i]);
-		i++;
+		if (current->value && current->value[0] != '\0')
+			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+		else
+			printf("declare -x %s\n", current->name);
+		current = current->next;
 	}
 	return (0);
 }
@@ -49,9 +52,9 @@ int	export_process_args(t_cmd *cmd, t_env *env)
 		var = extract_var(cmd->args[i]);
 		value = extract_value(cmd->args[i]);
 		if (value != NULL)
-			update_env_variable(env, var, value);
+			set_env_var(env, var, value);
 		else
-			printf("export: %s: variable not found\n", var);
+			set_env_var(env, var, "");
 		free(var);
 		if (value)
 			free(value);

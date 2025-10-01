@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/01 15:57:21 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:17:16 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,6 @@ int						builtin_echo(t_cmd *cmd, t_env *env);
 int						builtin_cd(t_cmd *cmd, t_env *env);
 char					*get_target_directory(t_cmd *cmd);
 void					update_pwd_variables(t_env *env, char *old_pwd);
-void					update_env_variable(t_env *env, char *name,
-							char *value);
-char					*create_env_string(char *name, char *value);
-
 //===Builtin_export===
 
 int						builtin_export(t_cmd *cmd, t_env *env);
@@ -207,7 +203,6 @@ int						export_display_all(t_env *env);
 //===Builtin_unset===
 
 int						builtin_unset(t_cmd *cmd, t_env *env);
-void					remove_env_variable(t_env *env, char *arg);
 int						parse_unset(char *str);
 
 //===Utils_builtin===
@@ -262,7 +257,6 @@ int						execute_single_cmd(t_cmd *cmd, t_env *env);
 //===utils_pipes===
 
 void					close_if_valid(int fd);
-void					apply_io(int in_fd, int out_fd);
 int						execute_cmd_pipeline(t_cmd *cmd_list, t_env *env);
 
 //===Utils_redir===

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/26 15:20:07 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:15:16 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_target_directory(t_cmd *cmd, t_env *env)
 
 	if (!cmd->args[1])
 	{
-		home = custom_getenv("HOME", env->envp);
+		home = get_env_value(env, "HOME");
 		if (!home)
 		{
 			cd_error("HOME not set");
@@ -55,7 +55,7 @@ char	*get_target_directory(t_cmd *cmd, t_env *env)
 	}
 	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
 	{
-		oldpwd = custom_getenv("OLDPWD", env->envp); //chercher dans **envp et pas dans l environnemnt du zsh
+		oldpwd = get_env_value(env, "OLDPWD");
 		if (!oldpwd)
 		{
 			cd_error("OLDPWD not set");
@@ -71,46 +71,11 @@ void	update_pwd_variables(t_env *env, char *old_pwd)
 {
 	char	*new_pwd;
 
-	update_env_variable(env, "OLDPWD", old_pwd);
+	set_env_var(env, "OLDPWD", old_pwd);
 	new_pwd = getcwd(NULL, 0);
 	if (new_pwd)
 	{
-		update_env_variable(env, "PWD", new_pwd);
+		set_env_var(env, "PWD", new_pwd);  
 		free(new_pwd);
 	}
-}
-
-void	update_env_variable(t_env *env, char *name, char *value)
-{
-	int		i;
-	int		name_len;
-
-	name_len = ft_strlen(name);
-	i = 0;
-	while (env->envp[i])
-	{
-		if (ft_strncmp(env->envp[i], name, name_len) == 0
-			&& env->envp[i][name_len] == '=')
-		{
-			free(env->envp[i]);
-			env->envp[i] = create_env_string(name, value);
-			return ;
-		}
-		i++;
-	}
-}
-
-char	*create_env_string(char *name, char *value)
-{
-	char	*result;
-	int		len;
-
-	len = ft_strlen(name) + ft_strlen(value) + 2;
-	result = malloc(len);
-	if (!result)
-		return (NULL);
-	ft_strlcpy(result, name, len);
-	ft_strlcat(result, "=", len);
-	ft_strlcat(result, value, len);
-	return (result);
 }

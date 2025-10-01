@@ -6,7 +6,7 @@
 /*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:12:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/01 15:37:44 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:05:50 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	child_exec(t_cmd *cmd, t_env *env, int in_fd, int out_fd)
 	if (!path)
 	{
 		printf("%s: command not found\n", cmd->args[0]);
-		_exit(127);
+		free_tab(envp);
+		_exit(127); // attention fonction interdites
 	}
 	execve(path, cmd->args, envp);
 	perror(path);
 	free(path);
+	free_tab(envp);
 	_exit(126);
 }
 
@@ -68,7 +70,7 @@ int	spawn(t_cmd *cmd, t_env *env, int last_in, int *next_in)
 	}
 	if (in_fd != STDIN_FILENO && in_fd != last_in)
 		close_if_valid(in_fd);
-	if (out_fd != STDOUT_FILENO)
+	if (out_fd != STDOUT_FILENO && out_fd != p[1])
 		close_if_valid(out_fd);
 	if (last_in >= 0)
 		close_if_valid(last_in);
@@ -100,7 +102,7 @@ int	wait_all(pid_t *pids, int n)
 	return (status);
 }
 
-int	execute_cmd_pipeline(t_cmd *cmd_list, t_env *env)
+int	execute_pipeline(t_cmd *cmd_list, t_env *env)
 {
 	int		count;
 	int		i;

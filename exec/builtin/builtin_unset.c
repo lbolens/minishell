@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 14:16:28 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:19:53 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,10 @@ int	builtin_unset(t_cmd *cmd, t_env *env)
 			return (1);
 		}
 		else
-			remove_env_variable(env, cmd->args[i]);
+			unset_env_var(env, cmd->args[i]);
 		i++;
 	}
-	return (1);
-}
-
-void	remove_env_variable(t_env *env, char *arg)
-{
-	char	*var_name;
-	int		len_var;
-	int		i;
-
-	i = 0;
-	var_name = extract_var(arg);
-	len_var = ft_strlen(var_name);
-	while (env->envp[i])
-	{
-		if (ft_strncmp(env->envp[i], var_name, len_var) == 0
-			&& env->envp[i][len_var] == '=')
-		{
-			free(env->envp[i]);
-			while (env->envp[i + 1])
-			{
-				env->envp[i] = env->envp[i + 1];
-				i++;
-			}
-			env->envp[i] = NULL;
-			break ;
-		}
-		i++;
-	}
-	free(var_name);
+	return (0);
 }
 
 int	parse_unset(char *str)

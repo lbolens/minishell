@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/26 14:28:51 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 00:18:01 by hlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,15 @@ int	builtin_pwd(t_cmd *cmd, t_env *env)
 
 int	builtin_env(t_cmd *cmd, t_env *env)
 {
-	int	i;
+	t_env_var	*current;
 
 	(void)cmd;
-	i = 0;
-	while (env->envp[i])
+	current = env->env_list;
+	while (current)
 	{
-		printf("%s\n", env->envp[i]);
-		i++;
+		if (current->value && current->value[0] != '\0')
+			printf("%s=%s\n", current->name, current->value);
+		current = current->next;
 	}
 	return (0);
 }
