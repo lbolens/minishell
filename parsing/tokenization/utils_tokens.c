@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:08:23 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/02 09:53:39 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*extract_operator(char *str, int *i)
 	else if (str[*i] == '|' || (str[*i] == '>' && str[(*i) + 1] != '>')
 		|| (str[*i] == '<' && str[(*i) + 1] != '<'))
 	{
-		operator= malloc(2 * sizeof(char));
+		operator = malloc(2 * sizeof(char));
 		if (!operator)
 			return (NULL);
 		operator[0] = str[*i];
@@ -59,25 +59,50 @@ char	*extract_operator(char *str, int *i)
 
 char	*extract_word(char *str, int *i)
 {
+	int		start;
+	int		len;
 	char	*word;
 	int		j;
 
-	j = (*i);
-	while (str[j] != ' ' && str[j] != '\t' && str[j] != '<' && str[j] != '>'
-		&& str[j] != '|' && str[j] != '\0')
-		j++;
-	word = malloc((j - (*i) + 1) * sizeof(char));
+	start = *i;
+	
+	// Calcule la longueur en incluant les quotes
+	while (str[*i] != ' ' && str[*i] != '\t' && str[*i] != '<' 
+		&& str[*i] != '>' && str[*i] != '|' && str[*i] != '\0')
+	{
+		if (str[*i] == '"')
+		{
+			(*i)++;
+			while (str[*i] != '"' && str[*i] != '\0')
+				(*i)++;
+			if (str[*i] == '"')
+				(*i)++;
+		}
+		else if (str[*i] == 39)
+		{
+			(*i)++;
+			while (str[*i] != 39 && str[*i] != '\0')
+				(*i)++;
+			if (str[*i] == 39)
+				(*i)++;
+		}
+		else
+			(*i)++;
+	}
+	
+	len = *i - start;
+	word = malloc((len + 1) * sizeof(char));
 	if (!word)
 		return (NULL);
+	
 	j = 0;
-	while (str[*i] != ' ' && str[*i] != '\t' && str[*i] != '<' && str[*i] != '>'
-		&& str[*i] != '|' && str[*i] != '\0')
+	while (j < len)
 	{
-		word[j] = str[*i];
+		word[j] = str[start + j];
 		j++;
-		(*i)++;
 	}
 	word[j] = '\0';
+	
 	return (word);
 }
 

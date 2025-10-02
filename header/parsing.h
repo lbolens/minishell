@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/02 00:17:16 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 09:58:25 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,11 @@ int						builtin_echo(t_cmd *cmd, t_env *env);
 
 //===Builtin_cd===
 int						builtin_cd(t_cmd *cmd, t_env *env);
-char					*get_target_directory(t_cmd *cmd);
+char					*get_target_directory(t_cmd *cmd, t_env *env);
 void					update_pwd_variables(t_env *env, char *old_pwd);
 //===Builtin_export===
 
+char					*remove_quotes(char *str);
 int						builtin_export(t_cmd *cmd, t_env *env);
 int						export_process_args(t_cmd *cmd, t_env *env);
 int						parse_export(char *str);
@@ -244,7 +245,7 @@ void					child_exec(t_cmd *cmd, t_env *env, int in_fd,
 int						spawn(t_cmd *cmd, t_env *env, int last_in,
 							int *next_in);
 int						wait_all(pid_t *pids, int n);
-int						execute_cmd_pipeline(t_cmd *cmd_list, t_env *env);
+int						execute_pipeline(t_cmd *cmd_list, t_env *env);
 
 //===single_exec===
 

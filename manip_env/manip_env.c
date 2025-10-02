@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 12:21:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 14:47:40 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:21:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	**env_list_to_array(t_env_var *list)
 
 	char **to_return ;
 	nbr = ft_lstsize_pars(list);
-	to_return = (malloc((nbr + 1) * sizeof(char *)));
+	to_return = malloc((nbr + 1) * sizeof(char *));
 	if (!to_return)
 		return (NULL);
 	current = list;

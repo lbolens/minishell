@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:43:46 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 14:41:27 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/02 09:25:25 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,73 +123,85 @@ char	*extract_chain(char *str, int start, int end)
 	return (result);
 }
 
-char	*build_full_command(char *original, t_env *env)
+char *build_full_command(char *original, t_env *env)
 {
-	char	*result;
-	char	*variable;
-	char	*in_env;
-	size_t	i;
-	int		result_pos;
-	size_t	j;
-	int		k;
-	char	*status_str;
+    char *result;
+    char *variable;
+    char *in_env;
+    size_t i;
+    int result_pos;
+    size_t j;
+    int k;
+    char *status_str;
 
-	result = malloc(4096 * sizeof(char));
-	i = 0;
-	result_pos = 0;
-	if (!result)
-		return (NULL);
-	while (i < ft_strlen_pars(original))
-	{
-		if (original[i] == '$')
-		{
-			j = i + 1;
-			while (j < ft_strlen_pars(original) && ((original[j] >= 'a'
-						&& original[j] <= 'z') || (original[j] >= 'A'
-						&& original[j] <= 'Z') || (original[j] >= '0'
-						&& original[j] <= '9') || original[j] == '_'))
-				j++;
-			variable = extract_chain(original, i + 1, j);
-			if (ft_strcmp_pars(variable, "?") == 0)
-			{
-				status_str = ft_itoa_pars(env->exit_status);
-				k = 0;
-				while (status_str[k])
-				{
-					result[result_pos] = status_str[k];
-					result_pos++;
-					k++;
-				}
-				free(status_str);
-				free(variable);
-				i = j;
-			}
-			else
-			{
-				in_env = get_env_value(env, variable);
-				if (in_env != NULL)
-				{
-					k = 0;
-					while (in_env[k])
-					{
-						result[result_pos] = in_env[k];
-						result_pos++;
-						k++;
-					}
-				}
-				free(variable);
-				i = j;
-			}
-		}
-		else
-		{
-			result[result_pos] = original[i];
-			result_pos++;
-			i++;
-		}
-	}
-	result[result_pos] = '\0';
-	return (result);
+    result = malloc(4096 * sizeof(char));
+    if (!result)
+        return (NULL);
+    i = 0;
+    result_pos = 0;
+    
+    while (i < ft_strlen_pars(original))
+    {
+        if (original[i] == '$')
+        {
+            j = i + 1;
+            if (j < ft_strlen_pars(original) && original[j] == '?')
+            {
+                j++;
+                status_str = ft_itoa_pars(env->exit_status);
+                k = 0;
+                while (status_str[k])
+                {
+                    result[result_pos] = status_str[k];
+                    result_pos++;
+                    k++;
+                }
+                free(status_str);
+                i = j;
+            }
+            else if (j < ft_strlen_pars(original) && 
+                    ((original[j] >= 'a' && original[j] <= 'z') ||
+                     (original[j] >= 'A' && original[j] <= 'Z') ||
+                     original[j] == '_'))
+            {
+                while (j < ft_strlen_pars(original) && 
+                      ((original[j] >= 'a' && original[j] <= 'z') ||
+                       (original[j] >= 'A' && original[j] <= 'Z') ||
+                       (original[j] >= '0' && original[j] <= '9') ||
+                       original[j] == '_'))
+                    j++;
+                
+                variable = extract_chain(original, i + 1, j);
+                in_env = get_env_value(env, variable);
+                if (in_env != NULL)
+                {
+                    k = 0;
+                    while (in_env[k])
+                    {
+                        result[result_pos] = in_env[k];
+                        result_pos++;
+                        k++;
+                    }
+                }
+                free(variable);
+                i = j;
+            }
+            else
+            {
+                result[result_pos] = original[i];
+                result_pos++;
+                i++;
+            }
+        }
+        else
+        {
+            result[result_pos] = original[i];
+            result_pos++;
+            i++;
+        }
+    }
+    result[result_pos] = '\0';
+    return (result);
 }
 
 void	expansion(t_cmd *commands, t_env *env)

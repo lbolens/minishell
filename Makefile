@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/09/30 16:05:16 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/02 08:54:47 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,11 @@ EXEC_SRCS := \
 	exec/external_command/path/path.c \
 	exec/external_command/path/utils_path.c \
 	exec/external_command/path/utils_path2.c \
-	exec/external_command/path/utils_path3.c
+	exec/external_command/path/utils_path3.c \
+	exec/pipes/pipes.c \
+	exec/pipes/single_exec.c \
+	exec/pipes/utils_pipes.c \
+	exec/pipes/utils_redir.c
 
 SRCS := $(MAIN_SRCS) $(PARSING_SRCS) $(EXEC_SRCS)
 OBJS := $(SRCS:.c=.o)

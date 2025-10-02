@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_export.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 14:10:32 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/02 09:26:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*extract_var(char *str)
 	var_name = (char *)malloc(sizeof(char) * (i + 1));
 	if (!var_name)
 		return (NULL);
-	ft_strlcpy(var_name, str, i);
+	ft_strlcpy(var_name, str, i + 1);
 	var_name[i] = '\0';
 	return (var_name);
 }
