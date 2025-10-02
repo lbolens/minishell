@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 10:00:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:03:50 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ char	*remove_quotes(char *str)
 		if (str[i] == '"' || str[i] == 39)
 		{
 			quote = str[i];
-			i++; // Saute le guillemet ouvrant
+			i++;
 			while (str[i] && str[i] != quote)
 			{
 				result[j++] = str[i++];
 			}
 			if (str[i] == quote)
-				i++; // Saute le guillemet fermant
+				i++;
 		}
 		else
 		{
@@ -69,7 +69,7 @@ int	export_display_all(t_env *env)
 	return (0);
 }
 
-int export_process_args(t_cmd *cmd, t_env *env)
+int	export_process_args(t_cmd *cmd, t_env *env)
 {
 	int		i;
 	char	*var;
@@ -88,15 +88,12 @@ int export_process_args(t_cmd *cmd, t_env *env)
 			free(cleaned_arg);
 			return (1);
 		}
-		
 		var = extract_var(cleaned_arg);
 		value = extract_value(cleaned_arg);
-		
 		if (value != NULL)
 			set_env_var(env, var, value);
 		else
 			set_env_var(env, var, "");
-		
 		free(var);
 		if (value)
 			free(value);
