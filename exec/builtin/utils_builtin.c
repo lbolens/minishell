@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/26 14:28:26 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 15:12:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	is_valid_number(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
+		i++;
 	}
 	return (1);
 }

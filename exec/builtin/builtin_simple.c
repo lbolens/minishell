@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 00:18:01 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 15:13:26 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-int	builtin_exit(t_cmd *cmd, t_env *env)
+int builtin_exit(t_cmd *cmd, t_env *env)
 {
-	int	exit_code;
-
-	if (!cmd->args[1])
-		exit_code = env->exit_status;
-	else if (is_valid_number(cmd->args[1]))
-		exit_code = ft_atoi(cmd->args[1]);
-	else
-	{
-		printf("exit : %s: numeric argument required\n", cmd->args[1]);
-		exit_code = 2;
-	}
-	printf("exit\n");
-	exit(exit_code);
-	return (0);
+    int exit_code;
+    
+    if (!cmd->args[1])
+        exit_code = env->exit_status;
+    else if (is_valid_number(cmd->args[1]))
+        exit_code = ft_atoi(cmd->args[1]);
+    else
+    {
+        printf("exit : %s: numeric argument required\n", cmd->args[1]);
+        exit_code = 2;
+    }
+    printf("exit\n");
+    exit(exit_code);
+    return (0);
 }
 
 int	builtin_pwd(t_cmd *cmd, t_env *env)
