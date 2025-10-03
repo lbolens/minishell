@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 00:15:16 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 15:18:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	update_pwd_variables(t_env *env, char *old_pwd)
 	new_pwd = getcwd(NULL, 0);
 	if (new_pwd)
 	{
-		set_env_var(env, "PWD", new_pwd);  
+		set_env_var(env, "PWD", new_pwd);
 		free(new_pwd);
 	}
 }
