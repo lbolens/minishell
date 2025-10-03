@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:08:27 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 13:26:54 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:46:23 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ t_cmd	*init_new_command(void)
 	new->args = NULL;
 	new->args_single_quotes = NULL;
 	new->args_count = 0;
-	new->heredoc_delim = NULL;
-	new->heredoc_single_quotes = false;
+	new->heredoc_delims = NULL;
+	new->heredoc_delim_quotes = false;
+	new->heredoc_count = 0;
 	new->input_file = NULL;
 	new->input_single_quotes = false;
 	new->output_file = NULL;

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/02 09:58:25 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:55:57 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
@@ -54,8 +55,9 @@ typedef struct s_cmd
 	char				*output_file;
 	bool				output_single_quotes;
 	bool				append_mode;
-	char				*heredoc_delim;
-	bool				heredoc_single_quotes;
+	char				**heredoc_delims;
+	bool				*heredoc_delim_quotes;
+	int					heredoc_count;
 	struct s_cmd		*next;
 }						t_cmd;
 
@@ -247,6 +249,14 @@ int						spawn(t_cmd *cmd, t_env *env, int last_in,
 int						wait_all(pid_t *pids, int n);
 int						execute_pipeline(t_cmd *cmd_list, t_env *env);
 
+//==Heredoc===
+
+int						process_heredoc(t_cmd *cmd, t_env *env);
+void					setup_heredoc_signals(void);
+void					handle_heredoc_sigint(int signal);
+void					read_one_heredoc(int pipe_fd[2], char *delim,
+							bool has_quotes, t_env *env);
+
 //===single_exec===
 
 void					apply_redirs(int in_fd, int out_fd);
@@ -265,6 +275,7 @@ int						execute_cmd_pipeline(t_cmd *cmd_list, t_env *env);
 int						open_in(const char *path, int *fd);
 int						open_out_trunc(const char *path, int *fd);
 int						open_out_append(const char *path, int *fd);
-int						setup_redirections(t_cmd *cmd, int *in_fd, int *out_fd);
+int						setup_redirections(t_cmd *cmd, t_env *env, int *in_fd,
+							int *out_fd);
 
 #endif

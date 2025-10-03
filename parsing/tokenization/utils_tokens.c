@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/02 09:53:39 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:41:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*extract_quote(char *str, int *i, bool *is_single_quote)
 	char quote_type;
 	
 	quote_type = str[*i];
-	*is_single_quote = (quote_type == 39);
+	*is_single_quote = (quote_type == 39 || quote_type == '"');
 	size = get_size_quote(str, *i);
 	in_quote = malloc((size + 1) * sizeof(char));
 	if (!in_quote)

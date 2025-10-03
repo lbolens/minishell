@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:12:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 00:05:50 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 11:09:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	spawn(t_cmd *cmd, t_env *env, int last_in, int *next_in)
 	has_next = (cmd->next != NULL);
 	if (has_next && pipe(p) == -1)
 		return (-1);
-	if (!setup_redirections(cmd, &in_fd, &out_fd))
+	if (!setup_redirections(cmd, env, &in_fd, &out_fd))
 		return (has_next ? (close(p[0]), close(p[1]), -1) : -1);
 	if (in_fd == STDIN_FILENO && last_in >= 0)
 		in_fd = last_in;

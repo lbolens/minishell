@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/01 15:31:41 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 11:09:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	run_builtin_parent(t_cmd *cmd, t_env *env)
 	int	saved_out;
 	int	ret;
 
-	if (!setup_redirections(cmd, &in_fd, &out_fd))
+	if (!setup_redirections(cmd, env, &in_fd, &out_fd))
 		return (1);
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
@@ -65,7 +65,7 @@ int	run_external_child(t_cmd *cmd, t_env *env)
 	int		in_fd;
 	int		out_fd;
 
-	if (!setup_redirections(cmd, &in_fd, &out_fd))
+	if (!setup_redirections(cmd, env, &in_fd, &out_fd))
 		return (1);
 	pid = fork();
 	if (pid == -1)

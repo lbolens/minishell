@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/02 08:54:47 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/03 11:48:32 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ EXEC_SRCS := \
 	exec/pipes/pipes.c \
 	exec/pipes/single_exec.c \
 	exec/pipes/utils_pipes.c \
-	exec/pipes/utils_redir.c
+	exec/pipes/utils_redir.c \
+	exec/heredoc/heredoc.c
 
 SRCS := $(MAIN_SRCS) $(PARSING_SRCS) $(EXEC_SRCS)
 OBJS := $(SRCS:.c=.o)

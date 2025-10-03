@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 15:34:33 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 15:34:46 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:53:03 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,17 @@ void	free_commands(t_cmd *commands)
 			free(current->input_file);
 		if (current->output_file)
 			free(current->output_file);
-		if (current->heredoc_delim)
-			free(current->heredoc_delim);
+		if (current->heredoc_delims)
+		{
+			int i = 0;
+			while (i < current->heredoc_count)
+			{
+				free(current->heredoc_delims[i]);
+				i++;
+			}
+			free(current->heredoc_delims);
+			free(current->heredoc_delim_quotes);
+		}
 		free(current);
 		current = next;
 	}

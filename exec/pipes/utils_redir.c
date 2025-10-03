@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:00:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/01 16:21:16 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 13:02:06 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,17 @@ int	open_out_append(const char *path, int *fd)
 	return (1);
 }
 
-int	setup_redirections(t_cmd *cmd, int *in_fd, int *out_fd)
+int	setup_redirections(t_cmd *cmd, t_env *env, int *in_fd, int *out_fd)
 {
 	*in_fd = STDIN_FILENO;
 	*out_fd = STDOUT_FILENO;
-	if (cmd->input_file && !open_in(cmd->input_file, in_fd))
+	if (cmd->heredoc_delims)
+	{
+		*in_fd = process_heredoc(cmd, env);
+		if (*in_fd == -1)
+			return (0);
+	}
+	else if (cmd->input_file && !open_in(cmd->input_file, in_fd))
 		return (0);
 	if (cmd->output_file)
 	{

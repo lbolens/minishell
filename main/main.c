@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/01 15:10:18 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/03 10:42:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("exit\n"); // ctrl-d
 			break ;
 		}
+		if (input[0] != '\0' && input[0] != ' ')
+			add_history(input);
 		if (ft_strlen(input) == 0)
 		{
 			free(input);

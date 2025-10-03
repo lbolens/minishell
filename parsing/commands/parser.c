@@ -6,13 +6,14 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 15:43:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:49:22 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-void	add_arg(t_cmd *command, char *argument, bool is_single_quote, int position)
+void	add_arg(t_cmd *command, char *argument, bool is_single_quote,
+		int position)
 {
 	if (!command->args)
 	{
@@ -26,9 +27,10 @@ void	add_arg(t_cmd *command, char *argument, bool is_single_quote, int position)
 	}
 	else
 	{
-		command->args = realloc(command->args, ((position + 2) * sizeof(char *)));
-		command->args_single_quotes = realloc(command->args_single_quotes, 
-			((position + 2) * sizeof(bool)));
+		command->args = realloc(command->args, ((position + 2)
+					* sizeof(char *)));
+		command->args_single_quotes = realloc(command->args_single_quotes,
+				((position + 2) * sizeof(bool)));
 		if (!command->args || !command->args_single_quotes)
 		{
 			printf("Error: realloc\n");
@@ -41,25 +43,20 @@ void	add_arg(t_cmd *command, char *argument, bool is_single_quote, int position)
 	command->args_count = position + 1;
 }
 
-bool	redirection(t_cmd *command, types_tokens type, char *file, bool is_single_quote)
+bool	redirection(t_cmd *command, types_tokens type, char *file,
+		bool is_single_quote)
 {
 	if (type == TOKEN_REDIRECT_IN)
 	{
 		if (command->input_file != NULL)
-		{
-			printf("Error: Multiple input files");
-			return (false);
-		}
+			free(command->input_file);
 		command->input_file = ft_strdup_pars(file);
 		command->input_single_quotes = is_single_quote;
 	}
 	else if (type == TOKEN_REDIRECT_OUT)
 	{
 		if (command->output_file != NULL)
-		{
-			printf("Error: Multiple output files");
-			return (false);
-		}
+			free(command->output_file);
 		command->output_file = ft_strdup_pars(file);
 		command->output_single_quotes = is_single_quote;
 		command->append_mode = false;
@@ -67,23 +64,22 @@ bool	redirection(t_cmd *command, types_tokens type, char *file, bool is_single_q
 	else if (type == TOKEN_REDIRECT_APPEND)
 	{
 		if (command->output_file != NULL)
-		{
-			printf("Error: Multiple output files");
-			return (false);
-		}
+			free(command->output_file);
 		command->output_file = ft_strdup_pars(file);
 		command->output_single_quotes = is_single_quote;
 		command->append_mode = true;
 	}
 	else if (type == TOKEN_REDIRECT_HEREDOC)
 	{
-		if (command->heredoc_delim != NULL)
-		{
-			printf("Error: Multiple heredoc");
+		command->heredoc_delims = realloc(command->heredoc_delims,
+				(command->heredoc_count + 1) * sizeof(char *));
+		command->heredoc_delim_quotes = realloc(command->heredoc_delim_quotes,
+				(command->heredoc_count + 1) * sizeof(bool));
+		if (!command->heredoc_delims || !command->heredoc_delim_quotes)
 			return (false);
-		}
-		command->heredoc_delim = ft_strdup_pars(file);
-		command->heredoc_single_quotes = is_single_quote;
+		command->heredoc_delims[command->heredoc_count] = ft_strdup_pars(file);
+		command->heredoc_delim_quotes[command->heredoc_count] = is_single_quote;
+		command->heredoc_count++;
 	}
 	return (true);
 }
@@ -104,7 +100,8 @@ t_cmd	*parse_command(t_token **current)
 	{
 		if ((*current)->type == TOKEN_WORD)
 		{
-			add_arg(command, (*current)->value, (*current)->single_quotes, count);
+			add_arg(command, (*current)->value, (*current)->single_quotes,
+				count);
 			count++;
 			(*current) = (*current)->next;
 		}
@@ -121,7 +118,8 @@ t_cmd	*parse_command(t_token **current)
 			else
 			{
 				redir_is_single = (*current)->single_quotes;
-				if (!redirection(command, current_type, (*current)->value, redir_is_single))
+				if (!redirection(command, current_type, (*current)->value,
+						redir_is_single))
 				{
 					free_commands(command);
 					return (NULL);
