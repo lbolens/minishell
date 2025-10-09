@@ -112,9 +112,9 @@ char	*extract_quote(char *str, int *i, bool *is_single_quote)
 	int		j;
 	int		size;
 	char quote_type;
-	
+
 	quote_type = str[*i];
-	*is_single_quote = (quote_type == 39 || quote_type == '"');
+	*is_single_quote = (quote_type == 39);
 	size = get_size_quote(str, *i);
 	in_quote = malloc((size + 1) * sizeof(char));
 	if (!in_quote)

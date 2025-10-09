@@ -55,6 +55,9 @@ typedef struct s_cmd
 	char				*output_file;
 	bool				output_single_quotes;
 	bool				append_mode;
+	char				**all_output_files;
+	bool				*all_output_append;
+	int					output_count;
 	char				**heredoc_delims;
 	bool				*heredoc_delim_quotes;
 	int					heredoc_count;

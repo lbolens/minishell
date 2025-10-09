@@ -38,7 +38,6 @@ void	free_commands(t_cmd *commands)
 	while (current)
 	{
 		next = current->next;
-		// Libérer les arguments
 		if (current->args)
 		{
 			i = 0;
@@ -49,17 +48,26 @@ void	free_commands(t_cmd *commands)
 			}
 			free(current->args);
 		}
-		// Libérer le tableau de quotes
 		if (current->args_single_quotes)
 			free(current->args_single_quotes);
-		// Libérer les fichiers
 		if (current->input_file)
 			free(current->input_file);
 		if (current->output_file)
 			free(current->output_file);
+		if (current->all_output_files)
+		{
+			i = 0;
+			while (i < current->output_count)
+			{
+				free(current->all_output_files[i]);
+				i++;
+			}
+			free(current->all_output_files);
+			free(current->all_output_append);
+		}
 		if (current->heredoc_delims)
 		{
-			int i = 0;
+			i = 0;
 			while (i < current->heredoc_count)
 			{
 				free(current->heredoc_delims[i]);

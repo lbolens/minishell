@@ -62,6 +62,22 @@ int	builtin_env(t_cmd *cmd, t_env *env)
 	return (0);
 }
 
+static bool	is_n_flag(char *str)
+{
+	int	j;
+
+	if (!str || str[0] != '-' || str[1] != 'n')
+		return (false);
+	j = 1;
+	while (str[j])
+	{
+		if (str[j] != 'n')
+			return (false);
+		j++;
+	}
+	return (true);
+}
+
 int	builtin_echo(t_cmd *cmd, t_env *env)
 {
 	int		i;
@@ -72,8 +88,7 @@ int	builtin_echo(t_cmd *cmd, t_env *env)
 		return (1);
 	i = 1;
 	newline = true;
-	while (cmd->args[i] && ft_strncmp(cmd->args[i], "-n", 2) == 0
-		&& ft_strlen(cmd->args[i]) == 2)
+	while (cmd->args[i] && is_n_flag(cmd->args[i]))
 	{
 		newline = false;
 		i++;

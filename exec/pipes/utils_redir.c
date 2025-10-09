@@ -49,6 +49,9 @@ int	open_out_append(const char *path, int *fd)
 
 int	setup_redirections(t_cmd *cmd, t_env *env, int *in_fd, int *out_fd)
 {
+	int	i;
+	int	tmp_fd;
+
 	*in_fd = STDIN_FILENO;
 	*out_fd = STDOUT_FILENO;
 	if (cmd->heredoc_delims)
@@ -56,20 +59,44 @@ int	setup_redirections(t_cmd *cmd, t_env *env, int *in_fd, int *out_fd)
 		*in_fd = process_heredoc(cmd, env);
 		if (*in_fd == -1)
 			return (0);
+		if (*in_fd == -2)
+			return (0);
 	}
 	else if (cmd->input_file && !open_in(cmd->input_file, in_fd))
 		return (0);
-	if (cmd->output_file)
+	if (cmd->output_count > 0)
 	{
-		if (cmd->append_mode)
+		i = 0;
+		while (i < cmd->output_count)
 		{
-			if (!open_out_append(cmd->output_file, out_fd))
-				return (0);
-		}
-		else
-		{
-			if (!open_out_trunc(cmd->output_file, out_fd))
-				return (0);
+			if (i == cmd->output_count - 1)
+			{
+				if (cmd->all_output_append[i])
+				{
+					if (!open_out_append(cmd->all_output_files[i], out_fd))
+						return (0);
+				}
+				else
+				{
+					if (!open_out_trunc(cmd->all_output_files[i], out_fd))
+						return (0);
+				}
+			}
+			else
+			{
+				if (cmd->all_output_append[i])
+				{
+					if (!open_out_append(cmd->all_output_files[i], &tmp_fd))
+						return (0);
+				}
+				else
+				{
+					if (!open_out_trunc(cmd->all_output_files[i], &tmp_fd))
+						return (0);
+				}
+				close(tmp_fd);
+			}
+			i++;
 		}
 	}
 	return (1);

@@ -33,6 +33,9 @@ t_cmd	*init_new_command(void)
 	new->input_single_quotes = false;
 	new->output_file = NULL;
 	new->output_single_quotes = false;
+	new->all_output_files = NULL;
+	new->all_output_append = NULL;
+	new->output_count = 0;
 	new->next = NULL;
 	return (new);
 }

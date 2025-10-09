@@ -53,6 +53,16 @@ char	*get_target_directory(t_cmd *cmd, t_env *env)
 		}
 		return (home);
 	}
+	if (cmd->args[1][0] == '~' && cmd->args[1][1] == '\0')
+	{
+		home = get_env_value(env, "HOME");
+		if (!home)
+		{
+			cd_error("HOME not set");
+			return (NULL);
+		}
+		return (home);
+	}
 	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
 	{
 		oldpwd = get_env_value(env, "OLDPWD");

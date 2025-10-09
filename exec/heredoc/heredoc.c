@@ -61,25 +61,45 @@ int process_heredoc(t_cmd *cmd, t_env *env)
     int     pipe_fd[2];
     int     final_fd;
     int     i;
-    
+    pid_t   pid;
+    int     status;
+
     if (cmd->heredoc_count == 0)
         return (STDIN_FILENO);
-    setup_heredoc_signals();
     i = 0;
     while (i < cmd->heredoc_count)
     {
         if (pipe(pipe_fd) == -1)
             return (-1);
-        read_one_heredoc(pipe_fd, cmd->heredoc_delims[i],
-                        cmd->heredoc_delim_quotes[i], env);
+        pid = fork();
+        if (pid == -1)
+        {
+            close(pipe_fd[0]);
+            close(pipe_fd[1]);
+            return (-1);
+        }
+        if (pid == 0)
+        {
+            setup_heredoc_signals();
+            read_one_heredoc(pipe_fd, cmd->heredoc_delims[i],
+                            cmd->heredoc_delim_quotes[i], env);
+            close(pipe_fd[0]);
+            close(pipe_fd[1]);
+            exit(0);
+        }
+        close(pipe_fd[1]);
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+        {
+            close(pipe_fd[0]);
+            env->exit_status = 130;
+            return (-2);
+        }
         if (i == cmd->heredoc_count - 1)
             final_fd = pipe_fd[0];
         else
             close(pipe_fd[0]);
-        
-        close(pipe_fd[1]);
         i++;
     }
-    setup_signals_command();
     return (final_fd);
 }

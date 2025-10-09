@@ -53,21 +53,23 @@ bool	redirection(t_cmd *command, types_tokens type, char *file,
 		command->input_file = ft_strdup_pars(file);
 		command->input_single_quotes = is_single_quote;
 	}
-	else if (type == TOKEN_REDIRECT_OUT)
+	else if (type == TOKEN_REDIRECT_OUT || type == TOKEN_REDIRECT_APPEND)
 	{
+		command->all_output_files = realloc(command->all_output_files,
+				(command->output_count + 1) * sizeof(char *));
+		command->all_output_append = realloc(command->all_output_append,
+				(command->output_count + 1) * sizeof(bool));
+		if (!command->all_output_files || !command->all_output_append)
+			return (false);
+		command->all_output_files[command->output_count] = ft_strdup_pars(file);
+		command->all_output_append[command->output_count] = (type
+				== TOKEN_REDIRECT_APPEND);
+		command->output_count++;
 		if (command->output_file != NULL)
 			free(command->output_file);
 		command->output_file = ft_strdup_pars(file);
 		command->output_single_quotes = is_single_quote;
-		command->append_mode = false;
-	}
-	else if (type == TOKEN_REDIRECT_APPEND)
-	{
-		if (command->output_file != NULL)
-			free(command->output_file);
-		command->output_file = ft_strdup_pars(file);
-		command->output_single_quotes = is_single_quote;
-		command->append_mode = true;
+		command->append_mode = (type == TOKEN_REDIRECT_APPEND);
 	}
 	else if (type == TOKEN_REDIRECT_HEREDOC)
 	{
