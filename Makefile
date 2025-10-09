@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/09 12:06:48 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/09 14:43:53 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ MAIN_SRCS := \
 
 PARSING_SRCS := \
 	parsing/general_utils.c \
+	parsing/general_utils_bis.c \
 	parsing/commands/parser.c \
 	parsing/commands/utils_commands.c \
 	parsing/commands/parser_args.c \
@@ -41,20 +42,24 @@ PARSING_SRCS := \
 	parsing/expansion/variable_detection.c \
 	parsing/expansion/expansion.c \
 	parsing/expansion/expansion_build.c \
+	parsing/expansion/expansion_utils.c \
 	parsing/pre_parsing/pre_check.c \
 	parsing/pre_parsing/utils_pre_check.c \
 	parsing/tokenization/lists.c \
 	parsing/tokenization/tokens.c \
 	parsing/tokenization/utils_lists.c \
 	parsing/tokenization/utils_tokens.c \
+	parsing/tokenization/utils_token_extract.c \
 	parsing/free.c \
+	parsing/free_utils.c \
 	manip_env/manip_env.c \
 	manip_env/manip_env_array.c \
 	manip_env/utils_manip_env.c \
 	manip_env/utils_manip_env_bis.c \
 	signals/signals.c \
 	signals/signals_bis.c \
-	parsing/quote_removal.c
+	parsing/quote_removal.c \
+	parsing/quote_removal_utils.c
 
 EXEC_SRCS := \
 	exec/builtin/builtin_cd.c \

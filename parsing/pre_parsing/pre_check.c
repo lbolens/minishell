@@ -6,18 +6,17 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:28:19 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-void	trim(char **str)
+void	trim(char **str, size_t len)
 {
 	char	*start;
 	char	*end;
 	char	*trimmed;
-	size_t	len;
 
 	if (!str || !*str)
 		return ;
@@ -44,16 +43,16 @@ void	trim(char **str)
 
 bool	pre_check(char **str)
 {
-	trim(str);
+	trim(str, 0);
 	if (check_if_empty(*str))
 		return (false);
 	if (check_quotes(*str))
 		return (false);
-	if (check_pipes(*str))
+	if (check_pipes(*str, 0))
 		return (false);
 	if (check_forbidden_sequences(*str))
 		return (false);
-	if (check_operators(*str))
+	if (check_operators(*str, 0))
 		return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:59:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:44:48 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ typedef struct s_exec_env
 	int					stdout_backup;
 }						t_env;
 
+typedef struct s_build_data
+{
+	char				*original;
+	char				*result;
+	int					*result_pos;
+	t_env				*env;
+}						t_build_data;
+
 /* ************************************************************************** */
 /*                              MAIN & INIT                                   */
 /* ************************************************************************** */
@@ -94,13 +102,13 @@ t_env					*init_env(char **envp);
 /*                              PRE-CHECK                                     */
 /* ************************************************************************** */
 
-void					trim(char **str);
+void					trim(char **str, size_t len);
 bool					pre_check(char **str);
 bool					check_if_empty(char *str);
 bool					check_quotes(char *str);
-bool					check_pipes(char *str);
+bool					check_pipes(char *str, int i);
 bool					check_forbidden_sequences(char *str);
-bool					check_operators(char *str);
+bool					check_operators(char *str, int i);
 
 /* ************************************************************************** */
 /*                              TOKENIZATION                                  */
@@ -139,11 +147,18 @@ bool					handle_input_redir(t_cmd *command, char *file,
 
 void					expansion(t_cmd *commands, t_env *env);
 void					quote_removal(t_cmd *commands);
-char					*build_full_command(char *original, t_env *env);
+char					*remove_quotes_from_string(char *str);
+void					remove_quotes_from_args(t_cmd *commands);
+void					remove_quotes_from_input(t_cmd *commands);
+void					remove_quotes_from_outputs(t_cmd *commands);
+char					*build_full_command(char *original, t_env *env,
+							size_t i, int result_pos);
 void					replace_in_command(t_cmd *commands, char *str, int i);
 char					*extract_variable(char *str);
 char					*extract_chain(char *str, int start, int end);
 bool					is_variable(char *str);
+void					handle_quote_state(char c, char *current_quote,
+							char *result, int *result_pos);
 
 /* ************************************************************************** */
 /*                              ENVIRONMENT                                   */
@@ -160,6 +175,8 @@ void					ft_lstdelone_pars(t_env_var *lst);
 void					ft_lstclear_pars(t_env_var **lst);
 char					*extract_name(char *str);
 char					*extract_env_value(char *str);
+void					append_exit_status(t_env *env, char *result,
+							int *result_pos);
 
 /* ************************************************************************** */
 /*                              BUILTINS                                      */
@@ -299,5 +316,9 @@ void					free_tab(char **tab);
 
 void					free_commands(t_cmd *commands);
 void					free_tokens(t_token *tokens);
+void					free_args(t_cmd *cmd);
+void					free_output_files(t_cmd *cmd);
+void					free_heredoc_delims(t_cmd *cmd);
+void					free_single_command(t_cmd *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:39:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 15:38:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:28:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ bool	check_quotes(char *str)
 	return (false);
 }
 
-bool	check_pipes(char *str)
+bool	check_pipes(char *str, int i)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = ft_strlen_pars(str);
 	if (len == 0)
 		return (false);
@@ -88,7 +86,7 @@ bool	check_forbidden_sequences(char *str)
 			return (true);
 		}
 		if ((str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i
-				+ 1] == '>') || (str[i] == ';' && str[i + 1] == ';')
+					+ 1] == '>') || (str[i] == ';' && str[i + 1] == ';')
 			|| (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
 			|| (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
 			|| (str[i] == '>' && str[i + 1] == '|'))
@@ -101,12 +99,10 @@ bool	check_forbidden_sequences(char *str)
 	return (false);
 }
 
-bool	check_operators(char *str)
+bool	check_operators(char *str, int i)
 {
-	int	i;
 	int	j;
 
-	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '>' || str[i] == '<')

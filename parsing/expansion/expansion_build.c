@@ -6,47 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:23 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 12:08:47 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:22:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
-
-typedef struct s_build_data
-{
-	char	*original;
-	char	*result;
-	int		*result_pos;
-	t_env	*env;
-}	t_build_data;
-
-static void	handle_quote_state(char c, char *current_quote, char *result,
-		int *result_pos)
-{
-	if (c == '"' && *current_quote == 0)
-		*current_quote = '"';
-	else if (c == 39 && *current_quote == 0)
-		*current_quote = 39;
-	else if (c == *current_quote)
-		*current_quote = 0;
-	result[(*result_pos)++] = c;
-}
-
-static void	append_exit_status(t_env *env, char *result, int *result_pos)
-{
-	char	*status_str;
-	int		k;
-
-	status_str = ft_itoa_pars(env->exit_status);
-	k = 0;
-	while (status_str[k])
-	{
-		result[*result_pos] = status_str[k];
-		(*result_pos)++;
-		k++;
-	}
-	free(status_str);
-}
 
 static void	append_env_value(char *variable, t_env *env, char *result,
 		int *result_pos)
@@ -105,11 +69,10 @@ static size_t	process_dollar_sign(char *original, size_t i,
 	return (i + 1);
 }
 
-char	*build_full_command(char *original, t_env *env)
+char	*build_full_command(char *original, t_env *env, size_t i,
+		int result_pos)
 {
 	t_build_data	data;
-	size_t			i;
-	int				result_pos;
 	char			current_quote;
 
 	data.result = malloc(4096 * sizeof(char));
@@ -118,13 +81,11 @@ char	*build_full_command(char *original, t_env *env)
 	data.original = original;
 	data.env = env;
 	data.result_pos = &result_pos;
-	i = 0;
-	result_pos = 0;
 	current_quote = 0;
 	while (i < ft_strlen_pars(original))
 	{
-		if ((original[i] == '"' || original[i] == 39)
-			&& (current_quote == 0 || original[i] == current_quote))
+		if ((original[i] == '"' || original[i] == 39) && (current_quote == 0
+				|| original[i] == current_quote))
 			handle_quote_state(original[i++], &current_quote, data.result,
 				&result_pos);
 		else if (original[i] == '$' && current_quote != 39)
