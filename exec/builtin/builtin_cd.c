@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/03 15:18:38 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 10:59:59 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,42 +38,41 @@ int	builtin_cd(t_cmd *cmd, t_env *env)
 	return (0);
 }
 
-char	*get_target_directory(t_cmd *cmd, t_env *env)
+static char	*handle_home_directory(t_env *env)
 {
 	char	*home;
+
+	home = get_env_value(env, "HOME");
+	if (!home)
+	{
+		cd_error("HOME not set");
+		return (NULL);
+	}
+	return (home);
+}
+
+static char	*handle_oldpwd_directory(t_env *env)
+{
 	char	*oldpwd;
 
+	oldpwd = get_env_value(env, "OLDPWD");
+	if (!oldpwd)
+	{
+		cd_error("OLDPWD not set");
+		return (NULL);
+	}
+	printf("%s\n", oldpwd);
+	return (oldpwd);
+}
+
+char	*get_target_directory(t_cmd *cmd, t_env *env)
+{
 	if (!cmd->args[1])
-	{
-		home = get_env_value(env, "HOME");
-		if (!home)
-		{
-			cd_error("HOME not set");
-			return (NULL);
-		}
-		return (home);
-	}
+		return (handle_home_directory(env));
 	if (cmd->args[1][0] == '~' && cmd->args[1][1] == '\0')
-	{
-		home = get_env_value(env, "HOME");
-		if (!home)
-		{
-			cd_error("HOME not set");
-			return (NULL);
-		}
-		return (home);
-	}
+		return (handle_home_directory(env));
 	if (cmd->args[1][0] == '-' && cmd->args[1][1] == '\0')
-	{
-		oldpwd = get_env_value(env, "OLDPWD");
-		if (!oldpwd)
-		{
-			cd_error("OLDPWD not set");
-			return (NULL);
-		}
-		printf("%s\n", oldpwd);
-		return (oldpwd);
-	}
+		return (handle_oldpwd_directory(env));
 	return (cmd->args[1]);
 }
 

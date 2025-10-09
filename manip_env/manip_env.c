@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 12:21:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 16:21:16 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:37:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,27 @@
 t_env_var	*create_new_env_var(char *str)
 {
 	t_env_var	*node;
-	int			i;
 
 	node = (t_env_var *)malloc(sizeof(t_env_var));
 	if (!node)
 		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	// Extraire le nom
-	node->name = malloc(i + 1);
+	node->name = extract_name(str);
 	if (!node->name)
 	{
 		free(node);
 		return (NULL);
 	}
-	ft_strlcpy_pars(node->name, str, i + 1);
-	// Extraire la valeur
-	if (str[i] == '=')
-		node->value = ft_strdup_pars(str + i + 1);
-	else
-		node->value = ft_strdup_pars(""); // Si il n y a pas de "="
+	node->value = extract_env_value(str);
+	if (!node->value)
+	{
+		free(node->name);
+		free(node);
+		return (NULL);
+	}
 	node->next = NULL;
 	return (node);
 }
 
-// Chercher une variable
 char	*get_env_value(t_env *env, char *name)
 {
 	t_env_var	*current;
@@ -57,41 +52,48 @@ char	*get_env_value(t_env *env, char *name)
 	return (NULL);
 }
 
-// Mettre a jour une variable (pour export)
-void	set_env_var(t_env *env, char *name, char *value)
+static int	update_existing_var(t_env_var *list, char *name, char *value)
 {
 	t_env_var	*current;
 	char		*new_value;
-	char		*env_string;
 
-	if (!env || !name || !value)
-		return ;
-	current = env->env_list;
+	current = list;
 	while (current)
 	{
 		if (ft_strcmp_pars(current->name, name) == 0)
 		{
 			new_value = ft_strdup_pars(value);
 			if (!new_value)
-				return ;
+				return (0);
 			free(current->value);
 			current->value = new_value;
-			return ;
+			return (1);
 		}
 		current = current->next;
 	}
-	env_string = malloc(ft_strlen_pars(name) + ft_strlen_pars(value) + 2);
+	return (0);
+}
+
+void	set_env_var(t_env *env, char *name, char *value)
+{
+	char	*env_string;
+	int		total_len;
+
+	if (!env || !name || !value)
+		return ;
+	if (update_existing_var(env->env_list, name, value))
+		return ;
+	total_len = ft_strlen_pars(name) + ft_strlen_pars(value) + 2;
+	env_string = malloc(total_len);
 	if (!env_string)
 		return ;
 	ft_strlcpy_pars(env_string, name, ft_strlen_pars(name) + 1);
 	ft_strlcat(env_string, "=", ft_strlen_pars(name) + 2);
-	ft_strlcat(env_string, value, ft_strlen_pars(name) + ft_strlen_pars(value)
-		+ 2);
+	ft_strlcat(env_string, value, total_len);
 	add_env_var(&env->env_list, env_string);
 	free(env_string);
 }
 
-// Supprimer une variable (pour unset)
 void	unset_env_var(t_env *env, char *name)
 {
 	t_env_var	*current;
@@ -115,41 +117,4 @@ void	unset_env_var(t_env *env, char *name)
 		prev = current;
 		current = current->next;
 	}
-}
-
-// Convertir la liste en char** pour execve
-char	**env_list_to_array(t_env_var *list)
-{
-	t_env_var	*current;
-	int			nbr;
-	int			len;
-	int			i;
-
-	char **to_return ;
-	nbr = ft_lstsize_pars(list);
-	to_return = malloc((nbr + 1) * sizeof(char *));
-	if (!to_return)
-		return (NULL);
-	current = list;
-	i = 0;
-	while (current)
-	{
-		len = ft_strlen_pars(current->name) + ft_strlen_pars(current->value)
-			+ 2;
-		to_return[i] = malloc(len * sizeof(char));
-		if (!to_return[i])
-		{
-			while (i > 0)
-				free(to_return[--i]);
-			free(to_return);
-			return (NULL);
-		}
-		ft_strlcpy_pars(to_return[i], current->name, len);
-		ft_strlcat(to_return[i], "=", len);
-		ft_strlcat(to_return[i], current->value, len);
-		current = current->next;
-		i++;
-	}
-	to_return[i] = NULL;
-	return (to_return);
 }

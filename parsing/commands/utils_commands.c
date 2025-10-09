@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:08:27 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/03 12:46:23 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:59:28 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,13 @@ void	ft_lstadd_back_commands(t_cmd **lst, t_cmd *new)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+}
+
+bool	handle_input_redir(t_cmd *command, char *file, bool is_single_quote)
+{
+	if (command->input_file != NULL)
+		free(command->input_file);
+	command->input_file = ft_strdup_pars(file);
+	command->input_single_quotes = is_single_quote;
+	return (true);
 }

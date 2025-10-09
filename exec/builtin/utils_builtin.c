@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/03 15:12:11 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:04:18 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,44 @@ bool	is_builtin(char *cmd_name)
 	return (false);
 }
 
-int	execute_builtin(t_cmd *cmd, t_env *env)
+static int	execute_simple_builtins(t_cmd *cmd, t_env *env)
 {
-	if (!cmd || !cmd->args || !cmd->args[0])
-		return (1);
 	if (ft_strncmp(cmd->args[0], "pwd", 4) == 0 && ft_strlen(cmd->args[0]) == 3)
 		return (builtin_pwd(cmd, env));
 	if (ft_strncmp(cmd->args[0], "env", 4) == 0 && ft_strlen(cmd->args[0]) == 3)
 		return (builtin_env(cmd, env));
 	if (ft_strncmp(cmd->args[0], "cd", 3) == 0 && ft_strlen(cmd->args[0]) == 2)
 		return (builtin_cd(cmd, env));
-	if (ft_strncmp(cmd->args[0], "echo", 5) == 0 && ft_strlen(cmd->args[0]) == 4)  // ← AJOUTE CETTE LIGNE
-        return (builtin_echo(cmd, env));
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0
+		&& ft_strlen(cmd->args[0]) == 4)
+		return (builtin_echo(cmd, env));
+	return (-1);
+}
+
+static int	execute_complex_builtins(t_cmd *cmd, t_env *env)
+{
 	if (ft_strncmp(cmd->args[0], "export", 7) == 0
 		&& ft_strlen(cmd->args[0]) == 6)
-	{		
 		return (builtin_export(cmd, env));
-	}
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0
 		&& ft_strlen(cmd->args[0]) == 4)
-	{	
 		builtin_exit(cmd, env);
-	}
 	if (ft_strncmp(cmd->args[0], "unset", 6) == 0
 		&& ft_strlen(cmd->args[0]) == 5)
-	{
 		return (builtin_unset(cmd, env));
-	}
 	return (1);
+}
+
+int	execute_builtin(t_cmd *cmd, t_env *env)
+{
+	int	result;
+
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return (1);
+	result = execute_simple_builtins(cmd, env);
+	if (result != -1)
+		return (result);
+	return (execute_complex_builtins(cmd, env));
 }
 
 int	is_valid_number(char *str)
@@ -76,11 +86,5 @@ int	is_valid_number(char *str)
 			return (0);
 		i++;
 	}
-	return (1);
-}
-
-int	cd_error(char *msg)
-{
-	perror(msg);
 	return (1);
 }

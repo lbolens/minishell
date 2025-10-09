@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 15:39:34 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:41:37 by lbolens          ###   ########.fr       */
+/*   Created: 2025/10/09 11:11:37 by lbolens           #+#    #+#             */
+/*   Updated: 2025/10/09 11:11:53 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../../header/parsing.h"
 
-void	handle_sig_int_command(int signal)
+void	handle_heredoc_sigint(int signal)
 {
 	(void)signal;
-	write(1, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
+	exit(130);
 }
 
-void	handle_sig_quit(int signal)
+void	setup_heredoc_signals(void)
 {
-	(void)signal;
-	return ;
-}
-
-void	setup_signals_interactive(void)
-{
-	signal(SIGINT, handle_sig_int_interactive);
+	signal(SIGINT, handle_heredoc_sigint);
 	signal(SIGQUIT, SIG_IGN);
-}
-
-void	setup_signals_command(void)
-{
-	signal(SIGINT, handle_sig_int_command);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	restore_signal(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 }

@@ -6,13 +6,13 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:00:11 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:36 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:32:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-types_tokens	define_type(char *str)
+t_types_tokens	define_type(char *str)
 {
 	if (!str)
 		return (TOKEN_EOF);

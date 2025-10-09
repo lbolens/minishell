@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 14:28:48 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/30 14:30:15 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:34:50 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	ft_lstsize_pars(t_env_var *lst)
 	return (count);
 }
 
-// Ajouter variable a la liste
 void	add_env_var(t_env_var **list, char *env_string)
 {
 	t_env_var	*temp;

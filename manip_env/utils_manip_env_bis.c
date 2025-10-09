@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   utils_manip_env_bis.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 15:39:34 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:41:37 by lbolens          ###   ########.fr       */
+/*   Created: 2025/10/09 11:37:14 by lbolens           #+#    #+#             */
+/*   Updated: 2025/10/09 11:37:52 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/parsing.h"
 
-void	handle_sig_int_command(int signal)
+char	*extract_name(char *str)
 {
-	(void)signal;
-	write(1, "\n", 1);
+	char	*name;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	name = malloc(i + 1);
+	if (!name)
+		return (NULL);
+	ft_strlcpy_pars(name, str, i + 1);
+	return (name);
 }
 
-void	handle_sig_quit(int signal)
+char	*extract_env_value(char *str)
 {
-	(void)signal;
-	return ;
-}
+	int	i;
 
-void	setup_signals_interactive(void)
-{
-	signal(SIGINT, handle_sig_int_interactive);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	setup_signals_command(void)
-{
-	signal(SIGINT, handle_sig_int_command);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	restore_signal(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (str[i] == '=')
+		return (ft_strdup_pars(str + i + 1));
+	return (ft_strdup_pars(""));
 }

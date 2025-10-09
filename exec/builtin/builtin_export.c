@@ -6,44 +6,25 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 10:03:50 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 11:06:04 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-char	*remove_quotes(char *str)
+static int	copy_quoted_content(char *str, char *result, int *i, int *j)
 {
-	char	*result;
-	int		i;
-	int		j;
 	char	quote;
 
-	result = malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
+	quote = str[*i];
+	(*i)++;
+	while (str[*i] && str[*i] != quote)
 	{
-		if (str[i] == '"' || str[i] == 39)
-		{
-			quote = str[i];
-			i++;
-			while (str[i] && str[i] != quote)
-			{
-				result[j++] = str[i++];
-			}
-			if (str[i] == quote)
-				i++;
-		}
-		else
-		{
-			result[j++] = str[i++];
-		}
+		result[(*j)++] = str[(*i)++];
 	}
-	result[j] = '\0';
-	return (result);
+	if (str[*i] == quote)
+		(*i)++;
+	return (0);
 }
 
 int	builtin_export(t_cmd *cmd, t_env *env)
@@ -53,51 +34,63 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 	return (export_process_args(cmd, env));
 }
 
-int	export_display_all(t_env *env)
+char	*remove_quotes(char *str)
 {
-	t_env_var	*current;
+	char	*result;
+	int		i;
+	int		j;
 
-	current = env->env_list;
-	while (current)
+	result = malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		if (current->value && current->value[0] != '\0')
-			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+		if (str[i] == '"' || str[i] == 39)
+			copy_quoted_content(str, result, &i, &j);
 		else
-			printf("declare -x %s\n", current->name);
-		current = current->next;
+			result[j++] = str[i++];
 	}
+	result[j] = '\0';
+	return (result);
+}
+
+static int	process_single_export(char *arg, t_env *env)
+{
+	char	*var;
+	char	*value;
+	char	*cleaned_arg;
+
+	cleaned_arg = remove_quotes(arg);
+	if (!cleaned_arg || !parse_export(cleaned_arg))
+	{
+		printf("Error: variable error\n");
+		free(cleaned_arg);
+		return (1);
+	}
+	var = extract_var(cleaned_arg);
+	value = extract_value(cleaned_arg);
+	if (value != NULL)
+		set_env_var(env, var, value);
+	else
+		set_env_var(env, var, "");
+	free(var);
+	if (value)
+		free(value);
+	free(cleaned_arg);
 	return (0);
 }
 
 int	export_process_args(t_cmd *cmd, t_env *env)
 {
-	int		i;
-	char	*var;
-	char	*value;
-	char	*cleaned_arg;
+	int	i;
 
 	i = 1;
 	while (cmd->args[i])
 	{
-		cleaned_arg = remove_quotes(cmd->args[i]);
-		if (!cleaned_arg)
+		if (process_single_export(cmd->args[i], env) != 0)
 			return (1);
-		if (!parse_export(cleaned_arg))
-		{
-			printf("Error: variable error\n");
-			free(cleaned_arg);
-			return (1);
-		}
-		var = extract_var(cleaned_arg);
-		value = extract_value(cleaned_arg);
-		if (value != NULL)
-			set_env_var(env, var, value);
-		else
-			set_env_var(env, var, "");
-		free(var);
-		if (value)
-			free(value);
-		free(cleaned_arg);
 		i++;
 	}
 	return (0);
