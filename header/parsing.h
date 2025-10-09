@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/03 12:55:57 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 10:41:04 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,5 +280,7 @@ int						open_out_trunc(const char *path, int *fd);
 int						open_out_append(const char *path, int *fd);
 int						setup_redirections(t_cmd *cmd, t_env *env, int *in_fd,
 							int *out_fd);
+
+void					quote_removal(t_cmd *commands);
 
 #endif

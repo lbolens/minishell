@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/03 11:48:32 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/09 10:37:17 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ PARSING_SRCS := \
 	parsing/free.c \
 	manip_env/manip_env.c \
 	manip_env/utils_manip_env.c \
-	signals/signals.c
+	signals/signals.c \
+	parsing/quote_removal.c
 
 EXEC_SRCS := \
 	exec/builtin/builtin_cd.c \

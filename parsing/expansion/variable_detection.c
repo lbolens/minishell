@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 11:43:46 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/03 13:01:36 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 10:42:54 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,39 @@ char *build_full_command(char *original, t_env *env)
     size_t j;
     int k;
     char *status_str;
+    char current_quote;
 
     result = malloc(4096 * sizeof(char));
     if (!result)
         return (NULL);
     i = 0;
     result_pos = 0;
+    current_quote = 0;  // Track if we're inside quotes
     
     while (i < ft_strlen_pars(original))
     {
-        if (original[i] == '$')
+        // Handle quote state
+        if (original[i] == '"' && current_quote == 0)
+        {
+            current_quote = '"';
+            result[result_pos++] = original[i++];
+            continue;
+        }
+        else if (original[i] == 39 && current_quote == 0)  // simple quote
+        {
+            current_quote = 39;
+            result[result_pos++] = original[i++];
+            continue;
+        }
+        else if (original[i] == current_quote)
+        {
+            current_quote = 0;
+            result[result_pos++] = original[i++];
+            continue;
+        }
+        
+        // Only expand if NOT in single quotes
+        if (original[i] == '$' && current_quote != 39)
         {
             j = i + 1;
             if (j < ft_strlen_pars(original) && original[j] == '?')
