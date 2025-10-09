@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 15:46:29 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:18:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	process_token(char *str, int *i, t_token **head)
 {
 	if (is_operator(str[*i]))
 		handle_operator_token(str, i, head);
-	//else if (is_quote(str[*i]))
-		//handle_quote_token(str, i, head);
 	else
 		handle_word_token(str, i, head);
 }

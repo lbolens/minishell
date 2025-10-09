@@ -6,30 +6,30 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 17:19:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:17:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 
-int builtin_exit(t_cmd *cmd, t_env *env)
+int	builtin_exit(t_cmd *cmd, t_env *env)
 {
-    int exit_code;
+	int	exit_code;
 
-    if (!cmd->args[1])
-    {
-        exit_code = env->exit_status;
-    }
-    else if (!is_valid_number(cmd->args[1]))
-    {
-        printf("minishell: exit: %s: numeric argument required\n", 
-               cmd->args[1]);
-        exit_code = 2;
-    }
-    else
-        exit_code = ft_atoi(cmd->args[1]) % 256;
-    env->exit_status = exit_code;
-    return (exit_code);
+	if (!cmd->args[1])
+	{
+		exit_code = env->exit_status;
+	}
+	else if (!is_valid_number(cmd->args[1]))
+	{
+		printf("minishell: exit: %s: numeric argument required\n",
+			cmd->args[1]);
+		exit_code = 2;
+	}
+	else
+		exit_code = ft_atoi(cmd->args[1]) % 256;
+	env->exit_status = exit_code;
+	return (exit_code);
 }
 
 int	builtin_pwd(t_cmd *cmd, t_env *env)

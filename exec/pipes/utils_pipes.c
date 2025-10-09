@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:17:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 17:23:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:17:55 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,16 @@ void	close_if_valid(int fd)
 		close(fd);
 }
 
-/*static int	exec_builtin_child(t_cmd *cmd, t_env *env)
+void	child_exec(t_cmd *cmd, t_env *env, int in_fd, int out_fd)
 {
-	if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0]))
-		_exit(execute_builtin(cmd, env));
-	return (0);
-}*/
-
-/*static void	exec_external_child(t_cmd *cmd, char **envp)
-{
+	char	**envp;
 	char	*path;
 
+	restore_signal();
+	apply_redirs(in_fd, out_fd);
+	if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0]))
+		_exit(execute_builtin(cmd, env));
+	envp = env_list_to_array(env->env_list);
 	path = find_command_path(cmd->args[0], envp);
 	if (!path)
 	{
@@ -53,28 +52,4 @@ void	close_if_valid(int fd)
 	free(path);
 	free_tab(envp);
 	_exit(126);
-}*/
-
-void child_exec(t_cmd *cmd, t_env *env, int in_fd, int out_fd)
-{
-    char **envp;
-    char *path;
-
-    restore_signal();
-    apply_redirs(in_fd, out_fd);
-    if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0]))
-        _exit(execute_builtin(cmd, env));
-    envp = env_list_to_array(env->env_list);
-    path = find_command_path(cmd->args[0], envp);
-    if (!path)
-    {
-        printf("%s: command not found\n", cmd->args[0]);
-        free_tab(envp);
-        _exit(127);
-    }
-    execve(path, cmd->args, envp);
-    perror(path);
-    free(path);
-    free_tab(envp);
-    _exit(126);
 }
