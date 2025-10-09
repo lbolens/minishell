@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:44:48 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:47:06 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ bool					check_operators(char *str, int i);
 
 t_token					*tokenization(char *str);
 bool					is_operator(char c);
-bool					is_quote(char c);
+//bool					is_quote(char c);
 char					*extract_operator(char *str, int *i);
 char					*extract_word(char *str, int *i);
 char					*extract_quote(char *str, int *i,
@@ -152,7 +152,7 @@ void					remove_quotes_from_args(t_cmd *commands);
 void					remove_quotes_from_input(t_cmd *commands);
 void					remove_quotes_from_outputs(t_cmd *commands);
 char					*build_full_command(char *original, t_env *env,
-							size_t i, int result_pos);
+							size_t i, bool heredoc_mode);
 void					replace_in_command(t_cmd *commands, char *str, int i);
 char					*extract_variable(char *str);
 char					*extract_chain(char *str, int start, int end);

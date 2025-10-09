@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:20:54 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:40:06 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	expand_args(t_cmd *commands, t_env *env)
 	{
 		if (is_variable(commands->args[i]) && !commands->args_single_quotes[i])
 		{
-			expanded = build_full_command(commands->args[i], env, 0, 0);
+			expanded = build_full_command(commands->args[i], env, 0, false);
 			if (expanded)
 			{
 				replace_in_command(commands, expanded, i);
@@ -40,7 +40,7 @@ static void	expand_input_file(t_cmd *commands, t_env *env)
 	if (commands->input_file && is_variable(commands->input_file)
 		&& !commands->input_single_quotes)
 	{
-		expanded = build_full_command(commands->input_file, env, 0, 0);
+		expanded = build_full_command(commands->input_file, env, 0, false);
 		if (expanded)
 		{
 			free(commands->input_file);
@@ -57,7 +57,7 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 	if (commands->output_file && is_variable(commands->output_file)
 		&& !commands->output_single_quotes)
 	{
-		expanded = build_full_command(commands->output_file, env, 0, 0);
+		expanded = build_full_command(commands->output_file, env, 0, false);
 		if (expanded)
 		{
 			free(commands->output_file);
@@ -81,7 +81,7 @@ static void	expand_heredoc_delims(t_cmd *commands, t_env *env)
 			&& !commands->heredoc_delim_quotes[j])
 		{
 			expanded = build_full_command(commands->heredoc_delims[j], env, 0,
-					0);
+					false);
 			if (expanded)
 			{
 				free(commands->heredoc_delims[j]);

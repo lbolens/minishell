@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:23 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:22:11 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:38:44 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ static size_t	process_dollar_sign(char *original, size_t i,
 }
 
 char	*build_full_command(char *original, t_env *env, size_t i,
-		int result_pos)
+		bool heredoc_mode)
 {
 	t_build_data	data;
+	int				result_pos;
 	char			current_quote;
 
 	data.result = malloc(4096 * sizeof(char));
@@ -81,14 +82,15 @@ char	*build_full_command(char *original, t_env *env, size_t i,
 	data.original = original;
 	data.env = env;
 	data.result_pos = &result_pos;
+	result_pos = 0;
 	current_quote = 0;
 	while (i < ft_strlen_pars(original))
 	{
-		if ((original[i] == '"' || original[i] == 39) && (current_quote == 0
-				|| original[i] == current_quote))
+		if (!heredoc_mode && (original[i] == '"' || original[i] == 39)
+			&& (current_quote == 0 || original[i] == current_quote))
 			handle_quote_state(original[i++], &current_quote, data.result,
 				&result_pos);
-		else if (original[i] == '$' && current_quote != 39)
+		else if (original[i] == '$' && (heredoc_mode || current_quote != 39))
 			i = process_dollar_sign(original, i, &data);
 		else
 			data.result[result_pos++] = original[i++];

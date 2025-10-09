@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/03 11:09:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 17:21:57 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ int	run_builtin_parent(t_cmd *cmd, t_env *env)
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
 	apply_redirs(in_fd, out_fd);
+	if (ft_strcmp_pars(cmd->args[0], "exit") == 0)
+	{
+		printf("exit\n");
+		ret = execute_builtin(cmd, env);
+		restore_stdio(saved_in, saved_out);
+		exit(ret);
+	}
 	ret = execute_builtin(cmd, env);
 	restore_stdio(saved_in, saved_out);
 	return (ret);
@@ -69,13 +76,23 @@ int	run_external_child(t_cmd *cmd, t_env *env)
 		return (1);
 	pid = fork();
 	if (pid == -1)
+	{
+		if (in_fd != STDIN_FILENO)
+			close(in_fd);
+		if (out_fd != STDOUT_FILENO)
+			close(out_fd);
 		return (1);
+	}
 	if (pid == 0)
 	{
 		apply_redirs(in_fd, out_fd);
 		execute_external_command(cmd, env);
 		_exit(127);
 	}
+	if (in_fd != STDIN_FILENO)
+		close(in_fd);
+	if (out_fd != STDOUT_FILENO)
+		close(out_fd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));

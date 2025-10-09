@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 10:58:40 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:28:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ static void	process_tokens(t_token *token, t_env *env)
 	free_tokens(token);
 }
 
-static void	process_input(char *input, t_env *env)
+static void	process_input(char **input, t_env *env)
 {
 	t_token	*token;
 
-	if (input[0] != '\0' && input[0] != ' ')
-		add_history(input);
-	if (ft_strlen(input) == 0)
+	if ((*input)[0] != '\0' && (*input)[0] != ' ')
+		add_history(*input);
+	if (ft_strlen(*input) == 0)
 		return ;
-	if (pre_check(&input))
+	if (pre_check(input))
 	{
-		token = tokenization(input);
+		token = tokenization(*input);
 		process_tokens(token, env);
 	}
 }
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		process_input(input, env);
+		process_input(&input, env);
 		free(input);
 	}
 	free_tab(env->envp);

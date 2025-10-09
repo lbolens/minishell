@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:21:35 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:18:54 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:39:37 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	write_heredoc_line(int pipe_fd, char *line, bool has_quotes,
 	char	*expanded;
 
 	if (!has_quotes)
-		expanded = build_full_command(line, env, 0, 0);
+		expanded = build_full_command(line, env, 0, true);
 	else
 		expanded = line;
 	write(pipe_fd, expanded, ft_strlen_pars(expanded));
