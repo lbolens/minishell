@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 09:23:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:27:36 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ char	*resolve_parent_dir(char *pwd);
 /* ************************************************************************** */
 
 char					*get_target_directory(t_cmd *cmd, t_env *env);
-void					update_pwd_variables(t_env *env, char *old_pwd);
+void	update_pwd_variables(t_env *env, char *old_pwd, char *target_dir);
 int						cd_error(char *msg);
 char					*remove_quotes(char *str);
 int						export_display_all(t_env *env);

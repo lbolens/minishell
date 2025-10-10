@@ -6,11 +6,9 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:22:25 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:27:18 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../header/parsing.h"
 
 #include "../../header/parsing.h"
 
@@ -33,22 +31,30 @@ char	*get_target_directory(t_cmd *cmd, t_env *env)
 	return (cmd->args[1]);
 }
 
-void	update_pwd_variables(t_env *env, char *old_pwd)
+static char	*calculate_new_pwd(char *target, char *current_pwd)
+{
+	char	*new_pwd;
+
+	new_pwd = getcwd(NULL, 0);
+	if (new_pwd)
+		return (new_pwd);
+	if (target[0] == '/')
+		return (ft_strdup_pars(target));
+	if (ft_strcmp_pars(target, "..") == 0)
+		return (resolve_parent_dir(current_pwd));
+	return (ft_strdup_pars(current_pwd));
+}
+
+void	update_pwd_variables(t_env *env, char *old_pwd, char *target_dir)
 {
 	char	*new_pwd;
 
 	set_env_var(env, "OLDPWD", old_pwd);
-	new_pwd = getcwd(NULL, 0);
+	new_pwd = calculate_new_pwd(target_dir, old_pwd);
 	if (new_pwd)
 	{
 		set_env_var(env, "PWD", new_pwd);
 		free(new_pwd);
-	}
-	else
-	{
-		new_pwd = get_env_value(env, "PWD");
-		if (new_pwd)
-			set_env_var(env, "PWD", new_pwd);
 	}
 }
 
@@ -76,7 +82,7 @@ int	builtin_cd(t_cmd *cmd, t_env *env)
 		free(current_pwd);
 		return (cd_error("cd"));
 	}
-	update_pwd_variables(env, current_pwd);
+	update_pwd_variables(env, current_pwd, target_dir);
 	free(current_pwd);
 	return (0);
 }
