@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 11:04:18 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 08:59:41 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	execute_complex_builtins(t_cmd *cmd, t_env *env)
 		return (builtin_export(cmd, env));
 	if (ft_strncmp(cmd->args[0], "exit", 5) == 0
 		&& ft_strlen(cmd->args[0]) == 4)
-		builtin_exit(cmd, env);
+		return (builtin_exit(cmd, env));
 	if (ft_strncmp(cmd->args[0], "unset", 6) == 0
 		&& ft_strlen(cmd->args[0]) == 5)
 		return (builtin_unset(cmd, env));
