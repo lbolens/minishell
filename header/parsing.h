@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 09:27:36 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:45:49 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,8 @@ void					setup_signals_interactive(void);
 void					setup_signals_command(void);
 void					restore_signal(void);
 void					handle_sig_int_interactive(int signal);
-void					handle_sig_int_command(int signal);
-void					handle_sig_quit(int signal);
+//void					handle_sig_int_command(int signal);
+//void					handle_sig_quit(int signal);
 
 /* ************************************************************************** */
 /*                              SINGLE COMMAND                                */
