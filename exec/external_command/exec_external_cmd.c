@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:34:52 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:39:34 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:48:09 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	wait_for_child(char *path)
 	wait(&status);
 	if (WIFSIGNALED(status))
 	{
-		if (WTERMSIG(status) == SIGQUIT)
+		if (WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		else if (WTERMSIG(status) == SIGQUIT)
 			write(2, "Quit (core dumped)\n", 19);
 		return (128 + WTERMSIG(status));
 	}

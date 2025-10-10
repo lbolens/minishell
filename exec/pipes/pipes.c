@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:12:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:03:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:49:35 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ int	wait_all(pid_t *pids, int n)
 			if (WIFEXITED(wst))
 				status = WEXITSTATUS(wst);
 			else if (WIFSIGNALED(wst))
+			{
+				if (WTERMSIG(wst) == SIGINT)
+					write(1, "\n", 1);
+				else if (WTERMSIG(wst) == SIGQUIT)
+					write(2, "Quit (core dumped)\n", 19);
 				status = 128 + WTERMSIG(wst);
+			}
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:40:10 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:48:45 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ int	run_external_child(t_cmd *cmd, t_env *env)
 	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
 	{
-		if (WTERMSIG(status) == SIGQUIT)
+		if (WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		else if (WTERMSIG(status) == SIGQUIT)
 			write(2, "Quit (core dumped)\n", 19);
 		return (128 + WTERMSIG(status));
 	}
