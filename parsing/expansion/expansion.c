@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 10:32:11 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 15:24:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ static void	expand_heredoc_delims_special(t_cmd *commands, t_env *env)
 	j = 0;
 	while (j < commands->heredoc_count)
 	{
-		// Expanser TOUJOURS les délimiteurs (même avec quotes sur le contenu)
 		if (is_variable(commands->heredoc_delims[j]))
 		{
-			expanded = build_full_command(commands->heredoc_delims[j], env, false);
+			expanded = build_full_command(commands->heredoc_delims[j], env, 0, false);  // ✅ 4 arguments !
 			if (expanded)
 			{
 				free(commands->heredoc_delims[j]);

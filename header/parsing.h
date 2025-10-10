@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 09:45:49 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 15:21:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ char					*remove_quotes_from_string(char *str);
 void					remove_quotes_from_args(t_cmd *commands);
 void					remove_quotes_from_input(t_cmd *commands);
 void					remove_quotes_from_outputs(t_cmd *commands);
-char					*build_full_command(char *original, t_env *env,
-							size_t i, bool heredoc_mode);
+char	*build_full_command(char *original, t_env *env, size_t i,
+		bool heredoc_mode);
 void					replace_in_command(t_cmd *commands, char *str, int i);
 char					*extract_variable(char *str);
 char					*extract_chain(char *str, int start, int end);
