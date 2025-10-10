@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 15:40:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 10:32:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
+
+static void	expand_heredoc_delims_special(t_cmd *commands, t_env *env)
+{
+	char	*expanded;
+	int		j;
+
+	if (!commands->heredoc_delims || commands->heredoc_count <= 0)
+		return ;
+	j = 0;
+	while (j < commands->heredoc_count)
+	{
+		// Expanser TOUJOURS les délimiteurs (même avec quotes sur le contenu)
+		if (is_variable(commands->heredoc_delims[j]))
+		{
+			expanded = build_full_command(commands->heredoc_delims[j], env, false);
+			if (expanded)
+			{
+				free(commands->heredoc_delims[j]);
+				commands->heredoc_delims[j] = ft_strdup_pars(expanded);
+				free(expanded);
+			}
+		}
+		j++;
+	}
+}
 
 static void	expand_args(t_cmd *commands, t_env *env)
 {
@@ -67,7 +92,7 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 	}
 }
 
-static void	expand_heredoc_delims(t_cmd *commands, t_env *env)
+/*static void	expand_heredoc_delims(t_cmd *commands, t_env *env)
 {
 	char	*expanded;
 	int		j;
@@ -91,7 +116,7 @@ static void	expand_heredoc_delims(t_cmd *commands, t_env *env)
 		}
 		j++;
 	}
-}
+}*/
 
 void	expansion(t_cmd *commands, t_env *env)
 {
@@ -100,7 +125,8 @@ void	expansion(t_cmd *commands, t_env *env)
 		expand_args(commands, env);
 		expand_input_file(commands, env);
 		expand_output_file(commands, env);
-		expand_heredoc_delims(commands, env);
+		//expand_heredoc_delims(commands, env);
+		expand_heredoc_delims_special(commands, env);
 		commands = commands->next;
 	}
 }
