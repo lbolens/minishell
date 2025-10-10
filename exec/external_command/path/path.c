@@ -6,13 +6,13 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:49:56 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 10:16:25 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 10:25:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/parsing.h"
 
-/*char	*find_command_path(char *cmd_name, char **envp)
+char	*find_command_path(char *cmd_name, char **envp)
 {
 	char	**paths;
 	char	*result;
@@ -27,9 +27,9 @@
 	result = search_command_in_paths(cmd_name, paths);
 	free_tab(paths);
 	return (result);
-}*/
+}
 
-char *find_command_path(char *cmd_name, char **envp)
+/*char *find_command_path(char *cmd_name, char **envp)
 {
     char **paths;
     char *result;
@@ -63,7 +63,7 @@ char *find_command_path(char *cmd_name, char **envp)
     free_tab(paths);
     fprintf(stderr, "[DEBUG] search_command_in_paths returned: %p\n", (void*)result);
     return (result);
-}
+}*/
 
 char	**get_paths(char **envp)
 {
