@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:17:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:07:41 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/10 10:08:26 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*search_command_in_paths(const char *cmd, char **paths)
 char	*try_command_with_slash(const char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
+		return (ft_strdup_pars(cmd));
 	return (NULL);
 }
 
