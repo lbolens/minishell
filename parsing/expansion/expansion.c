@@ -6,70 +6,11 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 15:27:15 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 15:31:06 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
-
-/*static void	expand_heredoc_delims_special(t_cmd *commands, t_env *env)
-{
-	char	*expanded;
-	int		j;
-
-	if (!commands->heredoc_delims || commands->heredoc_count <= 0)
-		return ;
-	j = 0;
-	while (j < commands->heredoc_count)
-	{
-		if (is_variable(commands->heredoc_delims[j]))
-		{
-			expanded = build_full_command(commands->heredoc_delims[j], env, 0, false);  // ✅ 4 arguments !
-			if (expanded)
-			{
-				free(commands->heredoc_delims[j]);
-				commands->heredoc_delims[j] = ft_strdup_pars(expanded);
-				free(expanded);
-			}
-		}
-		j++;
-	}
-}*/
-
-static void	expand_heredoc_delims_special(t_cmd *commands, t_env *env)
-{
-	char	*expanded;
-	int		j;
-
-	fprintf(stderr, "[DEBUG] expand_heredoc_delims_special called\n");
-	fprintf(stderr, "[DEBUG] heredoc_count=%d\n", commands->heredoc_count);
-	
-	if (!commands->heredoc_delims || commands->heredoc_count <= 0)
-	{
-		fprintf(stderr, "[DEBUG] no heredocs, returning\n");
-		return ;
-	}
-	j = 0;
-	while (j < commands->heredoc_count)
-	{
-		fprintf(stderr, "[DEBUG] delim[%d]='%s'\n", j, commands->heredoc_delims[j]);
-		fprintf(stderr, "[DEBUG] is_variable=%d\n", is_variable(commands->heredoc_delims[j]));
-		
-		if (is_variable(commands->heredoc_delims[j]))
-		{
-			expanded = build_full_command(commands->heredoc_delims[j], env, 0, false);
-			fprintf(stderr, "[DEBUG] expanded='%s'\n", expanded);
-			if (expanded)
-			{
-				free(commands->heredoc_delims[j]);
-				commands->heredoc_delims[j] = ft_strdup_pars(expanded);
-				fprintf(stderr, "[DEBUG] new delim='%s'\n", commands->heredoc_delims[j]);
-				free(expanded);
-			}
-		}
-		j++;
-	}
-}
 
 static void	expand_args(t_cmd *commands, t_env *env)
 {
@@ -160,7 +101,6 @@ void	expansion(t_cmd *commands, t_env *env)
 		expand_input_file(commands, env);
 		expand_output_file(commands, env);
 		//expand_heredoc_delims(commands, env);
-		expand_heredoc_delims_special(commands, env);
 		commands = commands->next;
 	}
 }
