@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
+#    By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/09 17:45:28 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/10 09:23:35 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ EXEC_SRCS := \
 	exec/builtin/utils_builtin.c \
 	exec/builtin/utils_parse_export.c \
 	exec/builtin/utils_builtin_bis.c \
+	exec/builtin/utils_builtin_cd.c \
 	exec/external_command/exec_external_cmd.c \
 	exec/external_command/path/path.c \
 	exec/external_command/path/utils_path.c \

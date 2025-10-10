@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 15:47:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:23:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,9 @@ int						builtin_export(t_cmd *cmd, t_env *env);
 int						builtin_unset(t_cmd *cmd, t_env *env);
 int						builtin_env(t_cmd *cmd, t_env *env);
 int						builtin_exit(t_cmd *cmd, t_env *env);
+char	*handle_home_directory(t_env *env);
+char	*handle_oldpwd_directory(t_env *env);
+char	*resolve_parent_dir(char *pwd);
 
 /* ************************************************************************** */
 /*                          BUILTINS HELPERS                                  */
