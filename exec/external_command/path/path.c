@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:49:56 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:07:34 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/10 10:16:25 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/parsing.h"
 
-char	*find_command_path(char *cmd_name, char **envp)
+/*char	*find_command_path(char *cmd_name, char **envp)
 {
 	char	**paths;
 	char	*result;
@@ -27,6 +27,42 @@ char	*find_command_path(char *cmd_name, char **envp)
 	result = search_command_in_paths(cmd_name, paths);
 	free_tab(paths);
 	return (result);
+}*/
+
+char *find_command_path(char *cmd_name, char **envp)
+{
+    char **paths;
+    char *result;
+
+    fprintf(stderr, "[DEBUG] find_command_path: cmd_name='%s'\n", cmd_name);
+    
+    if (!cmd_name || !cmd_name[0])
+    {
+        fprintf(stderr, "[DEBUG] cmd_name is NULL or empty\n");
+        return (NULL);
+    }
+    
+    if (has_slash(cmd_name))
+    {
+        fprintf(stderr, "[DEBUG] has_slash=true, calling try_command_with_slash\n");
+        result = try_command_with_slash(cmd_name);
+        fprintf(stderr, "[DEBUG] try_command_with_slash returned: %p\n", (void*)result);
+        if (result)
+            fprintf(stderr, "[DEBUG] result='%s'\n", result);
+        return result;
+    }
+    
+    fprintf(stderr, "[DEBUG] no slash, searching in PATH\n");
+    paths = get_paths(envp);
+    if (!paths)
+    {
+        fprintf(stderr, "[DEBUG] get_paths returned NULL\n");
+        return (NULL);
+    }
+    result = search_command_in_paths(cmd_name, paths);
+    free_tab(paths);
+    fprintf(stderr, "[DEBUG] search_command_in_paths returned: %p\n", (void*)result);
+    return (result);
 }
 
 char	**get_paths(char **envp)
