@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:54:43 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:27:18 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:31:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,24 @@ void	update_pwd_variables(t_env *env, char *old_pwd, char *target_dir)
 	}
 }
 
+static int	try_chdir(char *target_dir, char *original_target)
+{
+	if (chdir(target_dir) == 0)
+		return (0);
+	if (ft_strcmp_pars(original_target, "..") == 0)
+	{
+		perror("chdir");
+		return (0);
+	}
+	return (cd_error("cd"));
+}
+
 int	builtin_cd(t_cmd *cmd, t_env *env)
 {
 	char	*current_pwd;
 	char	*target_dir;
+	char	*original_arg;
+	int		result;
 
 	current_pwd = getcwd(NULL, 0);
 	if (!current_pwd)
@@ -71,18 +85,15 @@ int	builtin_cd(t_cmd *cmd, t_env *env)
 			return (cd_error("cd: cannot determine current directory"));
 		current_pwd = ft_strdup_pars(current_pwd);
 	}
+	original_arg = cmd->args[1];
 	target_dir = get_target_directory(cmd, env);
 	if (!target_dir)
 	{
 		free(current_pwd);
 		return (1);
 	}
-	if (chdir(target_dir) != 0)
-	{
-		free(current_pwd);
-		return (cd_error("cd"));
-	}
+	result = try_chdir(target_dir, original_arg);
 	update_pwd_variables(env, current_pwd, target_dir);
 	free(current_pwd);
-	return (0);
+	return (result);
 }
