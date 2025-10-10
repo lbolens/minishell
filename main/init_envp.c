@@ -6,11 +6,30 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:26:02 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 10:12:34 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 15:38:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/parsing.h"
+
+static void	increment_shlvl(t_env *env)
+{
+	char	*shlvl_str;
+	int		shlvl;
+	char	*new_shlvl;
+
+	shlvl_str = get_env_value(env, "SHLVL");
+	if (shlvl_str)
+		shlvl = ft_atoi(shlvl_str) + 1;
+	else
+		shlvl = 1;
+	new_shlvl = ft_itoa_pars(shlvl);
+	if (new_shlvl)
+	{
+		set_env_var(env, "SHLVL", new_shlvl);
+		free(new_shlvl);
+	}
+}
 
 t_env	*init_env(char **envp)
 {
@@ -29,6 +48,7 @@ t_env	*init_env(char **envp)
 		add_env_var(&env->env_list, envp[i]);
 		i++;
 	}
+	increment_shlvl(env);
 	env->envp = env_list_to_array(env->env_list);
 	return (env);
 }
