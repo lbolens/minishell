@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:17:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 18:17:55 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 08:55:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ void	child_exec(t_cmd *cmd, t_env *env, int in_fd, int out_fd)
 	restore_signal();
 	apply_redirs(in_fd, out_fd);
 	if (cmd->args && cmd->args[0] && is_builtin(cmd->args[0]))
+	{
+        fprintf(stderr, "[DEBUG] child_exec builtin '%s': ret=%d\n", 
+                cmd->args[0], execute_builtin(cmd, env));  // ✅ DEBUG
 		_exit(execute_builtin(cmd, env));
+	}
 	envp = env_list_to_array(env->env_list);
 	path = find_command_path(cmd->args[0], envp);
 	if (!path)

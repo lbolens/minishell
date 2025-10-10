@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:12:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 11:19:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 08:56:30 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int	wait_all(pid_t *pids, int n)
 	{
 		if (waitpid(pids[i], &wst, 0) > 0 && i == n - 1)
 		{
-			if (WIFEXITED(wst))
-				status = WEXITSTATUS(wst);
-			else if (WIFSIGNALED(wst))
-				status = 128 + WTERMSIG(wst);
+			if (i == n - 1) // pour debug
+			{
+				if (WIFEXITED(wst))
+					status = WEXITSTATUS(wst);
+				else if (WIFSIGNALED(wst))
+					status = 128 + WTERMSIG(wst);
+				fprintf(stderr, "[DEBUG] wait_all: last cmd status=%d\n", 
+                        status);  // ✅ DEBUG
+			}
 		}
 		i++;
 	}
