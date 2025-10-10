@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:34:52 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 11:07:40 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:39:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ static int	wait_for_child(char *path)
 
 	free(path);
 	wait(&status);
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 19);
+		return (128 + WTERMSIG(status));
+	}
 	return (WEXITSTATUS(status));
 }
 
