@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 08:53:02 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 09:02:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int	builtin_exit(t_cmd *cmd, t_env *env)
 		exit_code = 2;
 	}
 	else
-	{
 		exit_code = ft_atoi(cmd->args[1]) % 256;
-		fprintf(stderr, "[DEBUG] builtin_exit: arg=%s, code=%d\n", 
-                cmd->args[1], exit_code);
-	}
 	env->exit_status = exit_code;
 	return (exit_code);
 }
