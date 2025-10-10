@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:26:02 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 10:55:45 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/10 10:12:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ t_env	*init_env(char **envp)
 		add_env_var(&env->env_list, envp[i]);
 		i++;
 	}
+	env->envp = env_list_to_array(env->env_list);
 	return (env);
 }
