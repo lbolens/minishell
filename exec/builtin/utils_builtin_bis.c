@@ -25,7 +25,7 @@ int	export_display_all(t_env *env)
 	current = env->env_list;
 	while (current)
 	{
-		if (current->value && current->value[0] != '\0')
+		if (current->value)
 			printf("declare -x %s=\"%s\"\n", current->name, current->value);
 		else
 			printf("declare -x %s\n", current->name);

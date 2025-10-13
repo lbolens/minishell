@@ -57,7 +57,7 @@ int	builtin_env(t_cmd *cmd, t_env *env)
 	current = env->env_list;
 	while (current)
 	{
-		if (current->value && current->value[0] != '\0')
+		if (current->value)
 			printf("%s=%s\n", current->name, current->value);
 		current = current->next;
 	}

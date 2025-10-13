@@ -43,7 +43,7 @@ int	ft_strncmp_pars(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int	count_size(long nb)
+static int	count_size(long nb)
 {
 	int		count;
 	long	num;

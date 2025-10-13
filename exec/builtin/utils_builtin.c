@@ -71,6 +71,25 @@ int	execute_builtin(t_cmd *cmd, t_env *env)
 	return (execute_complex_builtins(cmd, env));
 }
 
+static int	check_overflow(char *str)
+{
+	int			i;
+	long long	result;
+
+	i = 0;
+	result = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (result > (9223372036854775807LL - (str[i] - '0')) / 10)
+			return (0);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (1);
+}
+
 int	is_valid_number(char *str)
 {
 	int	i;
@@ -86,5 +105,5 @@ int	is_valid_number(char *str)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (check_overflow(str));
 }
