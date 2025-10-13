@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:33:49 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:34:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:31:57 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,25 @@ static int	calculate_word_length(char *str, int *i)
 	return (*i - start);
 }
 
-char	*extract_word(char *str, int *i)
+static int	has_outer_quotes(char *str, int start, int len, bool *is_single,
+		bool *is_double)
+{
+	if (len < 2)
+		return (0);
+	if (str[start] == '"' && str[start + len - 1] == '"')
+	{
+		*is_double = true;
+		return (1);
+	}
+	if (str[start] == 39 && str[start + len - 1] == 39)
+	{
+		*is_single = true;
+		return (1);
+	}
+	return (0);
+}
+
+char	*extract_word(char *str, int *i, bool *is_single, bool *is_double)
 {
 	int		start;
 	int		len;
@@ -47,7 +65,10 @@ char	*extract_word(char *str, int *i)
 	int		j;
 
 	start = *i;
+	*is_single = false;
+	*is_double = false;
 	len = calculate_word_length(str, i);
+	has_outer_quotes(str, start, len, is_single, is_double);
 	word = malloc((len + 1) * sizeof(char));
 	if (!word)
 		return (NULL);
@@ -61,7 +82,7 @@ char	*extract_word(char *str, int *i)
 	return (word);
 }
 
-static void	extract_content(char *str, int *i, char *in_quote, char quote)
+/*static void	extract_content(char *str, int *i, char *in_quote, char quote)
 {
 	int	j;
 
@@ -73,26 +94,4 @@ static void	extract_content(char *str, int *i, char *in_quote, char quote)
 		(*i)++;
 	}
 	in_quote[j] = '\0';
-}
-
-char	*extract_quote(char *str, int *i, bool *is_single_quote)
-{
-	char	*in_quote;
-	int		size;
-	char	quote_type;
-
-	quote_type = str[*i];
-	*is_single_quote = (quote_type == 39);
-	size = get_size_quote(str, *i);
-	in_quote = malloc((size + 1) * sizeof(char));
-	if (!in_quote)
-		return (NULL);
-	(*i)++;
-	if (quote_type == '"')
-		extract_content(str, i, in_quote, '"');
-	else if (quote_type == 39)
-		extract_content(str, i, in_quote, 39);
-	if (str[*i] != '\0')
-		(*i)++;
-	return (in_quote);
-}
+}*/

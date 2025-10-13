@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 15:31:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:22:29 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 	}
 }
 
-/*static void	expand_heredoc_delims(t_cmd *commands, t_env *env)
+static void	expand_heredoc_delims_dquotes(t_cmd *commands, t_env *env)
 {
 	char	*expanded;
 	int		j;
@@ -77,8 +77,7 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 	j = 0;
 	while (j < commands->heredoc_count)
 	{
-		if (is_variable(commands->heredoc_delims[j])
-			&& !commands->heredoc_delim_quotes[j])
+		if (commands->heredoc_delim_double_quotes[j])
 		{
 			expanded = build_full_command(commands->heredoc_delims[j], env, 0,
 					false);
@@ -91,7 +90,7 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 		}
 		j++;
 	}
-}*/
+}
 
 void	expansion(t_cmd *commands, t_env *env)
 {
@@ -100,7 +99,7 @@ void	expansion(t_cmd *commands, t_env *env)
 		expand_args(commands, env);
 		expand_input_file(commands, env);
 		expand_output_file(commands, env);
-		//expand_heredoc_delims(commands, env);
+		expand_heredoc_delims_dquotes(commands, env);
 		commands = commands->next;
 	}
 }

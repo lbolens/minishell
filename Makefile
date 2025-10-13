@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+         #
+#    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/10 09:23:35 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/13 15:07:40 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ PARSING_SRCS := \
 	parsing/expansion/expansion.c \
 	parsing/expansion/expansion_build.c \
 	parsing/expansion/expansion_utils.c \
+	parsing/expansion/expansion_arithmetic.c \
+	parsing/expansion/expansion_var.c \
 	parsing/pre_parsing/pre_check.c \
 	parsing/pre_parsing/utils_pre_check.c \
 	parsing/tokenization/lists.c \
@@ -64,6 +66,7 @@ PARSING_SRCS := \
 EXEC_SRCS := \
 	exec/builtin/builtin_cd.c \
 	exec/builtin/builtin_export.c \
+	exec/builtin/builtin_export_process.c \
 	exec/builtin/builtin_unset.c \
 	exec/builtin/builtin_simple.c \
 	exec/builtin/utils_builtin.c \
@@ -77,6 +80,7 @@ EXEC_SRCS := \
 	exec/external_command/path/utils_path3.c \
 	exec/pipes/pipes.c \
 	exec/pipes/single_exec.c \
+	exec/pipes/single_exec_external.c \
 	exec/pipes/utils_pipes.c \
 	exec/pipes/utils_redir.c \
 	exec/pipes/utils_redir_output.c \

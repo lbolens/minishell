@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 15:21:46 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:30:53 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_token
 	t_types_tokens		type;
 	char				*value;
 	bool				single_quotes;
+	bool				double_quotes;
 	struct s_token		*next;
 }						t_token;
 
@@ -64,6 +65,7 @@ typedef struct s_cmd
 	int					output_count;
 	char				**heredoc_delims;
 	bool				*heredoc_delim_quotes;
+	bool				*heredoc_delim_double_quotes;
 	int					heredoc_count;
 	struct s_cmd		*next;
 }						t_cmd;
@@ -92,6 +94,21 @@ typedef struct s_build_data
 	t_env				*env;
 }						t_build_data;
 
+typedef struct s_expand_buf
+{
+	char				*result;
+	int					k;
+	int					i;
+}						t_expand_buf;
+
+typedef struct s_exec_ctx
+{
+	t_cmd				*cmd;
+	t_env				*env;
+	int					in_fd;
+	int					out_fd;
+}						t_exec_ctx;
+
 /* ************************************************************************** */
 /*                              MAIN & INIT                                   */
 /* ************************************************************************** */
@@ -116,11 +133,9 @@ bool					check_operators(char *str, int i);
 
 t_token					*tokenization(char *str);
 bool					is_operator(char c);
-//bool					is_quote(char c);
 char					*extract_operator(char *str, int *i);
-char					*extract_word(char *str, int *i);
-char					*extract_quote(char *str, int *i,
-							bool *is_single_quote);
+char					*extract_word(char *str, int *i, bool *is_single,
+							bool *is_double);
 t_token					*ft_lstnew_pars(void *content);
 void					ft_lstadd_back_pars(t_token **lst, t_token *new);
 t_types_tokens			define_type(char *str);
@@ -135,11 +150,13 @@ t_cmd					*init_new_command(void);
 void					add_arg(t_cmd *command, char *argument,
 							bool is_single_quote, int position);
 bool					redirection(t_cmd *command, t_types_tokens type,
-							char *file, bool is_single_quote);
+							char *file, bool is_single_quote,
+							bool is_double_quote);
 bool					is_redirection(t_token *token);
 void					ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 bool					handle_input_redir(t_cmd *command, char *file,
 							bool is_single_quote);
+int						is_append_mode(char *str);
 
 /* ************************************************************************** */
 /*                              EXPANSION                                     */
@@ -151,14 +168,27 @@ char					*remove_quotes_from_string(char *str);
 void					remove_quotes_from_args(t_cmd *commands);
 void					remove_quotes_from_input(t_cmd *commands);
 void					remove_quotes_from_outputs(t_cmd *commands);
-char	*build_full_command(char *original, t_env *env, size_t i,
-		bool heredoc_mode);
+char					*build_full_command(char *original, t_env *env,
+							size_t i, bool heredoc_mode);
 void					replace_in_command(t_cmd *commands, char *str, int i);
 char					*extract_variable(char *str);
 char					*extract_chain(char *str, int start, int end);
 bool					is_variable(char *str);
 void					handle_quote_state(char c, char *current_quote,
 							char *result, int *result_pos);
+char					*expand_vars_in_expr(char *expr, t_env *env);
+long					eval_arithmetic(char *expr, t_env *env);
+long					eval_simple(char *expr);
+long					parse_number(char *expr, int *idx, int is_first);
+size_t					handle_arithmetic_expansion(char *original, size_t i,
+							t_build_data *data);
+void					append_env_value(char *variable, t_env *env,
+							char *result, int *result_pos);
+size_t					handle_exit_status_var(size_t j, t_build_data *data);
+size_t					handle_env_var(char *original, size_t i, size_t j,
+							t_build_data *data);
+size_t					process_dollar_sign(char *original, size_t i,
+							t_build_data *data);
 
 /* ************************************************************************** */
 /*                              ENVIRONMENT                                   */
@@ -191,16 +221,18 @@ int						builtin_export(t_cmd *cmd, t_env *env);
 int						builtin_unset(t_cmd *cmd, t_env *env);
 int						builtin_env(t_cmd *cmd, t_env *env);
 int						builtin_exit(t_cmd *cmd, t_env *env);
-char	*handle_home_directory(t_env *env);
-char	*handle_oldpwd_directory(t_env *env);
-char	*resolve_parent_dir(char *pwd);
+char					*handle_home_directory(t_env *env);
+char					*handle_oldpwd_directory(t_env *env);
+char					*resolve_parent_dir(char *pwd);
+int						process_single_export(char *arg, t_env *env);
 
 /* ************************************************************************** */
 /*                          BUILTINS HELPERS                                  */
 /* ************************************************************************** */
 
 char					*get_target_directory(t_cmd *cmd, t_env *env);
-void	update_pwd_variables(t_env *env, char *old_pwd, char *target_dir);
+void					update_pwd_variables(t_env *env, char *old_pwd,
+							char *target_dir);
 int						cd_error(char *msg);
 char					*remove_quotes(char *str);
 int						export_display_all(t_env *env);
@@ -287,8 +319,8 @@ void					setup_signals_interactive(void);
 void					setup_signals_command(void);
 void					restore_signal(void);
 void					handle_sig_int_interactive(int signal);
-//void					handle_sig_int_command(int signal);
-//void					handle_sig_quit(int signal);
+// void					handle_sig_int_command(int signal);
+// void					handle_sig_quit(int signal);
 
 /* ************************************************************************** */
 /*                              SINGLE COMMAND                                */

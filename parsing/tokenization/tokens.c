@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 18:18:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:30:35 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,19 @@ static void	handle_operator_token(char *str, int *i, t_token **head)
 	ft_lstadd_back_pars(head, new_token);
 }
 
-/*static void	handle_quote_token(char *str, int *i, t_token **head)
-{
-	char	*token;
-	t_token	*new_token;
-	bool	is_single;
-
-	token = extract_quote(str, i, &is_single);
-	new_token = ft_lstnew_pars(token);
-	new_token->single_quotes = is_single;
-	ft_lstadd_back_pars(head, new_token);
-}*/
-
 static void	handle_word_token(char *str, int *i, t_token **head)
 {
 	char	*token;
 	t_token	*new_token;
+	bool	is_single;
+	bool	is_double;
 
-	token = extract_word(str, i);
+	is_single = false;
+	is_double = false;
+	token = extract_word(str, i, &is_single, &is_double);
 	new_token = ft_lstnew_pars(token);
+	new_token->single_quotes = is_single;
+	new_token->double_quotes = is_double;
 	ft_lstadd_back_pars(head, new_token);
 }
 

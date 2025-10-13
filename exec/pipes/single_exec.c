@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 10:22:27 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 13:42:54 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,67 +63,6 @@ int	run_builtin_parent(t_cmd *cmd, t_env *env)
 	ret = execute_builtin(cmd, env);
 	restore_stdio(saved_in, saved_out);
 	return (ret);
-}
-
-int	run_external_child(t_cmd *cmd, t_env *env)
-{
-	pid_t	pid;
-	int		status;
-	int		in_fd;
-	int		out_fd;
-	char	*path;
-	char	**env_array;
-
-	if (!setup_redirections(cmd, env, &in_fd, &out_fd))
-		return (1);
-	path = find_command_path(cmd->args[0], env->envp);
-	if (!path)
-	{
-		if (in_fd != STDIN_FILENO)
-			close(in_fd);
-		if (out_fd != STDOUT_FILENO)
-			close(out_fd);
-		fprintf(stderr, "%s: command not found\n", cmd->args[0]);
-		return (127);
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		if (in_fd != STDIN_FILENO)
-			close(in_fd);
-		if (out_fd != STDOUT_FILENO)
-			close(out_fd);
-		free(path);
-		return (1);
-	}
-	if (pid == 0)
-	{
-		restore_signal();
-		apply_redirs(in_fd, out_fd);
-		env_array = env_list_to_array(env->env_list);
-		execve(path, cmd->args, env_array);
-		perror(path);
-		free_tab(env_array);
-		free(path);
-		_exit(126);
-	}
-	free(path);
-	if (in_fd != STDIN_FILENO)
-		close(in_fd);
-	if (out_fd != STDOUT_FILENO)
-		close(out_fd);
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
-		else if (WTERMSIG(status) == SIGQUIT)
-			write(2, "Quit (core dumped)\n", 19);
-		return (128 + WTERMSIG(status));
-	}
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (1);
 }
 
 int	execute_single_cmd(t_cmd *cmd, t_env *env)

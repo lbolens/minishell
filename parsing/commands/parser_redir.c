@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:54:51 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:59:16 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:19:31 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	set_output_data(t_cmd *command, t_types_tokens type, char *file,
 	command->append_mode = (type == TOKEN_REDIRECT_APPEND);
 }
 
-static bool	handle_output_redir(t_cmd *command, t_types_tokens type,
-		char *file, bool is_single_quote)
+static bool	handle_output_redir(t_cmd *command, t_types_tokens type, char *file,
+		bool is_single_quote)
 {
 	if (!realloc_output_arrays(command))
 		return (false);
@@ -49,28 +49,33 @@ static bool	handle_output_redir(t_cmd *command, t_types_tokens type,
 }
 
 static bool	handle_heredoc_redir(t_cmd *command, char *file,
-		bool is_single_quote)
+		bool is_single_quote, bool is_double_quote)
 {
 	command->heredoc_delims = realloc(command->heredoc_delims,
 			(command->heredoc_count + 1) * sizeof(char *));
 	command->heredoc_delim_quotes = realloc(command->heredoc_delim_quotes,
 			(command->heredoc_count + 1) * sizeof(bool));
-	if (!command->heredoc_delims || !command->heredoc_delim_quotes)
+	command->heredoc_delim_double_quotes = realloc(command->heredoc_delim_double_quotes,
+			(command->heredoc_count + 1) * sizeof(bool));
+	if (!command->heredoc_delims || !command->heredoc_delim_quotes
+		|| !command->heredoc_delim_double_quotes)
 		return (false);
 	command->heredoc_delims[command->heredoc_count] = ft_strdup_pars(file);
 	command->heredoc_delim_quotes[command->heredoc_count] = is_single_quote;
+	command->heredoc_delim_double_quotes[command->heredoc_count] = is_double_quote;
 	command->heredoc_count++;
 	return (true);
 }
 
 bool	redirection(t_cmd *command, t_types_tokens type, char *file,
-		bool is_single_quote)
+		bool is_single_quote, bool is_double_quote)
 {
 	if (type == TOKEN_REDIRECT_IN)
 		return (handle_input_redir(command, file, is_single_quote));
 	else if (type == TOKEN_REDIRECT_OUT || type == TOKEN_REDIRECT_APPEND)
 		return (handle_output_redir(command, type, file, is_single_quote));
 	else if (type == TOKEN_REDIRECT_HEREDOC)
-		return (handle_heredoc_redir(command, file, is_single_quote));
+		return (handle_heredoc_redir(command, file, is_single_quote,
+				is_double_quote));
 	return (true);
 }

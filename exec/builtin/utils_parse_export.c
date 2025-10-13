@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 09:26:38 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:03:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	parse_export(char *str)
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			break ;
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (0);
 		i++;
@@ -37,7 +39,7 @@ char	*extract_var(char *str)
 	char	*var_name;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
 	var_name = (char *)malloc(sizeof(char) * (i + 1));
 	if (!var_name)
@@ -73,4 +75,18 @@ char	*extract_value(char *str)
 	}
 	value[j] = '\0';
 	return (value);
+}
+
+int	is_append_mode(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
 }

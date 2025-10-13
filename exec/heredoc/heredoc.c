@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:21:35 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 15:39:37 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:25:59 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
 {
 	pid_t	pid;
 	int		status;
+	bool	has_any_quotes;
 
 	pid = fork();
 	if (pid == -1)
@@ -76,8 +77,9 @@ static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
 	if (pid == 0)
 	{
 		setup_heredoc_signals();
-		read_one_heredoc(pipe_fd, cmd->heredoc_delims[i],
-			cmd->heredoc_delim_quotes[i], env);
+		has_any_quotes = cmd->heredoc_delim_quotes[i]
+			|| cmd->heredoc_delim_double_quotes[i];
+		read_one_heredoc(pipe_fd, cmd->heredoc_delims[i], has_any_quotes, env);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		exit(0);

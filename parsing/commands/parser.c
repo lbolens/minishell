@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:56:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:20:13 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	handle_redir_token(t_token **current, t_cmd *command)
 {
 	t_types_tokens	current_type;
 	bool			redir_is_single;
+	bool			redir_is_double;
 
 	current_type = (*current)->type;
 	(*current) = (*current)->next;
@@ -33,7 +34,9 @@ static int	handle_redir_token(t_token **current, t_cmd *command)
 		return (0);
 	}
 	redir_is_single = (*current)->single_quotes;
-	if (!redirection(command, current_type, (*current)->value, redir_is_single))
+	redir_is_double = (*current)->double_quotes;
+	if (!redirection(command, current_type, (*current)->value, redir_is_single,
+			redir_is_double))
 		return (0);
 	(*current) = (*current)->next;
 	return (1);
