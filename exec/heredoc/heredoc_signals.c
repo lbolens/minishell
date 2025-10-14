@@ -16,7 +16,7 @@ void	handle_heredoc_sigint(int signal)
 {
 	(void)signal;
 	write(STDOUT_FILENO, "\n", 1);
-	exit(130);
+	_exit(130);
 }
 
 void	setup_heredoc_signals(void)

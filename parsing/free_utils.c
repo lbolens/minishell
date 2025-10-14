@@ -61,6 +61,7 @@ void	free_heredoc_delims(t_cmd *cmd)
 		}
 		free(cmd->heredoc_delims);
 		free(cmd->heredoc_delim_quotes);
+		free(cmd->heredoc_delim_double_quotes);
 	}
 }
 

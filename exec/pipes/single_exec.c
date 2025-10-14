@@ -58,6 +58,7 @@ int	run_builtin_parent(t_cmd *cmd, t_env *env)
 		printf("exit\n");
 		ret = execute_builtin(cmd, env);
 		restore_stdio(saved_in, saved_out);
+		cleanup_env(env);
 		exit(ret);
 	}
 	ret = execute_builtin(cmd, env);

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:33:49 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:31:57 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 16:39:12 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	calculate_word_length(char *str, int *i)
 	int	start;
 
 	start = *i;
-	while (str[*i] != ' ' && str[*i] != '\t' && str[*i] != '<' && str[*i] != '>'
-		&& str[*i] != '|' && str[*i] != '\0')
+	while (str[*i] != ' ' && str[*i] != '\t' && str[*i] != '<'
+		&& str[*i] != '>' && str[*i] != '|' && str[*i] != '\0')
 	{
 		if (str[*i] == '"')
 			skip_quoted_section(str, i, '"');
@@ -39,19 +39,21 @@ static int	calculate_word_length(char *str, int *i)
 	return (*i - start);
 }
 
-static int	has_outer_quotes(char *str, int start, int len, bool *is_single,
-		bool *is_double)
+static int	has_outer_quotes(char *str, int start, t_quote_flags *flags)
 {
+	int	len;
+
+	len = flags->len;
 	if (len < 2)
 		return (0);
 	if (str[start] == '"' && str[start + len - 1] == '"')
 	{
-		*is_double = true;
+		flags->is_double = true;
 		return (1);
 	}
 	if (str[start] == 39 && str[start + len - 1] == 39)
 	{
-		*is_single = true;
+		flags->is_single = true;
 		return (1);
 	}
 	return (0);
@@ -59,39 +61,27 @@ static int	has_outer_quotes(char *str, int start, int len, bool *is_single,
 
 char	*extract_word(char *str, int *i, bool *is_single, bool *is_double)
 {
-	int		start;
-	int		len;
-	char	*word;
-	int		j;
+	t_extract_data	data;
 
-	start = *i;
+	data.start = *i;
 	*is_single = false;
 	*is_double = false;
-	len = calculate_word_length(str, i);
-	has_outer_quotes(str, start, len, is_single, is_double);
-	word = malloc((len + 1) * sizeof(char));
-	if (!word)
+	data.len = calculate_word_length(str, i);
+	data.flags.len = data.len;
+	data.flags.is_single = false;
+	data.flags.is_double = false;
+	has_outer_quotes(str, data.start, &data.flags);
+	*is_single = data.flags.is_single;
+	*is_double = data.flags.is_double;
+	data.word = malloc((data.len + 1) * sizeof(char));
+	if (!data.word)
 		return (NULL);
-	j = 0;
-	while (j < len)
+	data.j = 0;
+	while (data.j < data.len)
 	{
-		word[j] = str[start + j];
-		j++;
+		data.word[data.j] = str[data.start + data.j];
+		data.j++;
 	}
-	word[j] = '\0';
-	return (word);
+	data.word[data.j] = '\0';
+	return (data.word);
 }
-
-/*static void	extract_content(char *str, int *i, char *in_quote, char quote)
-{
-	int	j;
-
-	j = 0;
-	while (str[*i] != quote && str[*i] != '\0')
-	{
-		in_quote[j] = str[*i];
-		j++;
-		(*i)++;
-	}
-	in_quote[j] = '\0';
-}*/

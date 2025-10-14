@@ -19,6 +19,12 @@ static int	init_args_arrays(t_cmd *command)
 	if (!command->args || !command->args_single_quotes)
 	{
 		printf("Error: malloc\n");
+		if (command->args)
+			free(command->args);
+		if (command->args_single_quotes)
+			free(command->args_single_quotes);
+		command->args = NULL;
+		command->args_single_quotes = NULL;
 		return (0);
 	}
 	return (1);
@@ -26,14 +32,23 @@ static int	init_args_arrays(t_cmd *command)
 
 static int	realloc_args_arrays(t_cmd *command, int position)
 {
-	command->args = realloc(command->args, ((position + 2) * sizeof(char *)));
-	command->args_single_quotes = realloc(command->args_single_quotes,
+	char	**new_args;
+	bool	*new_quotes;
+
+	new_args = realloc(command->args, ((position + 2) * sizeof(char *)));
+	new_quotes = realloc(command->args_single_quotes,
 			((position + 2) * sizeof(bool)));
-	if (!command->args || !command->args_single_quotes)
+	if (!new_args || !new_quotes)
 	{
 		printf("Error: realloc\n");
+		if (new_args)
+			command->args = new_args;
+		if (new_quotes)
+			command->args_single_quotes = new_quotes;
 		return (0);
 	}
+	command->args = new_args;
+	command->args_single_quotes = new_quotes;
 	return (1);
 }
 

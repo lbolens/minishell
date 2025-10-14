@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:30:53 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 16:44:44 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ typedef struct s_exec_env
 	int					exit_status;
 	int					stdin_backup;
 	int					stdout_backup;
+	void				*current_tokens;
+	void				*current_cmd;
+	char				*current_input;
 }						t_env;
 
 typedef struct s_build_data
@@ -109,11 +112,43 @@ typedef struct s_exec_ctx
 	int					out_fd;
 }						t_exec_ctx;
 
+typedef struct s_quote_flags
+{
+	int					len;
+	bool				is_single;
+	bool				is_double;
+}						t_quote_flags;
+
+typedef struct s_extract_data
+{
+	int					start;
+	int					len;
+	int					j;
+	char				*word;
+	t_quote_flags		flags;
+}						t_extract_data;
+
+typedef struct s_redir_info
+{
+	t_types_tokens		type;
+	char				*file;
+	bool				is_single_quote;
+	bool				is_double_quote;
+}						t_redir_info;
+
+typedef struct s_heredoc_arrays
+{
+	char				**new_delims;
+	bool				*new_quotes;
+	bool				*new_double_quotes;
+}						t_heredoc_arrays;
+
 /* ************************************************************************** */
 /*                              MAIN & INIT                                   */
 /* ************************************************************************** */
 
 t_env					*init_env(char **envp);
+void					cleanup_env(t_env *env);
 
 /* ************************************************************************** */
 /*                              PRE-CHECK                                     */
@@ -149,14 +184,14 @@ t_cmd					*parse_command(t_token **current);
 t_cmd					*init_new_command(void);
 void					add_arg(t_cmd *command, char *argument,
 							bool is_single_quote, int position);
-bool					redirection(t_cmd *command, t_types_tokens type,
-							char *file, bool is_single_quote,
-							bool is_double_quote);
+bool					redirection(t_cmd *command, t_redir_info *info);
 bool					is_redirection(t_token *token);
 void					ft_lstadd_back_commands(t_cmd **lst, t_cmd *new);
 bool					handle_input_redir(t_cmd *command, char *file,
 							bool is_single_quote);
 int						is_append_mode(char *str);
+bool					handle_heredoc_redir(t_cmd *command,
+							t_redir_info *info);
 
 /* ************************************************************************** */
 /*                              EXPANSION                                     */

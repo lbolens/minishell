@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:20:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 16:45:02 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,19 @@ static int	handle_word_token(t_token **current, t_cmd *command, int *count)
 
 static int	handle_redir_token(t_token **current, t_cmd *command)
 {
-	t_types_tokens	current_type;
-	bool			redir_is_single;
-	bool			redir_is_double;
+	t_redir_info	info;
 
-	current_type = (*current)->type;
+	info.type = (*current)->type;
 	(*current) = (*current)->next;
 	if (!(*current) || (*current)->type != TOKEN_WORD)
 	{
 		printf("Error: No file after redirection");
 		return (0);
 	}
-	redir_is_single = (*current)->single_quotes;
-	redir_is_double = (*current)->double_quotes;
-	if (!redirection(command, current_type, (*current)->value, redir_is_single,
-			redir_is_double))
+	info.file = (*current)->value;
+	info.is_single_quote = (*current)->single_quotes;
+	info.is_double_quote = (*current)->double_quotes;
+	if (!redirection(command, &info))
 		return (0);
 	(*current) = (*current)->next;
 	return (1);
@@ -104,6 +102,7 @@ t_cmd	*parser_tokens(t_token *list)
 		if (!new_cmd)
 		{
 			printf("Error: Couldn't get new command");
+			free_commands(head);
 			return (NULL);
 		}
 		ft_lstadd_back_commands(&head, new_cmd);

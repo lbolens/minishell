@@ -82,6 +82,7 @@ static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
 		read_one_heredoc(pipe_fd, cmd->heredoc_delims[i], has_any_quotes, env);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
+		cleanup_env(env);
 		exit(0);
 	}
 	close(pipe_fd[1]);

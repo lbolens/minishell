@@ -42,6 +42,9 @@ t_env	*init_env(char **envp)
 	env->env_list = NULL;
 	env->envp = NULL;
 	env->exit_status = 0;
+	env->current_tokens = NULL;
+	env->current_cmd = NULL;
+	env->current_input = NULL;
 	i = 0;
 	while (envp[i])
 	{

@@ -20,8 +20,9 @@ t_token	*ft_lstnew_pars(void *content)
 	if (!node)
 		return (NULL);
 	node->type = define_type(content);
-	node->value = ft_strdup_pars(content);
+	node->value = content;
 	node->single_quotes = false;
+	node->double_quotes = false;
 	node->next = NULL;
 	return (node);
 }

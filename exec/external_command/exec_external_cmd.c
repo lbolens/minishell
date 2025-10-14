@@ -67,5 +67,6 @@ void	exec_child_process(char *path, t_cmd *cmd, t_env *env)
 	perror(path);
 	free_tab(env_array);
 	free(path);
+	cleanup_env(env);
 	exit(126);
 }

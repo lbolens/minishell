@@ -18,7 +18,14 @@ static void	handle_operator_token(char *str, int *i, t_token **head)
 	t_token	*new_token;
 
 	token = extract_operator(str, i);
+	if (!token)
+		return ;
 	new_token = ft_lstnew_pars(token);
+	if (!new_token)
+	{
+		free(token);
+		return ;
+	}
 	ft_lstadd_back_pars(head, new_token);
 }
 
@@ -32,7 +39,14 @@ static void	handle_word_token(char *str, int *i, t_token **head)
 	is_single = false;
 	is_double = false;
 	token = extract_word(str, i, &is_single, &is_double);
+	if (!token)
+		return ;
 	new_token = ft_lstnew_pars(token);
+	if (!new_token)
+	{
+		free(token);
+		return ;
+	}
 	new_token->single_quotes = is_single;
 	new_token->double_quotes = is_double;
 	ft_lstadd_back_pars(head, new_token);
