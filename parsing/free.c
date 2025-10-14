@@ -54,6 +54,8 @@ void	cleanup_env(t_env *env)
 		free_tokens(env->current_tokens);
 	if (env->envp)
 		free_tab(env->envp);
+	if (env->pipeline_pids)
+		free(env->pipeline_pids);
 	if (env->env_list)
 		ft_lstclear_pars(&env->env_list);
 	free(env);

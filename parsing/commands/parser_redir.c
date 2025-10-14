@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:54:51 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:51:45 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:14:54 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	realloc_output_arrays(t_cmd *command)
 	char	**new_files;
 	bool	*new_append;
 
-	new_files = realloc(command->all_output_files, (command->output_count + 1)
+	new_files = my_realloc(command->all_output_files, (command->output_count
+				+ 1) * sizeof(char *), (command->output_count)
 			* sizeof(char *));
-	new_append = realloc(command->all_output_append, (command->output_count + 1)
-			* sizeof(bool));
+	new_append = my_realloc(command->all_output_append, (command->output_count
+				+ 1) * sizeof(bool), (command->output_count) * sizeof(bool));
 	if (!new_files || !new_append)
 	{
 		if (new_files)

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:54:26 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:54:40 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:14:48 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ static int	realloc_args_arrays(t_cmd *command, int position)
 	char	**new_args;
 	bool	*new_quotes;
 
-	new_args = realloc(command->args, ((position + 2) * sizeof(char *)));
-	new_quotes = realloc(command->args_single_quotes,
-			((position + 2) * sizeof(bool)));
+	new_args = my_realloc(command->args, ((position + 2) * sizeof(char *)),
+			((position) * sizeof(char *)));
+	new_quotes = my_realloc(command->args_single_quotes, ((position + 2)
+				* sizeof(bool)), ((position) * sizeof(bool)));
 	if (!new_args || !new_quotes)
 	{
 		printf("Error: realloc\n");

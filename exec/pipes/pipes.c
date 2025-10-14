@@ -91,12 +91,15 @@ int	execute_pipeline(t_cmd *cmd_list, t_env *env)
 	pids = (pid_t *)malloc(sizeof(pid_t) * count);
 	if (!pids)
 		return (1);
+	env->pipeline_pids = pids;
 	if (!execute_all_commands(cmd_list, env, pids, count))
 	{
 		free(pids);
+		env->pipeline_pids = NULL;
 		return (1);
 	}
 	result = wait_all(pids, count);
 	free(pids);
+	env->pipeline_pids = NULL;
 	return (result);
 }

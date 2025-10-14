@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:43:28 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:43:40 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:14:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 static int	realloc_heredoc_arrays(t_cmd *command, t_heredoc_arrays *arrays)
 {
-	arrays->new_delims = realloc(command->heredoc_delims,
-			(command->heredoc_count + 1) * sizeof(char *));
-	arrays->new_quotes = realloc(command->heredoc_delim_quotes,
-			(command->heredoc_count + 1) * sizeof(bool));
-	arrays->new_double_quotes = realloc(command->heredoc_delim_double_quotes,
-			(command->heredoc_count + 1) * sizeof(bool));
+	arrays->new_delims = my_realloc(command->heredoc_delims,
+			(command->heredoc_count + 1) * sizeof(char *),
+			(command->heredoc_count) * sizeof(char *));
+	arrays->new_quotes = my_realloc(command->heredoc_delim_quotes,
+			(command->heredoc_count + 1) * sizeof(bool),
+			(command->heredoc_count) * sizeof(bool));
+	arrays->new_double_quotes = my_realloc(command->heredoc_delim_double_quotes,
+			(command->heredoc_count + 1) * sizeof(bool),
+			(command->heredoc_count) * sizeof(bool));
 	if (!arrays->new_delims || !arrays->new_quotes
 		|| !arrays->new_double_quotes)
 	{

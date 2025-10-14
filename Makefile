@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/14 16:45:48 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/14 17:56:03 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ LIBFT_A := $(LIBFT_DIR)/libft.a
 # ---- Sources ----
 MAIN_SRCS := \
 	main/main.c \
-	main/init_envp.c
+	main/init_envp.c \
+	main/my_realloc.c
 
 PARSING_SRCS := \
 	parsing/general_utils.c \

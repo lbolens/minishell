@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:44:44 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:51:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+#define HEREDOC_SUCCESS 0
+#define HEREDOC_INTERRUPTED 1
 
 /* ************************************************************************** */
 /*                              STRUCTURES                                    */
@@ -87,6 +90,7 @@ typedef struct s_exec_env
 	void				*current_tokens;
 	void				*current_cmd;
 	char				*current_input;
+	pid_t				*pipeline_pids;
 }						t_env;
 
 typedef struct s_build_data
@@ -143,12 +147,19 @@ typedef struct s_heredoc_arrays
 	bool				*new_double_quotes;
 }						t_heredoc_arrays;
 
+typedef struct s_block_header
+{
+	size_t				size;
+}						t_block_header;
+
 /* ************************************************************************** */
 /*                              MAIN & INIT                                   */
 /* ************************************************************************** */
 
 t_env					*init_env(char **envp);
 void					cleanup_env(t_env *env);
+void					*my_realloc(void *ptr, size_t new_size,
+							size_t old_size);
 
 /* ************************************************************************** */
 /*                              PRE-CHECK                                     */
@@ -341,9 +352,7 @@ void					restore_stdio(int saved_in, int saved_out);
 /* ************************************************************************** */
 
 int						process_heredoc(t_cmd *cmd, t_env *env);
-void					read_one_heredoc(int pipe_fd[2], char *delim,
-							bool has_quotes, t_env *env);
-void					setup_heredoc_signals(void);
+void					setup_heredoc_signals(t_env *env);
 void					handle_heredoc_sigint(int signal);
 
 /* ************************************************************************** */

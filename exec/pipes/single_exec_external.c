@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:43:17 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:45:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:24:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	execute_in_child(char *path, t_exec_ctx *ctx)
 	perror(path);
 	free_tab(env_array);
 	free(path);
-	_exit(126);
+	exit(126);
 }
 
 static int	handle_wait_status(int status)

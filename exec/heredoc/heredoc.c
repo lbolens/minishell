@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:21:35 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:25:59 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 18:51:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	write_heredoc_line(int pipe_fd, char *line, bool has_quotes,
 		free(expanded);
 }
 
-void	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
+static int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
 		t_env *env)
 {
 	char	*line;
@@ -38,7 +38,7 @@ void	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
 		if (line == NULL)
 		{
 			printf("warning: here-document delimited by end-of-file wanted\n");
-			break ;
+			return (HEREDOC_INTERRUPTED);
 		}
 		if (ft_strcmp_pars(line, delim) == 0)
 		{
@@ -48,6 +48,7 @@ void	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
 		write_heredoc_line(pipe_fd[1], line, has_quotes, env);
 		free(line);
 	}
+	return (HEREDOC_SUCCESS);
 }
 
 static int	check_heredoc_status(int status, int pipe_fd, t_env *env)
@@ -66,6 +67,7 @@ static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
 	pid_t	pid;
 	int		status;
 	bool	has_any_quotes;
+	int		heredoc_status;
 
 	pid = fork();
 	if (pid == -1)
@@ -76,12 +78,18 @@ static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
 	}
 	if (pid == 0)
 	{
-		setup_heredoc_signals();
+		setup_heredoc_signals(env);
 		has_any_quotes = cmd->heredoc_delim_quotes[i]
 			|| cmd->heredoc_delim_double_quotes[i];
-		read_one_heredoc(pipe_fd, cmd->heredoc_delims[i], has_any_quotes, env);
+		heredoc_status = read_one_heredoc(pipe_fd, cmd->heredoc_delims[i],
+				has_any_quotes, env);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
+		if (heredoc_status == HEREDOC_INTERRUPTED)
+		{
+			cleanup_env(env);
+			exit(130);
+		}
 		cleanup_env(env);
 		exit(0);
 	}

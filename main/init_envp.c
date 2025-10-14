@@ -45,6 +45,7 @@ t_env	*init_env(char **envp)
 	env->current_tokens = NULL;
 	env->current_cmd = NULL;
 	env->current_input = NULL;
+	env->pipeline_pids = NULL;
 	i = 0;
 	while (envp[i])
 	{
