@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:22:29 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/14 15:34:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,6 @@ static void	expand_output_file(t_cmd *commands, t_env *env)
 	}
 }
 
-static void	expand_heredoc_delims_dquotes(t_cmd *commands, t_env *env)
-{
-	char	*expanded;
-	int		j;
-
-	if (!commands->heredoc_delims || commands->heredoc_count <= 0)
-		return ;
-	j = 0;
-	while (j < commands->heredoc_count)
-	{
-		if (commands->heredoc_delim_double_quotes[j])
-		{
-			expanded = build_full_command(commands->heredoc_delims[j], env, 0,
-					false);
-			if (expanded)
-			{
-				free(commands->heredoc_delims[j]);
-				commands->heredoc_delims[j] = ft_strdup_pars(expanded);
-				free(expanded);
-			}
-		}
-		j++;
-	}
-}
-
 void	expansion(t_cmd *commands, t_env *env)
 {
 	while (commands)
@@ -99,7 +74,6 @@ void	expansion(t_cmd *commands, t_env *env)
 		expand_args(commands, env);
 		expand_input_file(commands, env);
 		expand_output_file(commands, env);
-		expand_heredoc_delims_dquotes(commands, env);
 		commands = commands->next;
 	}
 }
