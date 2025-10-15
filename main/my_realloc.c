@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:50:05 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:14:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 void	*my_realloc(void *ptr, size_t new_size, size_t old_size)
 {

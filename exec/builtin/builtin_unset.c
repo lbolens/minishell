@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/02 00:19:53 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:08 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	builtin_unset(t_cmd *cmd, t_env *env)
 {

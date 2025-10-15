@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:30:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:30:35 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:10 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static void	handle_operator_token(char *str, int *i, t_token **head)
 {

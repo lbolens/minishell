@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:36:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:36:20 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:01 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 static void	free_array_on_error(char **array, int count)
 {

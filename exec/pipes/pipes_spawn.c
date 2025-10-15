@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:16:31 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:23:18 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:18 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	setup_pipe_fds(t_cmd *cmd, t_env *env, int *p)
 {

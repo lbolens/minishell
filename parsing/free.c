@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 15:34:33 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:35:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:29 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 void	free_tokens(t_token *tokens)
 {

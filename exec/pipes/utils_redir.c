@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:00:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/09 11:26:59 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:36 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	open_in(const char *path, int *fd)
 {

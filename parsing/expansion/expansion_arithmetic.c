@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:31:24 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:54:18 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static void	write_result_to_buffer(long result, t_build_data *data)
 {

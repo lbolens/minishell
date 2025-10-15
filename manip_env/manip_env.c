@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 12:21:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:37:27 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:04 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 t_env_var	*create_new_env_var(char *str)
 {

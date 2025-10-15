@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:17:24 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/14 18:25:23 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:31 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	execute_cmd_pipeline(t_cmd *cmd_list, t_env *env)
 {

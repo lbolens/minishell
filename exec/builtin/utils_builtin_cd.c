@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtin_cd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 09:22:47 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 09:23:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:20 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 char	*handle_home_directory(t_env *env)
 {

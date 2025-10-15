@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:45:02 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:26 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	handle_word_token(t_token **current, t_cmd *command, int *count)
 {

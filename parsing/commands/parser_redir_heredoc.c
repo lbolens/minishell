@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:43:28 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:14:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:19 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	realloc_heredoc_arrays(t_cmd *command, t_heredoc_arrays *arrays)
 {

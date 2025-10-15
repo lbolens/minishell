@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:41:55 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:34 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 int	get_size_quote(char *str, int i)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:38:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:38:24 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:25 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 void	free_args(t_cmd *cmd)
 {

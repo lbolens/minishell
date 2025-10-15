@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:39:34 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/10 09:45:22 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:53 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
-
-/*void	handle_sig_int_command(int signal)
-{
-	(void)signal;
-	write(1, "\n", 1);
-}*/
-
-/*void	handle_sig_quit(int signal)
-{
-	(void)signal;
-	return ;
-}*/
+#include "../header/minishell.h"
 
 void	setup_signals_interactive(void)
 {

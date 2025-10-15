@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:42:58 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 15:35:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:41 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 static void	remove_quotes_from_heredoc_delims(t_cmd *commands)
 {

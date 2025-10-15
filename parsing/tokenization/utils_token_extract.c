@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:33:49 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 16:39:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static void	skip_quoted_section(char *str, int *i, char quote)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:41:24 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:41:41 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 void	handle_sig_int_interactive(int signal)
 {

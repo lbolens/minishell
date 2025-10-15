@@ -6,21 +6,17 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:11:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:23:28 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:08 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
-
-extern int	rl_done;
+#include "../../header/minishell.h"
 
 void	handle_heredoc_sigint(int signal)
 {
 	(void)signal;
+	close(STDIN_FILENO);
 	write(STDOUT_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_done = 1;
 }
 
 void	setup_heredoc_signals(t_env *env)

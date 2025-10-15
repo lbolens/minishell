@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:28:05 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/13 15:07:09 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:08:59 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	copy_quoted_content(char *str, char *result, int *i, int *j)
 {

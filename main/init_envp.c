@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:26:02 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 15:38:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:47 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 static void	increment_shlvl(t_env *env)
 {

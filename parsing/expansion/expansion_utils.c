@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:22:03 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:54:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:40 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 void	handle_quote_state(char c, char *current_quote, char *result,
 		int *result_pos)

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:43:17 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:24:33 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:24 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static void	close_fds_if_needed(int in_fd, int out_fd)
 {

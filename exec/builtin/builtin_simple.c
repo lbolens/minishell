@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:02:12 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:04 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	builtin_exit(t_cmd *cmd, t_env *env)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:49:56 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/13 13:24:58 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/parsing.h"
+#include "../../../header/minishell.h"
 
 char	*find_command_path(char *cmd_name, char **envp)
 {

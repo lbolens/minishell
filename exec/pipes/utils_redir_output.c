@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:27:13 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:27:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:33 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	open_final_output(t_cmd *cmd, int i, int *out_fd)
 {

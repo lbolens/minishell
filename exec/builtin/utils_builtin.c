@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:55:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/13 13:55:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:24 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 bool	is_builtin(char *cmd_name)
 {

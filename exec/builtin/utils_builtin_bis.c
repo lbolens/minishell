@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:03:47 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:57:14 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:14 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	cd_error(char *msg)
 {

@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:31:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:36:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:44 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	is_var_char_start(char c)
 {

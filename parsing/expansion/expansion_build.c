@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:23 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 13:31:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:37 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 void	append_env_value(char *variable, t_env *env, char *result,
 		int *result_pos)

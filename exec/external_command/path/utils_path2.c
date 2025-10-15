@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:17:58 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 10:08:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:40 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/parsing.h"
+#include "../../../header/minishell.h"
 
 int	calculate_total_length(const char *a, const char *b, const char *c)
 {

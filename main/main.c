@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:30:03 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/14 16:35:19 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:49 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 static void	rebuild_envp_from_list(t_env *env)
 {

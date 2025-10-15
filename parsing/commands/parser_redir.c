@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:54:51 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:14:54 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:23 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	realloc_output_arrays(t_cmd *command)
 {

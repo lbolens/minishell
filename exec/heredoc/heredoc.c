@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:21:35 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:51:38 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 static void	write_heredoc_line(int pipe_fd, char *line, bool has_quotes,
 		t_env *env)
@@ -27,8 +27,7 @@ static void	write_heredoc_line(int pipe_fd, char *line, bool has_quotes,
 		free(expanded);
 }
 
-static int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
-		t_env *env)
+int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes, t_env *env)
 {
 	char	*line;
 
@@ -37,7 +36,7 @@ static int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("warning: here-document delimited by end-of-file wanted\n");
+			printf("warning: here-document delimited by end-of-file\n");
 			return (HEREDOC_INTERRUPTED);
 		}
 		if (ft_strcmp_pars(line, delim) == 0)
@@ -51,7 +50,7 @@ static int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes,
 	return (HEREDOC_SUCCESS);
 }
 
-static int	check_heredoc_status(int status, int pipe_fd, t_env *env)
+int	check_heredoc_status(int status, int pipe_fd, t_env *env)
 {
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 	{
@@ -60,42 +59,6 @@ static int	check_heredoc_status(int status, int pipe_fd, t_env *env)
 		return (-2);
 	}
 	return (0);
-}
-
-static int	handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i, t_env *env)
-{
-	pid_t	pid;
-	int		status;
-	bool	has_any_quotes;
-	int		heredoc_status;
-
-	pid = fork();
-	if (pid == -1)
-	{
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		return (-1);
-	}
-	if (pid == 0)
-	{
-		setup_heredoc_signals(env);
-		has_any_quotes = cmd->heredoc_delim_quotes[i]
-			|| cmd->heredoc_delim_double_quotes[i];
-		heredoc_status = read_one_heredoc(pipe_fd, cmd->heredoc_delims[i],
-				has_any_quotes, env);
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		if (heredoc_status == HEREDOC_INTERRUPTED)
-		{
-			cleanup_env(env);
-			exit(130);
-		}
-		cleanup_env(env);
-		exit(0);
-	}
-	close(pipe_fd[1]);
-	waitpid(pid, &status, 0);
-	return (check_heredoc_status(status, pipe_fd[0], env));
 }
 
 int	process_heredoc(t_cmd *cmd, t_env *env)

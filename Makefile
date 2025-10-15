@@ -6,13 +6,11 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/14 17:56:03 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/15 11:21:30 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# =========================
-# Minishell - Makefile
-# =========================
+# Command for valgrind = valgrind --suppressions=rl.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell
 
 # ---- Project ----
 NAME := minishell
@@ -89,7 +87,8 @@ EXEC_SRCS := \
 	exec/pipes/pipes_spawn.c \
 	exec/pipes/utils_spawn.c \
 	exec/heredoc/heredoc.c \
-	exec/heredoc/heredoc_signals.c
+	exec/heredoc/heredoc_signals.c \
+	exec/heredoc/heredoc_child.c
 
 SRCS := $(MAIN_SRCS) $(PARSING_SRCS) $(EXEC_SRCS)
 OBJS := $(SRCS:.c=.o)
@@ -100,46 +99,23 @@ YELLOW := \\033[1;33m
 GRAY := \\033[0;37m
 RESET := \\033[0m
 
-# ---- Silence ----
+.PHONY: all clean fclean re libft
 .SILENT:
 
 # ---- Rules ----
-.PHONY: all clean fclean re libft animation progress
-
 all: $(NAME)
 
 $(NAME): $(LIBFT_A) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(LIBS) $(LDFLAGS) -o $@
-	$(MAKE) --no-print-directory progress
-	$(MAKE) --no-print-directory animation
-
-$(LIBFT_A):
-	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
-
-clean:
-	$(RM) $(OBJS)
-	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
-
-fclean: clean
-	$(RM) $(NAME)
-	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean || true
-
-re: fclean all
-
-# ---- Progress Bar (animated & colorful) ----
-progress:
 	@printf "\nCompilation en cours : "
 	@for i in 1 2 3 4 5 6 7 8 9 10; do \
 		done_bar=$$(printf "$(GREEN)%0.s#$(RESET)" $$(seq 1 $$i)); \
 		remain_bar=$$(printf "$(GRAY)%0.s-$(RESET)" $$(seq $$i 9)); \
 		percent=$$((i*10)); \
 		printf "\rCompilation en cours : [$$done_bar$$remain_bar] $$percent%%"; \
-		sleep 0.1; \
+		sleep 0.15; \
 	done; \
 	printf "\n\n"
-
-# ---- Animation ----
-animation:
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(LIBS) $(LDFLAGS) -o $@
 	@printf "$(GREEN) ███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     $(RESET)\n"
 	@printf "$(GREEN) ████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     $(RESET)\n"
 	@printf "$(GREEN) ██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     $(RESET)\n"
@@ -147,4 +123,15 @@ animation:
 	@printf "$(GREEN) ██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗$(RESET)\n"
 	@printf "$(GREEN) ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝$(RESET)\n\n"
 
+$(LIBFT_A):
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
 
+clean:
+	@$(RM) $(OBJS)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+
+fclean: clean
+	@$(RM) $(NAME)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean || true
+
+re: fclean all

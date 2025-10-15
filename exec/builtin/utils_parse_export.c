@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 15:47:37 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/13 15:03:17 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 int	parse_export(char *str)
 {

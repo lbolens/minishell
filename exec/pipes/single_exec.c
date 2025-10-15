@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/13 13:42:54 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 void	apply_redirs(int in_fd, int out_fd)
 {

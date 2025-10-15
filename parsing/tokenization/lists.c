@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:57:45 by lbolens           #+#    #+#             */
-/*   Updated: 2025/09/26 12:14:28 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:08 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 t_token	*ft_lstnew_pars(void *content)
 {

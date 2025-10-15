@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:05:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 15:34:38 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static void	expand_args(t_cmd *commands, t_env *env)
 {

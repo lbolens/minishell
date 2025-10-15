@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:40:44 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 14:41:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:12:31 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 size_t	ft_strlcpy_pars(char *dest, const char *src, size_t dstsize)
 {

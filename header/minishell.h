@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/14 18:51:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:08:21 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "../libft/libft.h"
 # include <fcntl.h>
@@ -26,8 +26,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-#define HEREDOC_SUCCESS 0
-#define HEREDOC_INTERRUPTED 1
+# define HEREDOC_SUCCESS 0
+# define HEREDOC_INTERRUPTED 1
 
 /* ************************************************************************** */
 /*                              STRUCTURES                                    */
@@ -354,6 +354,13 @@ void					restore_stdio(int saved_in, int saved_out);
 int						process_heredoc(t_cmd *cmd, t_env *env);
 void					setup_heredoc_signals(t_env *env);
 void					handle_heredoc_sigint(int signal);
+int						process_heredoc(t_cmd *cmd, t_env *env);
+int						handle_heredoc_child(int pipe_fd[2], t_cmd *cmd, int i,
+							t_env *env);
+int						read_one_heredoc(int pipe_fd[2], char *delim,
+							bool has_quotes, t_env *env);
+int						check_heredoc_status(int status, int pipe_fd,
+							t_env *env);
 
 /* ************************************************************************** */
 /*                              SIGNALS                                       */

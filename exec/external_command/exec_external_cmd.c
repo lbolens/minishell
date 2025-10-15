@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbolens <lbolens@student.s19.be>           +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:34:52 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/10 09:48:09 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:46 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static int	wait_for_child(char *path)
 {

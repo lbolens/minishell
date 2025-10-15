@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlongin <hlongin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:01:16 by hlongin           #+#    #+#             */
-/*   Updated: 2025/09/25 16:07:38 by hlongin          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:09:37 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/parsing.h"
+#include "../../../header/minishell.h"
 
 const char	*find_path_value(char **envp)
 {

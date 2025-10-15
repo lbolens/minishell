@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:37:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:37:52 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:11:07 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/parsing.h"
+#include "../header/minishell.h"
 
 char	*extract_name(char *str)
 {

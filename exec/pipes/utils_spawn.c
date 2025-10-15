@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:23:36 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/09 11:24:44 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:10:38 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 void	cleanup_fds(int in_fd, int out_fd, int last_in, int pipe_w)
 {

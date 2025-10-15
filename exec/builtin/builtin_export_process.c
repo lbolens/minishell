@@ -6,11 +6,11 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:06:34 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/13 15:06:42 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:08:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
+#include "../../header/minishell.h"
 
 static char	*get_new_value_append(char *old_value, char *value)
 {
