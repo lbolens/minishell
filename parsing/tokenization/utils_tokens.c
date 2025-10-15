@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:28:52 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:12:19 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 15:08:36 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ bool	is_operator(char c)
 	else
 		return (false);
 }
-
-/*bool	is_quote(char c)
-{
-	if (c == 39 || c == '"')
-		return (true);
-	else
-		return (false);
-}*/
 
 static char	*create_double_operator(char *str, int *i)
 {
