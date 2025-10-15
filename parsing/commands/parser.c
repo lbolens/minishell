@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 17:59:22 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:26 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	handle_redir_token(t_token **current, t_cmd *command)
 	(*current) = (*current)->next;
 	if (!(*current) || (*current)->type != TOKEN_WORD)
 	{
-		printf("Error: No file after redirection");
+		ft_printf("Error: No file after redirection");
 		return (0);
 	}
 	info.file = (*current)->value;
@@ -76,7 +76,7 @@ t_cmd	*parse_command(t_token **current)
 	}
 	if (!command->args || !command->args[0])
 	{
-		printf("Error: Empty command or missing command name\n");
+		ft_printf("Error: Empty command or missing command name\n");
 		free_commands(command);
 		return (NULL);
 	}
@@ -101,7 +101,7 @@ t_cmd	*parser_tokens(t_token *list)
 		new_cmd = parse_command(&current);
 		if (!new_cmd)
 		{
-			printf("Error: Couldn't get new command");
+			ft_printf("Error: Couldn't get new command");
 			free_commands(head);
 			return (NULL);
 		}

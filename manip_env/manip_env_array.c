@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:36:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:34:29 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static char	*create_env_string(t_env_var *node)
 	char	*str;
 	int		len;
 
+	if (!node->value)
+		return (NULL);
 	len = ft_strlen_pars(node->name) + ft_strlen_pars(node->value) + 2;
 	str = malloc(len * sizeof(char));
 	if (!str)
@@ -49,14 +51,17 @@ static int	fill_env_array(char **array, t_env_var *list)
 	i = 0;
 	while (current)
 	{
-		array[i] = create_env_string(current);
-		if (!array[i])
+		if (current->value != NULL)
 		{
-			free_array_on_error(array, i);
-			return (0);
+			array[i] = create_env_string(current);
+			if (!array[i])
+			{
+				free_array_on_error(array, i);
+				return (0);
+			}
+			i++;
 		}
 		current = current->next;
-		i++;
 	}
 	array[i] = NULL;
 	return (1);

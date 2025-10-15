@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 15:38:04 by lbolens           #+#    #+#              #
-#    Updated: 2025/10/15 11:21:30 by lbolens          ###   ########.fr        #
+#    Updated: 2025/10/15 14:47:13 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ EXEC_SRCS := \
 	exec/builtin/utils_parse_export.c \
 	exec/builtin/utils_builtin_bis.c \
 	exec/builtin/utils_builtin_cd.c \
+	exec/builtin/declare_env_var.c \
 	exec/external_command/exec_external_cmd.c \
 	exec/external_command/path/path.c \
 	exec/external_command/path/utils_path.c \

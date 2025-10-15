@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:06:38 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/15 11:09:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtin_exit(t_cmd *cmd, t_env *env)
 	}
 	else if (!is_valid_number(cmd->args[1]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n",
+		ft_printf("minishell: exit: %s: numeric argument required\n",
 			cmd->args[1]);
 		exit_code = 2;
 	}
@@ -44,7 +44,7 @@ int	builtin_pwd(t_cmd *cmd, t_env *env)
 		perror("pwd");
 		return (1);
 	}
-	printf("%s\n", pwd);
+	ft_printf("%s\n", pwd);
 	free(pwd);
 	return (0);
 }
@@ -58,7 +58,7 @@ int	builtin_env(t_cmd *cmd, t_env *env)
 	while (current)
 	{
 		if (current->value)
-			printf("%s=%s\n", current->name, current->value);
+			ft_printf("%s=%s\n", current->name, current->value);
 		current = current->next;
 	}
 	return (0);
@@ -97,12 +97,12 @@ int	builtin_echo(t_cmd *cmd, t_env *env)
 	}
 	while (cmd->args[i])
 	{
-		printf("%s", cmd->args[i]);
+		ft_printf("%s", cmd->args[i]);
 		if (cmd->args[i + 1])
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 	if (newline)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 }

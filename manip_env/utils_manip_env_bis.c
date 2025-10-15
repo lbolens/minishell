@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:37:14 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:07 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:32:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ char	*extract_env_value(char *str)
 		i++;
 	if (str[i] == '=')
 		return (ft_strdup_pars(str + i + 1));
-	return (ft_strdup_pars(""));
+	return (NULL);
 }

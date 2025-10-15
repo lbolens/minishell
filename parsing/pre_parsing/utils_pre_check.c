@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:39:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:12:03 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	check_quotes(char *str)
 	}
 	if (single_quote % 2 != 0 || double_quote % 2 != 0)
 	{
-		printf("Error: Unmatched quotes\n");
+		ft_printf("Error: Unmatched quotes\n");
 		return (true);
 	}
 	return (false);
@@ -53,21 +53,21 @@ bool	check_pipes(char *str, int i)
 		return (false);
 	if (str[0] == '|')
 	{
-		printf("Error: Pipe at the beginning\n");
+		ft_printf("Error: Pipe at the beginning\n");
 		return (true);
 	}
 	while (str[i])
 	{
 		if (str[i] == '|' && str[i + 1] == '|')
 		{
-			printf("Error: Consecutive pipes\n");
+			ft_printf("Error: Consecutive pipes\n");
 			return (true);
 		}
 		i++;
 	}
 	if (len > 0 && str[len - 1] == '|')
 	{
-		printf("Error: Pipe at the end\n");
+		ft_printf("Error: Pipe at the end\n");
 		return (true);
 	}
 	return (false);
@@ -82,7 +82,7 @@ bool	check_forbidden_sequences(char *str)
 	{
 		if (str[i] == ';' || str[i] == '\\')
 		{
-			printf("Error: Forbidden character '%c'\n", str[i]);
+			ft_printf("Error: Forbidden character '%c'\n", str[i]);
 			return (true);
 		}
 		if ((str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i
@@ -91,7 +91,7 @@ bool	check_forbidden_sequences(char *str)
 			|| (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
 			|| (str[i] == '>' && str[i + 1] == '|'))
 		{
-			printf("Error: Forbidden sequence\n");
+			ft_printf("Error: Forbidden sequence\n");
 			return (true);
 		}
 		i++;
@@ -114,12 +114,12 @@ bool	check_operators(char *str, int i)
 				j++;
 			if (str[j] == '\0')
 			{
-				printf("Error: Redirection without target\n");
+				ft_printf("Error: Redirection without target\n");
 				return (true);
 			}
 			if (str[j] == '|' || str[j] == '<' || str[j] == '>')
 			{
-				printf("Error: Invalid operator after redirection\n");
+				ft_printf("Error: Invalid operator after redirection\n");
 				return (true);
 			}
 		}

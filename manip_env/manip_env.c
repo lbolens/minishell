@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 12:21:37 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:04 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:50:56 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ t_env_var	*create_new_env_var(char *str)
 		return (NULL);
 	}
 	node->value = extract_env_value(str);
-	if (!node->value)
-	{
-		free(node->name);
-		free(node);
-		return (NULL);
-	}
 	node->next = NULL;
 	return (node);
 }

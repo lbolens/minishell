@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:08:27 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:29 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*init_new_command(void)
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 	{
-		printf("Error: Malloc commands\n");
+		ft_printf("Error: Malloc commands\n");
 		return (NULL);
 	}
 	new->append_mode = false;

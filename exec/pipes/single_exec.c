@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 15:22:50 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/15 11:10:27 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	run_builtin_parent(t_cmd *cmd, t_env *env)
 	apply_redirs(in_fd, out_fd);
 	if (ft_strcmp_pars(cmd->args[0], "exit") == 0)
 	{
-		printf("exit\n");
+		ft_printf("exit\n");
 		ret = execute_builtin(cmd, env);
 		restore_stdio(saved_in, saved_out);
 		cleanup_env(env);

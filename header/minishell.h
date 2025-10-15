@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 12:15:01 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:08:21 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:46:11 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ char					*handle_home_directory(t_env *env);
 char					*handle_oldpwd_directory(t_env *env);
 char					*resolve_parent_dir(char *pwd);
 int						process_single_export(char *arg, t_env *env);
+void					declare_env_var(t_env *env, char *name);
 
 /* ************************************************************************** */
 /*                          BUILTINS HELPERS                                  */

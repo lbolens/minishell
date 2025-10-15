@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:03:47 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:09:14 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:50:42 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	export_display_all(t_env *env)
 	current = env->env_list;
 	while (current)
 	{
-		if (current->value)
-			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+		if (current->value == NULL)
+			ft_printf("export %s\n", current->name);
+		else if (current->value[0] == '\0')
+			ft_printf("export %s=\"\"\n", current->name);
 		else
-			printf("declare -x %s\n", current->name);
+			ft_printf("export %s=\"%s\"\n", current->name, current->value);
 		current = current->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:54:26 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:16 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	init_args_arrays(t_cmd *command)
 	command->args_single_quotes = malloc(2 * sizeof(bool));
 	if (!command->args || !command->args_single_quotes)
 	{
-		printf("Error: malloc\n");
+		ft_printf("Error: malloc\n");
 		if (command->args)
 			free(command->args);
 		if (command->args_single_quotes)
@@ -41,7 +41,7 @@ static int	realloc_args_arrays(t_cmd *command, int position)
 				* sizeof(bool)), ((position) * sizeof(bool)));
 	if (!new_args || !new_quotes)
 	{
-		printf("Error: realloc\n");
+		ft_printf("Error: realloc\n");
 		if (new_args)
 			command->args = new_args;
 		if (new_quotes)

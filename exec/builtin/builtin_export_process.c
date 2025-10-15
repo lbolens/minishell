@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:06:34 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:08:56 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:44:28 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	handle_normal_mode(char *var, char *value, t_env *env)
 	if (value != NULL)
 		set_env_var(env, var, value);
 	else
-		set_env_var(env, var, "");
+		declare_env_var(env, var);
 }
 
 static void	cleanup_export(char *var, char *value, char *cleaned_arg)
@@ -61,7 +61,7 @@ int	process_single_export(char *arg, t_env *env)
 	cleaned_arg = remove_quotes(arg);
 	if (!cleaned_arg || !parse_export(cleaned_arg))
 	{
-		printf("Error: variable error\n");
+		ft_printf("Error: variable error\n");
 		free(cleaned_arg);
 		return (1);
 	}

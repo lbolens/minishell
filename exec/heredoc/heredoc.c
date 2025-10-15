@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:21:35 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:10:11 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	read_one_heredoc(int pipe_fd[2], char *delim, bool has_quotes, t_env *env)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("warning: here-document delimited by end-of-file\n");
+			ft_printf("warning: here-document delimited by end-of-file\n");
 			return (HEREDOC_INTERRUPTED);
 		}
 		if (ft_strcmp_pars(line, delim) == 0)

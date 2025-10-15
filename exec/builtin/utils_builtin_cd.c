@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 09:22:47 by lbolens           #+#    #+#             */
-/*   Updated: 2025/10/15 11:09:20 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*handle_oldpwd_directory(t_env *env)
 		cd_error("OLDPWD not set");
 		return (NULL);
 	}
-	printf("%s\n", oldpwd);
+	ft_printf("%s\n", oldpwd);
 	return (oldpwd);
 }
 

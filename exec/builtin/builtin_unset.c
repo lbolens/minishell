@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:29:45 by hlongin           #+#    #+#             */
-/*   Updated: 2025/10/15 11:09:08 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/10/15 14:22:17 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_unset(t_cmd *cmd, t_env *env)
 	{
 		if (!parse_unset(cmd->args[i]))
 		{
-			printf("unset : unset ne prend que des noms\n");
+			ft_printf("unset : unset ne prend que des noms\n");
 			return (1);
 		}
 		else
